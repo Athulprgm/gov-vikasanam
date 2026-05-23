@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { motion, useInView } from 'framer-motion';
+import { useData } from '../context/DataContext';
 
 function CountUpNumber({ value, target, duration = 2 }) {
   const [count, setCount] = useState(0);
@@ -40,26 +41,37 @@ function CountUpNumber({ value, target, duration = 2 }) {
     </span>
   );
 }
-
 export default function PremiumStatistics() {
+  const { districts } = useData();
+
+  // Sum projects count across all districts
+  const totalProjects = districts.reduce((acc, d) => acc + (d.projects_count || 0), 0);
+
+  // Parse and sum investments (e.g. "₹340 Cr" -> 340)
+  const totalInvestment = districts.reduce((acc, d) => {
+    const numericStr = d.investment.replace(/[^0-9]/g, '');
+    const amount = parseInt(numericStr, 10) || 0;
+    return acc + amount;
+  }, 0);
+
   const stats = [
     {
-      value: "120+",
-      target: "120",
+      value: `${totalProjects}+`,
+      target: `${totalProjects}`,
       labelMl: "പൂർത്തിയായ പദ്ധതികൾ",
       labelEn: "Completed Mega Projects",
       descMl: "ഹൈവേകൾ, പാലങ്ങൾ, വിദ്യാലയങ്ങൾ മുതൽ സ്മാർട്ട് സിറ്റികൾ വരെ."
     },
     {
-      value: "₹500Cr",
-      target: "500",
+      value: `₹${totalInvestment.toLocaleString()}Cr`,
+      target: `${totalInvestment}`,
       labelMl: "വികസന നിക്ഷേപം",
       labelEn: "Development Investment",
       descMl: "കേരള ചരിത്രത്തിലെ ഏറ്റവും ഉയർന്ന തുക അടിസ്ഥാന സൗകര്യങ്ങൾക്കായി വകയിരുത്തി."
     },
     {
-      value: "14",
-      target: "14",
+      value: `${districts.length}`,
+      target: `${districts.length}`,
       labelMl: "ജില്ലകളിൽ വികസനം",
       labelEn: "Districts Transformed",
       descMl: "തെക്കൻ അതിർത്തിയായ തിരുവനന്തപുരം മുതൽ വടക്കൻ കാസർഗോഡ് വരെ വ്യാപിച്ച വികസനം."

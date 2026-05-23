@@ -1,15 +1,16 @@
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { projectsData } from '../data/projectsData';
+import { useData } from '../context/DataContext';
 import { ChevronsLeftRight, HelpCircle, Info } from 'lucide-react';
 
 export default function BeforeAfterShowcase() {
+  const { projects } = useData();
   const [activeProjectIdx, setActiveProjectIdx] = useState(0);
   const [sliderPosition, setSliderPosition] = useState(50); // 0 to 100 percentage
   const [isDragging, setIsDragging] = useState(false);
   const containerRef = useRef(null);
 
-  const activeProject = projectsData[activeProjectIdx];
+  const activeProject = projects[activeProjectIdx] || projects[0];
 
   // Handle slider movement (mouse / touch)
   const handleMove = (clientX) => {
@@ -64,7 +65,7 @@ export default function BeforeAfterShowcase() {
 
         {/* Horizontal Project Selector tabs */}
         <div className="flex flex-wrap gap-2 justify-center mb-12">
-          {projectsData.map((project, idx) => (
+          {projects.map((project, idx) => (
             <button
               key={project.id}
               onClick={() => {

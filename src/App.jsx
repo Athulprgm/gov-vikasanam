@@ -1,7 +1,18 @@
 import { useState, useEffect } from 'react';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Lenis from 'lenis';
 
-// Import components
+// Context Providers
+import { AuthProvider, useAuth } from './context/AuthContext';
+import { DataProvider } from './context/DataContext';
+
+// Pages
+import Login from './pages/Login';
+import AdminLogin from './pages/AdminLogin';
+import Register from './pages/Register';
+import Dashboard from './pages/Dashboard';
+
+// Landing Page Components
 import LoadingScreen from './components/LoadingScreen';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
@@ -16,7 +27,27 @@ import CitizenImpact from './components/CitizenImpact';
 import CTA from './components/CTA';
 import Footer from './components/Footer';
 
-function App() {
+// Protected Route Guard for Admin Panel
+function ProtectedRoute({ children }) {
+  const { isAuthenticated, isAdmin, loading } = useAuth();
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-[#0B0B0B] flex items-center justify-center text-xs font-mono text-[#2ECC71]">
+        <span>പരിശോധിക്കുന്നു / Authenticating...</span>
+      </div>
+    );
+  }
+
+  if (!isAuthenticated || !isAdmin) {
+    return <Navigate to="/admin/login" replace />;
+  }
+
+  return children;
+}
+
+// Landing Page Shell
+function LandingPage() {
   const [isLoading, setIsLoading] = useState(true);
 
   // Initialize Lenis Smooth Scroll
@@ -32,6 +63,7 @@ function App() {
     });
 
     function raf(time) {
+      lenis.focus;
       lenis.raf(time);
       requestAnimationFrame(raf);
     }
@@ -106,6 +138,39 @@ function App() {
         </div>
       )}
     </>
+  );
+}
+
+function App() {
+  return (
+    <AuthProvider>
+      <DataProvider>
+        <BrowserRouter>
+          <Routes>
+            {/* Public Interactive Landing Page */}
+            <Route path="/" element={<LandingPage />} />
+
+            {/* Authentication Pages */}
+            <Route path="/login" element={<Login />} />
+            <Route path="/admin/login" element={<AdminLogin />} />
+            <Route path="/register" element={<Register />} />
+
+            {/* Protected Admin Control Center */}
+            <Route 
+              path="/admin" 
+              element={
+                <ProtectedRoute>
+                  <Dashboard />
+                </ProtectedRoute>
+              } 
+            />
+
+            {/* Fallback routing */}
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
+        </BrowserRouter>
+      </DataProvider>
+    </AuthProvider>
   );
 }
 

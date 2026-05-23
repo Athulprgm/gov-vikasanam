@@ -1,19 +1,21 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { timelineMilestones } from '../data/projectsData';
+import { useData } from '../context/DataContext';
 import { Calendar, ArrowRight, ArrowLeft } from 'lucide-react';
 
 export default function DevelopmentTimeline() {
-  const [activeIdx, setActiveIdx] = useState(3); // Default to completed 2026
+  const { timeline } = useData();
+  const [activeIdx, setActiveIdx] = useState(3); // Default index
 
-  const activeMilestone = timelineMilestones[activeIdx];
+  const safeIdx = Math.min(activeIdx, Math.max(0, timeline.length - 1));
+  const activeMilestone = timeline[safeIdx] || { year: '', phaseMl: '', phaseEn: '', descMl: '', descEn: '' };
 
   const handlePrev = () => {
     setActiveIdx((prev) => (prev > 0 ? prev - 1 : prev));
   };
 
   const handleNext = () => {
-    setActiveIdx((prev) => (prev < timelineMilestones.length - 1 ? prev + 1 : prev));
+    setActiveIdx((prev) => (prev < timeline.length - 1 ? prev + 1 : prev));
   };
 
   return (
@@ -44,14 +46,14 @@ export default function DevelopmentTimeline() {
           <div className="absolute top-1/2 left-0 right-0 h-[2px] bg-white/5 -translate-y-1/2 z-0" />
           <div
             className="absolute top-1/2 left-0 h-[2px] bg-gradient-to-r from-[#2ECC71] to-[#4CFF9B] -translate-y-1/2 z-0 transition-all duration-500 shadow-[0_0_8px_#4CFF9B]"
-            style={{ width: `${(activeIdx / (timelineMilestones.length - 1)) * 100}%` }}
+            style={{ width: `${(safeIdx / Math.max(1, timeline.length - 1)) * 100}%` }}
           />
 
           {/* Timeline Nodes */}
           <div className="relative z-10 flex justify-between">
-            {timelineMilestones.map((item, idx) => {
-              const isActive = idx === activeIdx;
-              const isPassed = idx < activeIdx;
+            {timeline.map((item, idx) => {
+              const isActive = idx === safeIdx;
+              const isPassed = idx < safeIdx;
 
               return (
                 <div key={item.year} className="flex flex-col items-center">
@@ -123,9 +125,9 @@ export default function DevelopmentTimeline() {
           <div className="flex justify-between items-center mt-8">
             <button
               onClick={handlePrev}
-              disabled={activeIdx === 0}
+              disabled={safeIdx === 0}
               className={`p-3 rounded-full border border-white/10 flex items-center justify-center transition-all ${
-                activeIdx === 0
+                safeIdx === 0
                   ? 'opacity-30 cursor-not-allowed'
                   : 'bg-white/5 hover:bg-white/10 text-[#F5F5F5] hover:border-white/20'
               }`}
@@ -135,14 +137,14 @@ export default function DevelopmentTimeline() {
             </button>
 
             <span className="font-mono text-xs text-[#B0B0B0]">
-              {activeIdx + 1} / {timelineMilestones.length}
+              {safeIdx + 1} / {timeline.length}
             </span>
 
             <button
               onClick={handleNext}
-              disabled={activeIdx === timelineMilestones.length - 1}
+              disabled={safeIdx === timeline.length - 1}
               className={`p-3 rounded-full border border-white/10 flex items-center justify-center transition-all ${
-                activeIdx === timelineMilestones.length - 1
+                safeIdx === timeline.length - 1
                   ? 'opacity-30 cursor-not-allowed'
                   : 'bg-white/5 hover:bg-white/10 text-[#F5F5F5] hover:border-white/20'
               }`}

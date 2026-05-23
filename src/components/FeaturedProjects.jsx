@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { projectsData } from '../data/projectsData';
+import { useData } from '../context/DataContext';
 import { X, ExternalLink, Calendar, MapPin, CheckCircle2 } from 'lucide-react';
 
 export default function FeaturedProjects() {
+  const { projects } = useData();
   const [selectedProject, setSelectedProject] = useState(null);
 
   return (
@@ -28,7 +29,7 @@ export default function FeaturedProjects() {
 
         {/* Card Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projectsData.map((project, idx) => (
+          {projects.map((project, idx) => (
             <motion.div
               key={project.id}
               initial={{ opacity: 0, y: 30 }}

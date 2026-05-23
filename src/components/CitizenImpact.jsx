@@ -1,8 +1,10 @@
 import { motion } from 'framer-motion';
-import { citizenTestimonials } from '../data/projectsData';
+import { useData } from '../context/DataContext';
 import { Quote, Star } from 'lucide-react';
 
 export default function CitizenImpact() {
+  const { testimonials } = useData();
+
   return (
     <section id="citizen-impact" className="relative bg-[#151515] py-24 overflow-hidden border-y border-white/5">
       {/* Background glowing gradients */}
@@ -26,7 +28,7 @@ export default function CitizenImpact() {
 
         {/* Floating Testimonial Cards Layout */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {citizenTestimonials.map((testimonial, idx) => {
+          {testimonials.map((testimonial, idx) => {
             // Give different float parameters to create natural staggering
             const yFloat = idx === 0 ? [-8, 8, -8] : idx === 1 ? [8, -8, 8] : [-6, 6, -6];
             const floatDuration = idx === 0 ? 6 : idx === 1 ? 7 : 8;

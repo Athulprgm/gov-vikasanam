@@ -1,13 +1,14 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { districtsData } from '../data/projectsData';
+import { useData } from '../context/DataContext';
 import { Landmark, TrendingUp, Compass, Award } from 'lucide-react';
 
 export default function KeralaMap() {
+  const { districts } = useData();
   const [selectedDistrictId, setSelectedDistrictId] = useState("trivandrum");
   const [hoveredDistrict, setHoveredDistrict] = useState(null);
 
-  const activeDistrict = districtsData.find(d => d.id === selectedDistrictId) || districtsData[districtsData.length - 1];
+  const activeDistrict = districts.find(d => d.id === selectedDistrictId) || districts[districts.length - 1];
   const displayDistrict = hoveredDistrict || activeDistrict;
 
   // Render high-tech neon nodes for districts
@@ -86,7 +87,7 @@ export default function KeralaMap() {
               </svg>
 
               {/* Interactive nodes placed over coordinates */}
-              {districtsData.map((district) => {
+              {districts.map((district) => {
                 const isSelected = district.id === selectedDistrictId;
                 const isHovered = district.id === hoveredDistrict?.id;
 

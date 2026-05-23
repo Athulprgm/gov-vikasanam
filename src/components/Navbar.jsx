@@ -1,7 +1,10 @@
 import { useState, useEffect } from 'react';
-import { Menu, X, ArrowUpRight } from 'lucide-react';
+import { Menu, X, ArrowUpRight, Shield } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
 export default function Navbar() {
+  const { isAuthenticated, isAdmin, user, logout } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -66,8 +69,45 @@ export default function Navbar() {
           ))}
         </div>
 
-        {/* Action Button */}
-        <div className="hidden md:block">
+        {/* Action Buttons */}
+        <div className="hidden md:flex items-center space-x-4">
+          {!isAuthenticated ? (
+            <>
+              <Link
+                to="/login"
+                className="text-xs font-semibold text-[#B0B0B0] hover:text-[#4CFF9B] transition-colors"
+              >
+                ലോഗിൻ / Login
+              </Link>
+              <Link
+                to="/register"
+                className="inline-flex items-center px-4 py-2 rounded-full border border-white/10 bg-white/5 text-xs font-semibold text-[#F5F5F5] hover:bg-gradient-to-r hover:from-[#2ECC71] hover:to-[#4CFF9B] hover:text-black hover:border-transparent transition-all duration-300"
+              >
+                രജിസ്റ്റർ / Sign Up
+              </Link>
+            </>
+          ) : (
+            <div className="flex items-center space-x-4">
+              <span className="text-xs text-[#B0B0B0] font-mono">
+                Hi, {user?.name ? user.name.split(' ')[0] : 'User'}
+              </span>
+              {isAdmin && (
+                <Link
+                  to="/admin"
+                  className="inline-flex items-center px-4 py-2 rounded-full border border-[#2ECC71]/30 bg-[#2ECC71]/10 text-xs font-semibold text-[#4CFF9B] hover:bg-[#2ECC71]/20 transition-all duration-300"
+                >
+                  <Shield className="w-3.5 h-3.5 mr-1.5" />
+                  <span>Admin Console</span>
+                </Link>
+              )}
+              <button
+                onClick={logout}
+                className="text-xs font-semibold text-[#B0B0B0] hover:text-red-400 transition-colors cursor-pointer"
+              >
+                Logout
+              </button>
+            </div>
+          )}
           <a
             href="#before-after"
             className="inline-flex items-center px-4 py-2 rounded-full border border-white/10 text-xs font-semibold text-[#F5F5F5] hover:text-black hover:bg-gradient-to-r hover:from-[#2ECC71] hover:to-[#4CFF9B] hover:border-transparent transition-all duration-300 shadow-[0_0_10px_rgba(46,204,113,0.05)] hover:shadow-[0_0_20px_rgba(46,204,113,0.25)] group"
@@ -106,6 +146,52 @@ export default function Navbar() {
               <span className="w-2 h-2 rounded-full bg-[#2ECC71] opacity-0 group-hover:opacity-100 transition-opacity" />
             </a>
           ))}
+          <div className="h-[1px] bg-white/5 my-2" />
+
+          {!isAuthenticated ? (
+            <div className="flex flex-col space-y-3">
+              <Link
+                to="/login"
+                onClick={() => setIsOpen(false)}
+                className="flex items-center justify-center w-full py-3 rounded-lg border border-white/10 text-[#B0B0B0] hover:text-white font-semibold text-sm transition-colors"
+              >
+                ലോഗിൻ / Login
+              </Link>
+              <Link
+                to="/register"
+                onClick={() => setIsOpen(false)}
+                className="flex items-center justify-center w-full py-3 rounded-lg bg-white/5 border border-white/10 hover:border-[#2ECC71]/30 hover:bg-[#2ECC71]/5 text-white font-bold text-sm transition-colors"
+              >
+                രജിസ്റ്റർ / Sign Up
+              </Link>
+            </div>
+          ) : (
+            <div className="flex flex-col space-y-3">
+              <div className="text-center text-xs text-[#B0B0B0] font-mono">
+                Logged in as <span className="text-white font-semibold">{user?.name}</span>
+              </div>
+              {isAdmin && (
+                <Link
+                  to="/admin"
+                  onClick={() => setIsOpen(false)}
+                  className="flex items-center justify-center w-full py-3 rounded-lg border border-[#2ECC71]/30 bg-[#2ECC71]/10 text-[#4CFF9B] font-semibold text-sm"
+                >
+                  <Shield className="w-4 h-4 mr-2" />
+                  <span>അഡ്മിൻ പാനൽ / Admin Panel</span>
+                </Link>
+              )}
+              <button
+                onClick={() => {
+                  logout();
+                  setIsOpen(false);
+                }}
+                className="flex items-center justify-center w-full py-3 rounded-lg border border-red-500/20 text-red-400 font-semibold text-sm hover:bg-red-500/5 transition-colors cursor-pointer"
+              >
+                Logout
+              </button>
+            </div>
+          )}
+
           <a
             href="#before-after"
             onClick={() => setIsOpen(false)}
