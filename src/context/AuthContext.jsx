@@ -90,12 +90,13 @@ export function AuthProvider({ children }) {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Accept: "application/json",
+          "Accept": "application/json",
         },
         body: JSON.stringify({ email, password }),
       });
 
       const data = await response.json();
+      console.log(data);
 
       if (!response.ok) {
         throw new Error(
@@ -108,6 +109,7 @@ export function AuthProvider({ children }) {
       setUser(data.user);
       return data.user;
     } catch (err) {
+      console.error(err);
       setError(err.message);
       throw err;
     }
