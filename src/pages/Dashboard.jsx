@@ -4,12 +4,12 @@ import { useData } from '../context/DataContext';
 import { 
   LogOut, Globe, ShieldAlert, Plus, Edit2, Trash2, 
   Settings, Folder, MapPin, Calendar, MessageSquare, 
-  Check, X, AlertTriangle, Shield 
+  Check, X, AlertTriangle, Shield, Sun, Moon 
 } from 'lucide-react';
 import { useNavigate, Link } from 'react-router-dom';
 
 export default function Dashboard() {
-  const { user, logout, token, API_BASE_URL } = useAuth();
+  const { user, logout, token, API_BASE_URL, language, toggleLanguage, t, theme, toggleTheme } = useAuth();
   const { 
     districts, projects, timeline, testimonials, 
     usingFallback, saveProject, deleteProject, 
@@ -300,6 +300,27 @@ export default function Dashboard() {
           </div>
 
           <div className="flex items-center space-x-4">
+            {/* Language Switch */}
+            <button 
+              onClick={toggleLanguage}
+              className="px-2.5 py-1 rounded-lg border border-slate-700 bg-slate-800 text-[10px] font-semibold text-slate-300 hover:text-white cursor-pointer"
+            >
+              {language === 'en' ? 'മലയാളം' : 'English'}
+            </button>
+
+            {/* Theme Switcher */}
+            <button 
+              onClick={toggleTheme}
+              className="p-1.5 rounded-lg border border-slate-700 bg-slate-800 text-slate-300 hover:text-white cursor-pointer"
+              title="Toggle theme"
+            >
+              {theme === 'light' ? (
+                <Moon className="w-3.5 h-3.5" />
+              ) : (
+                <Sun className="w-3.5 h-3.5 text-yellow-400" />
+              )}
+            </button>
+
             <Link to="/" className="text-xs text-slate-400 hover:text-slate-100 transition-colors flex items-center space-x-1.5">
               <Globe className="w-4 h-4" />
               <span className="hidden sm:inline">View Landing Page</span>

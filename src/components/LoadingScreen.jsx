@@ -36,10 +36,10 @@ export default function LoadingScreen({ onComplete }) {
         <motion.div
           initial={{ opacity: 1 }}
           exit={{ opacity: 0, y: -20, transition: { duration: 0.8, ease: [0.76, 0, 0.24, 1] } }}
-          className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#0B0B0B]"
+          className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-bg-main"
         >
           {/* Subtle Ambient Glow behind emblem */}
-          <div className="absolute w-[300px] h-[300px] bg-[#2ECC71]/10 rounded-full blur-[80px] animate-pulse" />
+          <div className="absolute w-[300px] h-[300px] bg-accent/5 rounded-full blur-[80px] animate-pulse" />
 
           <div className="relative flex flex-col items-center max-w-lg px-6 text-center">
             {/* Elegant SVG Emblem */}
@@ -55,7 +55,7 @@ export default function LoadingScreen({ onComplete }) {
                 viewBox="0 0 100 100"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
-                className="drop-shadow-[0_0_15px_rgba(76,255,155,0.4)]"
+                className="drop-shadow-[0_0_15px_rgba(166,124,82,0.3)]"
               >
                 <path
                   d="M50 15L15 45L25 55L50 32.5L75 55L85 45L50 15Z"
@@ -73,8 +73,8 @@ export default function LoadingScreen({ onComplete }) {
                 />
                 <defs>
                   <linearGradient id="emblem-grad" x1="15" y1="15" x2="85" y2="83.5" gradientUnits="userSpaceOnUse">
-                    <stop stopColor="#2ECC71" />
-                    <stop offset="1" stopColor="#4CFF9B" />
+                    <stop stopColor="var(--accent-color)" />
+                    <stop offset="1" stopColor="var(--secondary-accent)" />
                   </linearGradient>
                 </defs>
               </svg>
@@ -85,7 +85,7 @@ export default function LoadingScreen({ onComplete }) {
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.3, duration: 0.8 }}
-              className="text-2xl md:text-3xl font-extrabold tracking-wide text-[#F5F5F5] font-malayalam leading-relaxed mb-2"
+              className="text-2xl md:text-3xl font-extrabold tracking-wide text-txt-primary font-malayalam leading-relaxed mb-2"
             >
               ജനവികസനം
             </motion.h1>
@@ -94,21 +94,21 @@ export default function LoadingScreen({ onComplete }) {
               initial={{ opacity: 0 }}
               animate={{ opacity: 0.7 }}
               transition={{ delay: 0.6, duration: 0.8 }}
-              className="text-xs md:text-sm text-[#B0B0B0] font-light tracking-[0.2em] font-malayalam mb-12"
+              className="text-xs md:text-sm text-txt-secondary font-light tracking-[0.2em] font-malayalam mb-12"
             >
               പ്രഖ്യാപനങ്ങളിൽ നിന്ന് യാഥാർത്ഥ്യത്തിലേക്ക്
             </motion.p>
 
             {/* Progress Bar & Percentage */}
-            <div className="w-64 h-[2px] bg-white/5 relative overflow-hidden mb-4 rounded-full">
+            <div className="w-64 h-[2px] bg-border-main relative overflow-hidden mb-4 rounded-full">
               <motion.div
-                className="absolute top-0 left-0 h-full bg-gradient-to-r from-[#2ECC71] to-[#4CFF9B]"
+                className="absolute top-0 left-0 h-full bg-accent"
                 style={{ width: `${progress}%` }}
               />
             </div>
             
             <motion.div
-              className="text-sm font-semibold tracking-wider text-[#4CFF9B] font-mono text-glow-subtle"
+              className="text-sm font-semibold tracking-wider text-accent font-mono text-glow-subtle"
             >
               {progress}%
             </motion.div>

@@ -1,14 +1,14 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { Shield, Mail, Lock, ArrowRight, CornerDownLeft, Loader2 } from 'lucide-react';
+import { Shield, Mail, Lock, ArrowRight, CornerDownLeft, Loader2, Sun, Moon } from 'lucide-react';
 
 export default function AdminLogin() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
-  const { login, logout } = useAuth();
+  const { login, logout, language, toggleLanguage, t, theme, toggleTheme } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -44,11 +44,33 @@ export default function AdminLogin() {
 
       <div className="w-full max-w-md relative z-10">
         {/* Navigation link */}
-        <div className="text-center mb-6">
-          <Link to="/" className="inline-flex items-center space-x-2 text-slate-400 hover:text-slate-200 text-xs transition-colors">
+        <div className="flex justify-between items-center mb-6 px-1">
+          <Link to="/" className="inline-flex items-center space-x-1.5 text-xs text-slate-400 hover:text-slate-200 transition-colors">
             <CornerDownLeft className="w-3.5 h-3.5" />
-            <span>Return to Public Site</span>
+            <span>{t("Return to Public Site", "ഹോമിലേക്ക് മടങ്ങുക")}</span>
           </Link>
+
+          <div className="flex items-center space-x-2">
+            <button 
+              type="button"
+              onClick={toggleLanguage}
+              className="px-2.5 py-1 rounded-lg border border-slate-800 text-[9px] font-bold text-slate-300 hover:text-white cursor-pointer bg-slate-900"
+            >
+              {language === 'en' ? 'മലയാളം' : 'English'}
+            </button>
+            <button 
+              type="button"
+              onClick={toggleTheme}
+              className="p-1.5 rounded-lg border border-slate-800 text-slate-300 hover:text-white cursor-pointer bg-slate-900"
+              title="Toggle theme"
+            >
+              {theme === 'light' ? (
+                <Moon className="w-3.5 h-3.5" />
+              ) : (
+                <Sun className="w-3.5 h-3.5 text-yellow-400" />
+              )}
+            </button>
+          </div>
         </div>
 
         {/* Flat Minimal Container */}

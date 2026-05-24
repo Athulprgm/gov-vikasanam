@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { Shield, User, Mail, Lock, ArrowRight, CornerDownLeft, Loader2 } from 'lucide-react';
+import { Shield, User, Mail, Lock, ArrowRight, CornerDownLeft, Loader2, Sun, Moon } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 export default function Register() {
@@ -11,7 +11,7 @@ export default function Register() {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
-  const { register } = useAuth();
+  const { register, language, toggleLanguage, t, theme, toggleTheme } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -45,11 +45,11 @@ export default function Register() {
   };
 
   return (
-    <div className="relative min-h-screen bg-[#0B0B0B] text-[#F5F5F5] font-sans flex items-center justify-center p-6 selection:bg-[#2ECC71] selection:text-black antialiased overflow-hidden">
+    <div className="relative min-h-screen bg-bg-main text-txt-primary font-sans flex items-center justify-center p-6 selection:bg-accent/25 selection:text-txt-primary antialiased overflow-hidden">
       
       {/* Dynamic Glow Blobs */}
-      <div className="absolute top-1/4 left-1/4 w-[400px] h-[400px] bg-[#2ECC71] rounded-full blur-[120px] opacity-10 pointer-events-none" />
-      <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-[#3498db] rounded-full blur-[120px] opacity-10 pointer-events-none" />
+      <div className="absolute top-1/4 left-1/4 w-[400px] h-[400px] bg-accent rounded-full blur-[120px] opacity-10 pointer-events-none" />
+      <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-accent-sec rounded-full blur-[120px] opacity-10 pointer-events-none" />
 
       {/* Background grid */}
       <div className="absolute inset-0 bg-grid-white/[0.01] pointer-events-none" />
@@ -61,26 +61,51 @@ export default function Register() {
         className="w-full max-w-md relative z-10"
       >
         {/* Branding header */}
-        <div className="text-center mb-8">
-          <Link to="/" className="inline-flex items-center space-x-2 text-[#4CFF9B] font-mono text-xs uppercase tracking-widest hover:opacity-85 transition-opacity mb-4">
+        <div className="flex justify-between items-center mb-6 px-1">
+          <Link to="/" className="inline-flex items-center space-x-1.5 text-xs text-accent font-semibold hover:opacity-85 transition-opacity">
             <CornerDownLeft className="w-3.5 h-3.5" />
-            <span>മടങ്ങുക / Return to Home</span>
+            <span>{t("Back", "മടങ്ങുക")}</span>
           </Link>
+
+          <div className="flex items-center space-x-2">
+            <button 
+              type="button"
+              onClick={toggleLanguage}
+              className="px-2 py-1 rounded-lg border border-border-main text-[9px] font-bold text-txt-secondary hover:text-txt-primary cursor-pointer bg-bg-sec"
+            >
+              {language === 'en' ? 'മലയാളം' : 'English'}
+            </button>
+            <button 
+              type="button"
+              onClick={toggleTheme}
+              className="p-1.5 rounded-lg border border-border-main text-txt-secondary hover:text-txt-primary cursor-pointer bg-bg-sec"
+              title="Toggle theme"
+            >
+              {theme === 'light' ? (
+                <Moon className="w-3.5 h-3.5" />
+              ) : (
+                <Sun className="w-3.5 h-3.5 text-yellow-400" />
+              )}
+            </button>
+          </div>
+        </div>
+
+        <div className="text-center mb-8">
           <div className="flex justify-center mb-4">
-            <div className="p-3 bg-gradient-to-tr from-[#2ECC71] to-[#4CFF9B] rounded-2xl shadow-[0_0_20px_rgba(46,204,113,0.3)]">
-              <Shield className="w-8 h-8 text-black" />
+            <div className="p-3 bg-accent rounded-2xl shadow-sm">
+              <Shield className="w-8 h-8 text-white" />
             </div>
           </div>
-          <h1 className="text-2xl font-black tracking-tight text-[#F5F5F5]">
-            JANA<span className="text-[#2ECC71]">VIKASAM</span> SIGNUP
+          <h1 className="text-2xl font-black tracking-tight text-txt-primary">
+            JANA<span className="text-accent">VIKASAM</span> SIGNUP
           </h1>
-          <p className="text-xs text-[#B0B0B0] font-malayalam mt-2">
-            പുതിയ അക്കൗണ്ട് സൃഷ്ടിച്ചു ലോഗിൻ ചെയ്യുക
+          <p className="text-xs text-txt-secondary font-malayalam mt-2">
+            {t("Create new account to sign in", "പുതിയ അക്കൗണ്ട് സൃഷ്ടിച്ചു ലോഗിൻ ചെയ്യുക")}
           </p>
         </div>
 
         {/* Card */}
-        <div className="bg-[#121212]/80 backdrop-blur-xl border border-white/5 rounded-3xl p-8 shadow-2xl relative overflow-hidden">
+        <div className="premium-card bg-bg-sec border border-border-main rounded-3xl p-8 shadow-md relative overflow-hidden">
           {errorMsg && (
             <div className="mb-6 p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-xs font-semibold leading-relaxed">
               {errorMsg}
@@ -89,11 +114,11 @@ export default function Register() {
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="block text-[10px] font-mono uppercase tracking-widest text-[#B0B0B0] mb-1.5">
+              <label className="block text-[10px] font-mono uppercase tracking-widest text-txt-secondary mb-1.5">
                 Full Name
               </label>
               <div className="relative">
-                <span className="absolute inset-y-0 left-0 flex items-center pl-4 text-white/30">
+                <span className="absolute inset-y-0 left-0 flex items-center pl-4 text-txt-secondary/40">
                   <User className="w-4 h-4" />
                 </span>
                 <input
@@ -101,18 +126,18 @@ export default function Register() {
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder="Official Name"
-                  className="w-full bg-black/45 border border-white/5 rounded-xl py-3 pl-11 pr-4 text-sm text-[#F5F5F5] placeholder-white/20 focus:outline-none focus:border-[#2ECC71] focus:ring-1 focus:ring-[#2ECC71] transition-all"
+                  className="w-full bg-bg-main border border-border-main rounded-xl py-3 pl-11 pr-4 text-sm text-txt-primary placeholder-txt-secondary/40 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-all"
                   required
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-[10px] font-mono uppercase tracking-widest text-[#B0B0B0] mb-1.5">
+              <label className="block text-[10px] font-mono uppercase tracking-widest text-txt-secondary mb-1.5">
                 Email Address
               </label>
               <div className="relative">
-                <span className="absolute inset-y-0 left-0 flex items-center pl-4 text-white/30">
+                <span className="absolute inset-y-0 left-0 flex items-center pl-4 text-txt-secondary/40">
                   <Mail className="w-4 h-4" />
                 </span>
                 <input
@@ -120,18 +145,18 @@ export default function Register() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="your.email@example.com"
-                  className="w-full bg-black/45 border border-white/5 rounded-xl py-3 pl-11 pr-4 text-sm text-[#F5F5F5] placeholder-white/20 focus:outline-none focus:border-[#2ECC71] focus:ring-1 focus:ring-[#2ECC71] transition-all"
+                  className="w-full bg-bg-main border border-border-main rounded-xl py-3 pl-11 pr-4 text-sm text-txt-primary placeholder-txt-secondary/40 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-all"
                   required
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-[10px] font-mono uppercase tracking-widest text-[#B0B0B0] mb-1.5">
+              <label className="block text-[10px] font-mono uppercase tracking-widest text-txt-secondary mb-1.5">
                 Password
               </label>
               <div className="relative">
-                <span className="absolute inset-y-0 left-0 flex items-center pl-4 text-white/30">
+                <span className="absolute inset-y-0 left-0 flex items-center pl-4 text-txt-secondary/40">
                   <Lock className="w-4 h-4" />
                 </span>
                 <input
@@ -139,18 +164,18 @@ export default function Register() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="Min 6 characters"
-                  className="w-full bg-black/45 border border-white/5 rounded-xl py-3 pl-11 pr-4 text-sm text-[#F5F5F5] placeholder-white/20 focus:outline-none focus:border-[#2ECC71] focus:ring-1 focus:ring-[#2ECC71] transition-all"
+                  className="w-full bg-bg-main border border-border-main rounded-xl py-3 pl-11 pr-4 text-sm text-txt-primary placeholder-txt-secondary/40 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-all"
                   required
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-[10px] font-mono uppercase tracking-widest text-[#B0B0B0] mb-1.5">
+              <label className="block text-[10px] font-mono uppercase tracking-widest text-txt-secondary mb-1.5">
                 Confirm Password
               </label>
               <div className="relative">
-                <span className="absolute inset-y-0 left-0 flex items-center pl-4 text-white/30">
+                <span className="absolute inset-y-0 left-0 flex items-center pl-4 text-txt-secondary/40">
                   <Lock className="w-4 h-4" />
                 </span>
                 <input
@@ -158,7 +183,7 @@ export default function Register() {
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   placeholder="Re-enter password"
-                  className="w-full bg-black/45 border border-white/5 rounded-xl py-3 pl-11 pr-4 text-sm text-[#F5F5F5] placeholder-white/20 focus:outline-none focus:border-[#2ECC71] focus:ring-1 focus:ring-[#2ECC71] transition-all"
+                  className="w-full bg-bg-main border border-border-main rounded-xl py-3 pl-11 pr-4 text-sm text-txt-primary placeholder-txt-secondary/40 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-all"
                   required
                 />
               </div>
@@ -167,11 +192,11 @@ export default function Register() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full relative group bg-gradient-to-r from-[#2ECC71] to-[#4CFF9B] text-black font-semibold rounded-xl py-3.5 hover:shadow-[0_0_20px_rgba(76,255,155,0.3)] hover:scale-[1.01] active:scale-[0.99] transition-all duration-300 flex items-center justify-center space-x-2 text-sm disabled:opacity-50 mt-6 cursor-pointer"
+              className="w-full btn-primary flex items-center justify-center space-x-2 text-sm disabled:opacity-50 mt-6 cursor-pointer"
             >
               {loading ? (
                 <>
-                  <Loader2 className="w-4 h-4 animate-spin text-black" />
+                  <Loader2 className="w-4 h-4 animate-spin text-bg-main" />
                   <span>അക്കൗണ്ട് നിർമ്മിക്കുന്നു...</span>
                 </>
               ) : (
@@ -183,10 +208,10 @@ export default function Register() {
             </button>
           </form>
 
-          <div className="mt-6 pt-6 border-t border-white/5 text-center text-xs text-[#B0B0B0]">
+          <div className="mt-6 pt-6 border-t border-border-main text-center text-xs text-txt-secondary">
             <p>
               Already have an account?{' '}
-              <Link to="/login" className="text-[#2ECC71] hover:underline">
+              <Link to="/login" className="text-accent hover:underline">
                 Sign In
               </Link>
             </p>

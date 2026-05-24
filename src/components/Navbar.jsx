@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
-import { Menu, X, ArrowUpRight, Shield } from 'lucide-react';
+import { Menu, X, ArrowUpRight, Shield, Sun, Moon } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
 export default function Navbar() {
-  const { isAuthenticated, isAdmin, user, logout } = useAuth();
+  const { isAuthenticated, isAdmin, user, logout, language, toggleLanguage, t, theme, toggleTheme } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -21,107 +21,149 @@ export default function Navbar() {
   }, []);
 
   const navLinks = [
-    { nameMl: "കാഴ്ചകൾ", nameEn: "Showcase", href: "#featured-projects" },
-    { nameMl: "ഭൂപടം", nameEn: "Map", href: "#kerala-map" },
-    { nameMl: "നാൾവഴി", nameEn: "Timeline", href: "#timeline" },
-    { nameMl: "നേട്ടങ്ങൾ", nameEn: "Stats", href: "#statistics" },
-    { nameMl: "അഭിപ്രായങ്ങൾ", nameEn: "Impact", href: "#citizen-impact" }
+    { nameMl: "കാഴ്ചകൾ", nameEn: "Showcase", href: "/#featured-projects" },
+    { nameMl: "ഭൂപടം", nameEn: "Map", href: "/#kerala-map" },
+    { nameMl: "നാൾവഴി", nameEn: "Timeline", href: "/#timeline" },
+    { nameMl: "നേട്ടങ്ങൾ", nameEn: "Stats", href: "/#statistics" },
+    { nameMl: "അഭിപ്രായങ്ങൾ", nameEn: "Impact", href: "/#citizen-impact" },
+    ...(isAuthenticated ? [
+      { nameMl: "ഫീഡ്", nameEn: "Feed", href: "/feed", isRouter: true },
+      { nameMl: "പ്രൊഫൈൽ", nameEn: "Profile", href: "/profile", isRouter: true }
+    ] : [])
   ];
 
   return (
     <nav
       className={`fixed top-0 left-0 w-full z-40 transition-all duration-500 ${
         scrolled
-          ? 'py-4 bg-[#0B0B0B]/80 backdrop-blur-md border-b border-white/5'
+          ? 'py-4 bg-bg-main/90 backdrop-blur-md border-b border-border-main'
           : 'py-6 bg-transparent'
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
         {/* Logo Section */}
-        <a href="#hero" className="flex items-center space-x-3 group">
-          <div className="w-9 h-9 rounded-lg bg-gradient-to-tr from-[#2ECC71] to-[#4CFF9B] flex items-center justify-center font-bold text-black text-lg shadow-[0_0_15px_rgba(46,204,113,0.3)] group-hover:scale-105 transition-transform duration-300">
-            ജ
+        <Link to="/" className="flex items-center space-x-3 group">
+          <div className="w-9 h-9 rounded-lg bg-accent flex items-center justify-center font-bold text-white text-lg shadow-sm group-hover:scale-105 transition-transform duration-300">
+            {t("J", "ജ")}
           </div>
           <div className="flex flex-col">
-            <span className="text-[#F5F5F5] font-extrabold text-lg leading-tight tracking-wider font-malayalam">
-              ജനവികസനം
+            <span className="text-txt-primary font-extrabold text-sm leading-tight tracking-wider uppercase">
+              {t("JanaVikasam", "ജനവികസനം")}
             </span>
-            <span className="text-[#B0B0B0] font-mono text-[9px] uppercase tracking-[0.25em]">
-              JANAVIKASAM
+            <span className="text-txt-secondary font-mono text-[9px] uppercase tracking-[0.2em]">
+              {t("Kerala Development", "കേരള വികസനം")}
             </span>
           </div>
-        </a>
+        </Link>
 
         {/* Desktop Navigation Links */}
         <div className="hidden md:flex items-center space-x-8">
           {navLinks.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className="group flex flex-col items-center relative py-1 text-sm font-medium text-[#B0B0B0] hover:text-[#F5F5F5] transition-colors duration-300"
-            >
-              <span className="font-malayalam text-xs">{link.nameMl}</span>
-              <span className="text-[10px] opacity-60 font-mono tracking-wider font-light mt-0.5 group-hover:opacity-100 transition-opacity">
-                {link.nameEn}
-              </span>
-              <span className="absolute bottom-0 left-0 w-0 h-[1.5px] bg-[#2ECC71] transition-all duration-300 group-hover:w-full" />
-            </a>
+            link.isRouter ? (
+              <Link
+                key={link.href}
+                to={link.href}
+                className="group flex flex-col items-center relative py-1 text-xs font-semibold text-txt-secondary hover:text-txt-primary transition-colors duration-300"
+              >
+                <span>{t(link.nameEn, link.nameMl)}</span>
+                <span className="absolute bottom-0 left-0 w-0 h-[1.5px] bg-accent transition-all duration-300 group-hover:w-full" />
+              </Link>
+            ) : (
+              <a
+                key={link.href}
+                href={link.href}
+                className="group flex flex-col items-center relative py-1 text-xs font-semibold text-txt-secondary hover:text-txt-primary transition-colors duration-300"
+              >
+                <span>{t(link.nameEn, link.nameMl)}</span>
+                <span className="absolute bottom-0 left-0 w-0 h-[1.5px] bg-accent transition-all duration-300 group-hover:w-full" />
+              </a>
+            )
           ))}
         </div>
 
         {/* Action Buttons */}
-        <div className="hidden md:flex items-center space-x-4">
+        <div className="hidden md:flex items-center space-x-3.5">
+          {/* Language Toggle */}
+          <button
+            onClick={toggleLanguage}
+            className="px-2.5 py-1.5 rounded-xl border border-border-main text-[10px] font-bold text-txt-secondary hover:text-txt-primary hover:bg-bg-sec transition-all cursor-pointer"
+          >
+            {language === 'en' ? 'മലയാളം' : 'English'}
+          </button>
+
+          {/* Theme Toggle */}
+          <button
+            onClick={toggleTheme}
+            className="p-1.5 rounded-xl border border-border-main text-txt-secondary hover:text-txt-primary hover:bg-bg-sec transition-all cursor-pointer"
+            title={t("Toggle theme", "തീം മാറ്റുക")}
+          >
+            {theme === 'light' ? (
+              <Moon className="w-3.5 h-3.5" />
+            ) : (
+              <Sun className="w-3.5 h-3.5 text-yellow-400" />
+            )}
+          </button>
+
           {!isAuthenticated ? (
             <>
               <Link
                 to="/login"
-                className="text-xs font-semibold text-[#B0B0B0] hover:text-[#4CFF9B] transition-colors"
+                className="text-xs font-semibold text-txt-secondary hover:text-accent transition-colors"
               >
-                ലോഗിൻ / Login
+                {t("Login", "ലോഗിൻ")}
               </Link>
               <Link
                 to="/register"
-                className="inline-flex items-center px-4 py-2 rounded-full border border-white/10 bg-white/5 text-xs font-semibold text-[#F5F5F5] hover:bg-gradient-to-r hover:from-[#2ECC71] hover:to-[#4CFF9B] hover:text-black hover:border-transparent transition-all duration-300"
+                className="inline-flex items-center px-4 py-2 rounded-xl border border-border-main bg-bg-sec text-xs font-semibold text-txt-primary hover:bg-accent hover:text-white hover:border-transparent transition-all duration-300"
               >
-                രജിസ്റ്റർ / Sign Up
+                {t("Sign Up", "രജിസ്റ്റർ")}
               </Link>
             </>
           ) : (
-            <div className="flex items-center space-x-4">
-              <span className="text-xs text-[#B0B0B0] font-mono">
-                Hi, {user?.name ? user.name.split(' ')[0] : 'User'}
+            <div className="flex items-center space-x-3">
+              <span className="text-xs text-txt-secondary font-mono">
+                {t("Hi", "ഹായ്")}, {user?.name ? user.name.split(' ')[0] : 'User'}
               </span>
               {isAdmin && (
                 <Link
                   to="/admin"
-                  className="inline-flex items-center px-4 py-2 rounded-full border border-[#2ECC71]/30 bg-[#2ECC71]/10 text-xs font-semibold text-[#4CFF9B] hover:bg-[#2ECC71]/20 transition-all duration-300"
+                  className="inline-flex items-center px-3.5 py-2 rounded-xl border border-accent/30 bg-accent/10 text-xs font-semibold text-accent hover:bg-accent/20 transition-all duration-300"
                 >
                   <Shield className="w-3.5 h-3.5 mr-1.5" />
-                  <span>Admin Console</span>
+                  <span>{t("Console", "പാനൽ")}</span>
                 </Link>
               )}
               <button
                 onClick={logout}
-                className="text-xs font-semibold text-[#B0B0B0] hover:text-red-400 transition-colors cursor-pointer"
+                className="text-xs font-semibold text-txt-secondary hover:text-red-400 transition-colors cursor-pointer"
               >
-                Logout
+                {t("Logout", "ലോഗ് ഔട്ട്")}
               </button>
             </div>
           )}
+
           <a
             href="#before-after"
-            className="inline-flex items-center px-4 py-2 rounded-full border border-white/10 text-xs font-semibold text-[#F5F5F5] hover:text-black hover:bg-gradient-to-r hover:from-[#2ECC71] hover:to-[#4CFF9B] hover:border-transparent transition-all duration-300 shadow-[0_0_10px_rgba(46,204,113,0.05)] hover:shadow-[0_0_20px_rgba(46,204,113,0.25)] group"
+            className="inline-flex items-center px-4 py-2 rounded-xl border border-border-main text-xs font-semibold text-txt-primary hover:text-white hover:bg-accent hover:border-transparent transition-all duration-300 shadow-sm group"
           >
-            മാറ്റം കാണൂ
+            <span>{t("See Change", "മാറ്റം കാണൂ")}</span>
             <ArrowUpRight className="ml-1.5 w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
           </a>
         </div>
 
         {/* Mobile Hamburger Toggle */}
-        <div className="md:hidden flex items-center">
+        <div className="md:hidden flex items-center space-x-2">
+          {/* Theme Toggle for mobile header */}
+          <button 
+            onClick={toggleTheme}
+            className="p-2 rounded-xl border border-border-main bg-bg-sec text-txt-primary cursor-pointer"
+          >
+            {theme === 'light' ? <Moon className="w-3.5 h-3.5" /> : <Sun className="w-3.5 h-3.5 text-yellow-400" />}
+          </button>
+          
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="text-[#F5F5F5] focus:outline-none p-1.5 rounded-lg border border-white/5 bg-white/5 hover:bg-white/10"
+            className="text-txt-primary focus:outline-none p-1.5 rounded-xl border border-border-main bg-bg-sec hover:bg-bg-main"
             aria-label="Toggle menu"
           >
             {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -131,53 +173,73 @@ export default function Navbar() {
 
       {/* Mobile Drawer menu */}
       {isOpen && (
-        <div className="md:hidden absolute top-full left-0 w-full bg-[#0B0B0B]/95 backdrop-blur-xl border-b border-white/5 py-6 px-6 flex flex-col space-y-4 shadow-2xl animate-fade-in-down">
+        <div className="md:hidden absolute top-full left-0 w-full bg-bg-sec border-b border-border-main py-6 px-6 flex flex-col space-y-4 shadow-2xl animate-fade-in-down">
           {navLinks.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              onClick={() => setIsOpen(false)}
-              className="flex justify-between items-center py-2.5 px-3 rounded-lg border border-white/5 hover:border-[#2ECC71]/30 hover:bg-[#2ECC71]/5 group transition-all"
-            >
-              <div className="flex flex-col">
-                <span className="font-malayalam text-[#F5F5F5] text-sm font-semibold">{link.nameMl}</span>
-                <span className="text-xs text-[#B0B0B0] font-mono">{link.nameEn}</span>
-              </div>
-              <span className="w-2 h-2 rounded-full bg-[#2ECC71] opacity-0 group-hover:opacity-100 transition-opacity" />
-            </a>
+            link.isRouter ? (
+              <Link
+                key={link.href}
+                to={link.href}
+                onClick={() => setIsOpen(false)}
+                className="flex justify-between items-center py-2.5 px-3 rounded-xl border border-border-main hover:bg-bg-main group transition-all"
+              >
+                <span className="text-sm font-semibold text-txt-primary">{t(link.nameEn, link.nameMl)}</span>
+                <span className="w-2 h-2 rounded-full bg-accent opacity-0 group-hover:opacity-100 transition-opacity" />
+              </Link>
+            ) : (
+              <a
+                key={link.href}
+                href={link.href}
+                onClick={() => setIsOpen(false)}
+                className="flex justify-between items-center py-2.5 px-3 rounded-xl border border-border-main hover:bg-bg-main group transition-all"
+              >
+                <span className="text-sm font-semibold text-txt-primary">{t(link.nameEn, link.nameMl)}</span>
+                <span className="w-2 h-2 rounded-full bg-accent opacity-0 group-hover:opacity-100 transition-opacity" />
+              </a>
+            )
           ))}
-          <div className="h-[1px] bg-white/5 my-2" />
+          
+          {/* Mobile Language Switcher */}
+          <div className="flex justify-between items-center py-2 px-3 border border-border-main rounded-xl bg-bg-main/50">
+            <span className="text-xs text-txt-secondary">{t("Language", "ഭാഷ")}</span>
+            <button 
+              onClick={toggleLanguage}
+              className="px-3 py-1.5 rounded-xl border border-border-main text-xs font-semibold text-txt-primary bg-bg-sec cursor-pointer"
+            >
+              {language === 'en' ? 'മലയാളം' : 'English'}
+            </button>
+          </div>
+          <div className="h-[1px] bg-border-main my-2" />
 
           {!isAuthenticated ? (
             <div className="flex flex-col space-y-3">
               <Link
                 to="/login"
                 onClick={() => setIsOpen(false)}
-                className="flex items-center justify-center w-full py-3 rounded-lg border border-white/10 text-[#B0B0B0] hover:text-white font-semibold text-sm transition-colors"
+                className="flex items-center justify-center w-full py-3 rounded-xl border border-border-main text-txt-secondary hover:text-txt-primary font-semibold text-sm transition-colors"
               >
-                ലോഗിൻ / Login
+                {t("Login", "ലോഗിൻ")}
               </Link>
               <Link
                 to="/register"
                 onClick={() => setIsOpen(false)}
-                className="flex items-center justify-center w-full py-3 rounded-lg bg-white/5 border border-white/10 hover:border-[#2ECC71]/30 hover:bg-[#2ECC71]/5 text-white font-bold text-sm transition-colors"
+                className="flex items-center justify-center w-full py-3 rounded-xl bg-bg-main border border-border-main text-txt-primary font-bold text-sm transition-colors"
               >
-                രജിസ്റ്റർ / Sign Up
+                {t("Sign Up", "രജിസ്റ്റർ")}
               </Link>
             </div>
           ) : (
             <div className="flex flex-col space-y-3">
-              <div className="text-center text-xs text-[#B0B0B0] font-mono">
-                Logged in as <span className="text-white font-semibold">{user?.name}</span>
+              <div className="text-center text-xs text-txt-secondary font-mono">
+                {t("Logged in as", "പ്രവേശിച്ചത്")} <span className="text-txt-primary font-semibold">{user?.name}</span>
               </div>
               {isAdmin && (
                 <Link
                   to="/admin"
                   onClick={() => setIsOpen(false)}
-                  className="flex items-center justify-center w-full py-3 rounded-lg border border-[#2ECC71]/30 bg-[#2ECC71]/10 text-[#4CFF9B] font-semibold text-sm"
+                  className="flex items-center justify-center w-full py-3 rounded-xl border border-accent/30 bg-accent/10 text-accent font-semibold text-sm"
                 >
                   <Shield className="w-4 h-4 mr-2" />
-                  <span>അഡ്മിൻ പാനൽ / Admin Panel</span>
+                  <span>{t("Console Portal", "അഡ്മിൻ പാനൽ")}</span>
                 </Link>
               )}
               <button
@@ -185,9 +247,9 @@ export default function Navbar() {
                   logout();
                   setIsOpen(false);
                 }}
-                className="flex items-center justify-center w-full py-3 rounded-lg border border-red-500/20 text-red-400 font-semibold text-sm hover:bg-red-500/5 transition-colors cursor-pointer"
+                className="flex items-center justify-center w-full py-3 rounded-xl border border-red-500/20 text-red-500 font-semibold text-sm hover:bg-red-500/5 transition-colors cursor-pointer"
               >
-                Logout
+                {t("Logout", "ലോഗ് ഔട്ട്")}
               </button>
             </div>
           )}
@@ -195,9 +257,9 @@ export default function Navbar() {
           <a
             href="#before-after"
             onClick={() => setIsOpen(false)}
-            className="flex items-center justify-center w-full py-3 mt-2 rounded-lg bg-gradient-to-r from-[#2ECC71] to-[#4CFF9B] text-black font-bold text-sm shadow-[0_0_15px_rgba(46,204,113,0.2)]"
+            className="flex items-center justify-center w-full py-3 mt-2 rounded-xl bg-accent text-white font-bold text-sm shadow-sm"
           >
-            മാറ്റം കാണൂ
+            <span>{t("See Change", "മാറ്റം കാണൂ")}</span>
             <ArrowUpRight className="ml-2 w-4 h-4" />
           </a>
         </div>

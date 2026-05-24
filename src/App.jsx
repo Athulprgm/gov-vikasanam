@@ -11,6 +11,9 @@ import Login from './pages/Login';
 import AdminLogin from './pages/AdminLogin';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
+import Profile from './pages/Profile';
+import BlogsFeed from './pages/BlogsFeed';
+import BlogDetail from './pages/BlogDetail';
 
 // Landing Page Components
 import LoadingScreen from './components/LoadingScreen';
@@ -33,7 +36,7 @@ function ProtectedRoute({ children }) {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#0B0B0B] flex items-center justify-center text-xs font-mono text-[#2ECC71]">
+      <div className="min-h-screen bg-bg-main flex items-center justify-center text-xs font-mono text-accent">
         <span>പരിശോധിക്കുന്നു / Authenticating...</span>
       </div>
     );
@@ -100,7 +103,7 @@ function LandingPage() {
 
       {/* Main Page Layout (Only active/visible when loading finishes) */}
       {!isLoading && (
-        <div className="relative w-full min-h-screen bg-[#0B0B0B] text-[#F5F5F5] font-sans selection:bg-[#2ECC71] selection:text-black antialiased overflow-x-hidden">
+        <div className="relative w-full min-h-screen bg-bg-main text-txt-primary font-sans antialiased overflow-x-hidden">
           <Navbar />
           <Hero />
           
@@ -154,6 +157,12 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/admin/login" element={<AdminLogin />} />
             <Route path="/register" element={<Register />} />
+
+            {/* Social Blogging (Twitter-style) Pages */}
+            <Route path="/feed" element={<BlogsFeed />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/profile/:id" element={<Profile />} />
+            <Route path="/blog/:id" element={<BlogDetail />} />
 
             {/* Protected Admin Control Center */}
             <Route 
