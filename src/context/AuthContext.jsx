@@ -2,19 +2,18 @@ import { createContext, useContext, useState, useEffect } from "react";
 
 const AuthContext = createContext();
 
-const rawApiUrl = import.meta.env.VITE_API_BASE_URL || import.meta.env.VITE_API_URL;
-const API_BASE_URL = rawApiUrl
-  ? (rawApiUrl.endsWith("/api") ? rawApiUrl : `${rawApiUrl.replace(/\/$/, "")}/api`)
-  : "http://127.0.0.1:8000/api";
+const API_BASE_URL = "https://gov-backend-production.up.railway.app/api";
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(localStorage.getItem("token") || "");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  
+
   // Theme & Language States
-  const [language, setLanguage] = useState(localStorage.getItem("lang") || "ml");
+  const [language, setLanguage] = useState(
+    localStorage.getItem("lang") || "ml",
+  );
   const [theme, setTheme] = useState(localStorage.getItem("theme") || "dark");
 
   useEffect(() => {
@@ -90,7 +89,7 @@ export function AuthProvider({ children }) {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Accept": "application/json",
+          Accept: "application/json",
         },
         body: JSON.stringify({ email, password }),
       });
