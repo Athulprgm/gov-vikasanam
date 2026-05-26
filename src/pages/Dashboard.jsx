@@ -70,23 +70,25 @@ export default function Dashboard() {
 
   // Specific Forms
   const [projectForm, setProjectForm] = useState({
-    id: '', category_ml: '', category_en: '', title_ml: '', title_en: '',
-    district_ml: '', district_en: '', description_ml: '', description_en: '',
-    investment: '', percentage: 100, before_text_ml: '', before_text_en: '',
-    after_text_ml: '', after_text_en: '', before_img: '', after_img: ''
+    id: '', categoryMl: '', categoryEn: '', titleMl: '', titleEn: '',
+    districtMl: '', districtEn: '', descriptionMl: '', descriptionEn: '',
+    investment: '', percentage: 100, beforeTextMl: '', beforeTextEn: '',
+    afterTextMl: '', afterTextEn: '', beforeImg: '', afterImg: '',
+    year: '', governmentEn: '', governmentMl: ''
   });
 
   const [districtForm, setDistrictForm] = useState({
-    id: '', name_en: '', name_ml: '', investment: '', projects_count: 0,
-    highlight_ml: '', highlight_en: '', x: 100, y: 100
+    id: '', nameEn: '', nameMl: '', investment: '', projectsCount: 0,
+    highlightMl: '', highlightEn: '', x: 100, y: 100
   });
 
   const [timelineForm, setTimelineForm] = useState({
-    id: '', year: '', phase_ml: '', phase_en: '', desc_ml: '', desc_en: ''
+    id: '', year: '', phaseMl: '', phaseEn: '', descMl: '', descEn: '',
+    governmentEn: '', governmentMl: '', statsEn: '', statsMl: '', icon: 'calendar'
   });
 
   const [testimonialForm, setTestimonialForm] = useState({
-    id: '', name: '', role: '', quote_ml: '', quote_en: '', rating: 5, avatar: ''
+    id: '', name: '', role: '', quoteMl: '', quoteEn: '', rating: 5, avatar: ''
   });
 
   const triggerToast = (type, message) => {
@@ -106,15 +108,19 @@ export default function Dashboard() {
 
     if (type === 'project') {
       setProjectForm({
-        id: '', category_ml: '', category_en: '', title_ml: '', title_en: '',
-        district_ml: '', district_en: '', description_ml: '', description_en: '',
-        investment: '', percentage: 100, before_text_ml: '', before_text_en: '',
-        after_text_ml: '', after_text_en: '', before_img: '', after_img: ''
+        id: '', categoryMl: '', categoryEn: '', titleMl: '', titleEn: '',
+        districtMl: '', districtEn: '', descriptionMl: '', descriptionEn: '',
+        investment: '', percentage: 100, beforeTextMl: '', beforeTextEn: '',
+        afterTextMl: '', afterTextEn: '', beforeImg: '', afterImg: '',
+        year: '', governmentEn: '', governmentMl: ''
       });
     } else if (type === 'timeline') {
-      setTimelineForm({ id: '', year: '', phase_ml: '', phase_en: '', desc_ml: '', desc_en: '' });
+      setTimelineForm({
+        id: '', year: '', phaseMl: '', phaseEn: '', descMl: '', descEn: '',
+        governmentEn: '', governmentMl: '', statsEn: '', statsMl: '', icon: 'calendar'
+      });
     } else if (type === 'testimonial') {
-      setTestimonialForm({ id: '', name: '', role: '', quote_ml: '', quote_en: '', rating: 5, avatar: '' });
+      setTestimonialForm({ id: '', name: '', role: '', quoteMl: '', quoteEn: '', rating: 5, avatar: '' });
     }
   };
 
@@ -454,6 +460,11 @@ export default function Dashboard() {
                           <td className="p-3">
                             <div className="font-semibold text-white">{project.titleEn}</div>
                             <div className="text-slate-400 font-malayalam mt-0.5">{project.titleMl}</div>
+                            {(project.year || project.governmentEn) && (
+                              <div className="text-[9px] text-slate-500 font-mono mt-1">
+                                {project.year} • <span className="text-accent">{project.governmentEn}</span>
+                              </div>
+                            )}
                           </td>
                           <td className="p-3 text-slate-400">{project.categoryEn}</td>
                           <td className="p-3 text-slate-400">{project.districtEn}</td>
@@ -520,7 +531,7 @@ export default function Dashboard() {
                             <div className="text-slate-400 font-malayalam mt-0.5">{district.nameMl}</div>
                           </td>
                           <td className="p-3 font-mono text-indigo-400 font-bold">{district.investment}</td>
-                          <td className="p-3 text-slate-400">{district.projects_count} completed</td>
+                          <td className="p-3 text-slate-400">{district.projectsCount} completed</td>
                           <td className="p-3 max-w-xs truncate">
                             <div className="truncate text-white">{district.highlightEn}</div>
                             <div className="truncate text-slate-400 font-malayalam mt-0.5">{district.highlightMl}</div>
@@ -573,7 +584,12 @@ export default function Dashboard() {
                     <tbody className="divide-y divide-slate-800 text-xs">
                       {timeline.map((item) => (
                         <tr key={item.id || item.year} className="hover:bg-slate-900 transition-colors">
-                          <td className="p-3 font-mono font-bold text-base text-indigo-400">{item.year}</td>
+                          <td className="p-3">
+                            <div className="font-mono font-bold text-base text-indigo-400">{item.year}</div>
+                            {item.governmentEn && (
+                              <div className="text-[9px] text-accent/80 font-semibold truncate max-w-[120px]">{item.governmentEn}</div>
+                            )}
+                          </td>
                           <td className="p-3">
                             <div className="font-semibold text-white">{item.phaseEn}</div>
                             <div className="text-slate-400 font-malayalam mt-0.5">{item.phaseMl}</div>
@@ -748,8 +764,8 @@ export default function Dashboard() {
                       <label className="block text-xs font-semibold text-slate-300 mb-1.5">Category (English)</label>
                       <input 
                         type="text" 
-                        value={projectForm.category_en} 
-                        onChange={(e) => setProjectForm({ ...projectForm, category_en: e.target.value })} 
+                        value={projectForm.categoryEn} 
+                        onChange={(e) => setProjectForm({ ...projectForm, categoryEn: e.target.value })} 
                         placeholder="e.g. Road Development" 
                         className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white placeholder-slate-600 focus:outline-none focus:border-indigo-500"
                         required
@@ -759,8 +775,8 @@ export default function Dashboard() {
                       <label className="block text-xs font-semibold text-slate-300 mb-1.5">Category (Malayalam)</label>
                       <input 
                         type="text" 
-                        value={projectForm.category_ml} 
-                        onChange={(e) => setProjectForm({ ...projectForm, category_ml: e.target.value })} 
+                        value={projectForm.categoryMl} 
+                        onChange={(e) => setProjectForm({ ...projectForm, categoryMl: e.target.value })} 
                         placeholder="e.g. റോഡ് വികസനം" 
                         className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white placeholder-slate-600 focus:outline-none focus:border-indigo-500"
                         required
@@ -773,8 +789,8 @@ export default function Dashboard() {
                       <label className="block text-xs font-semibold text-slate-300 mb-1.5">Title (English)</label>
                       <input 
                         type="text" 
-                        value={projectForm.title_en} 
-                        onChange={(e) => setProjectForm({ ...projectForm, title_en: e.target.value })} 
+                        value={projectForm.titleEn} 
+                        onChange={(e) => setProjectForm({ ...projectForm, titleEn: e.target.value })} 
                         placeholder="Project English Title" 
                         className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white placeholder-slate-600 focus:outline-none focus:border-indigo-500"
                         required
@@ -784,8 +800,8 @@ export default function Dashboard() {
                       <label className="block text-xs font-semibold text-slate-300 mb-1.5">Title (Malayalam)</label>
                       <input 
                         type="text" 
-                        value={projectForm.title_ml} 
-                        onChange={(e) => setProjectForm({ ...projectForm, title_ml: e.target.value })} 
+                        value={projectForm.titleMl} 
+                        onChange={(e) => setProjectForm({ ...projectForm, titleMl: e.target.value })} 
                         placeholder="പദ്ധതി ശീർഷകം" 
                         className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white placeholder-slate-600 focus:outline-none focus:border-indigo-500"
                         required
@@ -798,8 +814,8 @@ export default function Dashboard() {
                       <label className="block text-xs font-semibold text-slate-300 mb-1.5">Location/District (English)</label>
                       <input 
                         type="text" 
-                        value={projectForm.district_en} 
-                        onChange={(e) => setProjectForm({ ...projectForm, district_en: e.target.value })} 
+                        value={projectForm.districtEn} 
+                        onChange={(e) => setProjectForm({ ...projectForm, districtEn: e.target.value })} 
                         placeholder="e.g. Kannur" 
                         className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white placeholder-slate-600 focus:outline-none focus:border-indigo-500"
                         required
@@ -809,8 +825,8 @@ export default function Dashboard() {
                       <label className="block text-xs font-semibold text-slate-300 mb-1.5">Location/District (Malayalam)</label>
                       <input 
                         type="text" 
-                        value={projectForm.district_ml} 
-                        onChange={(e) => setProjectForm({ ...projectForm, district_ml: e.target.value })} 
+                        value={projectForm.districtMl} 
+                        onChange={(e) => setProjectForm({ ...projectForm, districtMl: e.target.value })} 
                         placeholder="e.g. കണ്ണൂർ" 
                         className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white placeholder-slate-600 focus:outline-none focus:border-indigo-500"
                         required
@@ -822,8 +838,8 @@ export default function Dashboard() {
                     <div>
                       <label className="block text-xs font-semibold text-slate-300 mb-1.5">Description (English)</label>
                       <textarea 
-                        value={projectForm.description_en} 
-                        onChange={(e) => setProjectForm({ ...projectForm, description_en: e.target.value })} 
+                        value={projectForm.descriptionEn} 
+                        onChange={(e) => setProjectForm({ ...projectForm, descriptionEn: e.target.value })} 
                         placeholder="Brief summary in English" 
                         className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white placeholder-slate-600 focus:outline-none focus:border-indigo-500 h-20"
                         required
@@ -832,8 +848,8 @@ export default function Dashboard() {
                     <div>
                       <label className="block text-xs font-semibold text-slate-300 mb-1.5">Description (Malayalam)</label>
                       <textarea 
-                        value={projectForm.description_ml} 
-                        onChange={(e) => setProjectForm({ ...projectForm, description_ml: e.target.value })} 
+                        value={projectForm.descriptionMl} 
+                        onChange={(e) => setProjectForm({ ...projectForm, descriptionMl: e.target.value })} 
                         placeholder="പദ്ധതിയെക്കുറിച്ചുള്ള വിവരണം" 
                         className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white placeholder-slate-600 focus:outline-none focus:border-indigo-500 h-20"
                         required
@@ -854,6 +870,42 @@ export default function Dashboard() {
                         required
                       />
                     </div>
+                    <div>
+                      <label className="block text-xs font-semibold text-slate-300 mb-1.5">Project Year</label>
+                      <input 
+                        type="text" 
+                        value={projectForm.year} 
+                        onChange={(e) => setProjectForm({ ...projectForm, year: e.target.value })} 
+                        placeholder="e.g. 2026" 
+                        className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white placeholder-slate-600 focus:outline-none focus:border-indigo-500"
+                        required
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-xs font-semibold text-slate-300 mb-1.5">Government (English)</label>
+                      <input 
+                        type="text" 
+                        value={projectForm.governmentEn} 
+                        onChange={(e) => setProjectForm({ ...projectForm, governmentEn: e.target.value })} 
+                        placeholder="e.g. LDF Government (Pinarayi Vijayan)" 
+                        className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white placeholder-slate-600 focus:outline-none focus:border-indigo-500"
+                        required
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-xs font-semibold text-slate-300 mb-1.5">Government (Malayalam)</label>
+                      <input 
+                        type="text" 
+                        value={projectForm.governmentMl} 
+                        onChange={(e) => setProjectForm({ ...projectForm, governmentMl: e.target.value })} 
+                        placeholder="e.g. എൽ.ഡി.എഫ്. സർക്കാർ (പിണറായി വിജയൻ)" 
+                        className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white placeholder-slate-600 focus:outline-none focus:border-indigo-500"
+                        required
+                      />
+                    </div>
                   </div>
 
                   <div className="grid grid-cols-2 gap-4">
@@ -861,8 +913,8 @@ export default function Dashboard() {
                       <label className="block text-xs font-semibold text-slate-300 mb-1.5">Before Text (English)</label>
                       <input 
                         type="text" 
-                        value={projectForm.before_text_en} 
-                        onChange={(e) => setProjectForm({ ...projectForm, before_text_en: e.target.value })} 
+                        value={projectForm.beforeTextEn} 
+                        onChange={(e) => setProjectForm({ ...projectForm, beforeTextEn: e.target.value })} 
                         placeholder="Promise (2021):..." 
                         className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white placeholder-slate-600 focus:outline-none focus:border-indigo-500"
                         required
@@ -872,8 +924,8 @@ export default function Dashboard() {
                       <label className="block text-xs font-semibold text-slate-300 mb-1.5">Before Text (Malayalam)</label>
                       <input 
                         type="text" 
-                        value={projectForm.before_text_ml} 
-                        onChange={(e) => setProjectForm({ ...projectForm, before_text_ml: e.target.value })} 
+                        value={projectForm.beforeTextMl} 
+                        onChange={(e) => setProjectForm({ ...projectForm, beforeTextMl: e.target.value })} 
                         placeholder="വാഗ്ദാനം (2021):..." 
                         className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white placeholder-slate-600 focus:outline-none focus:border-indigo-500"
                         required
@@ -886,8 +938,8 @@ export default function Dashboard() {
                       <label className="block text-xs font-semibold text-slate-300 mb-1.5">After Text (English)</label>
                       <input 
                         type="text" 
-                        value={projectForm.after_text_en} 
-                        onChange={(e) => setProjectForm({ ...projectForm, after_text_en: e.target.value })} 
+                        value={projectForm.afterTextEn} 
+                        onChange={(e) => setProjectForm({ ...projectForm, afterTextEn: e.target.value })} 
                         placeholder="Reality (2026):..." 
                         className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white placeholder-slate-600 focus:outline-none focus:border-indigo-500"
                         required
@@ -897,8 +949,8 @@ export default function Dashboard() {
                       <label className="block text-xs font-semibold text-slate-300 mb-1.5">After Text (Malayalam)</label>
                       <input 
                         type="text" 
-                        value={projectForm.after_text_ml} 
-                        onChange={(e) => setProjectForm({ ...projectForm, after_text_ml: e.target.value })} 
+                        value={projectForm.afterTextMl} 
+                        onChange={(e) => setProjectForm({ ...projectForm, afterTextMl: e.target.value })} 
                         placeholder="യാഥാർത്ഥ്യം (2026):..." 
                         className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white placeholder-slate-600 focus:outline-none focus:border-indigo-500"
                         required
@@ -910,17 +962,17 @@ export default function Dashboard() {
                     <div>
                       <label className="block text-xs font-semibold text-slate-300 mb-1.5">Before Image</label>
                       <div className="space-y-3">
-                        {projectForm.before_img ? (
+                        {projectForm.beforeImg ? (
                           <div className="relative group rounded-lg overflow-hidden border border-slate-800 bg-slate-950 aspect-video flex items-center justify-center">
                             <img 
-                              src={projectForm.before_img} 
+                              src={projectForm.beforeImg} 
                               alt="Before Preview" 
                               className="w-full h-full object-cover"
                             />
                             <div className="absolute inset-0 bg-slate-950/70 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center space-x-2">
                               <button
                                 type="button"
-                                onClick={() => setProjectForm({ ...projectForm, before_img: '' })}
+                                onClick={() => setProjectForm({ ...projectForm, beforeImg: '' })}
                                 className="p-1.5 bg-red-600 hover:bg-red-500 text-white rounded transition-colors cursor-pointer"
                                 title="Remove Image"
                               >
@@ -951,24 +1003,24 @@ export default function Dashboard() {
                             />
                           </label>
                         )}
-                        <input type="hidden" value={projectForm.before_img} required />
+                        <input type="hidden" value={projectForm.beforeImg} required />
                       </div>
                     </div>
 
                     <div>
                       <label className="block text-xs font-semibold text-slate-300 mb-1.5">After Image</label>
                       <div className="space-y-3">
-                        {projectForm.after_img ? (
+                        {projectForm.afterImg ? (
                           <div className="relative group rounded-lg overflow-hidden border border-slate-800 bg-slate-950 aspect-video flex items-center justify-center">
                             <img 
-                              src={projectForm.after_img} 
+                              src={projectForm.afterImg} 
                               alt="After Preview" 
                               className="w-full h-full object-cover"
                             />
                             <div className="absolute inset-0 bg-slate-950/70 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center space-x-2">
                               <button
                                 type="button"
-                                onClick={() => setProjectForm({ ...projectForm, after_img: '' })}
+                                onClick={() => setProjectForm({ ...projectForm, afterImg: '' })}
                                 className="p-1.5 bg-red-600 hover:bg-red-500 text-white rounded transition-colors cursor-pointer"
                                 title="Remove Image"
                               >
@@ -999,7 +1051,7 @@ export default function Dashboard() {
                             />
                           </label>
                         )}
-                        <input type="hidden" value={projectForm.after_img} required />
+                        <input type="hidden" value={projectForm.afterImg} required />
                       </div>
                     </div>
                   </div>
@@ -1036,8 +1088,8 @@ export default function Dashboard() {
                       <label className="block text-xs font-semibold text-slate-300 mb-1.5">Name (English)</label>
                       <input 
                         type="text" 
-                        value={districtForm.name_en} 
-                        onChange={(e) => setDistrictForm({ ...districtForm, name_en: e.target.value })} 
+                        value={districtForm.nameEn} 
+                        onChange={(e) => setDistrictForm({ ...districtForm, nameEn: e.target.value })} 
                         className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-indigo-500"
                         required
                       />
@@ -1046,8 +1098,8 @@ export default function Dashboard() {
                       <label className="block text-xs font-semibold text-slate-300 mb-1.5">Name (Malayalam)</label>
                       <input 
                         type="text" 
-                        value={districtForm.name_ml} 
-                        onChange={(e) => setDistrictForm({ ...districtForm, name_ml: e.target.value })} 
+                        value={districtForm.nameMl} 
+                        onChange={(e) => setDistrictForm({ ...districtForm, nameMl: e.target.value })} 
                         className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-indigo-500"
                         required
                       />
@@ -1059,8 +1111,8 @@ export default function Dashboard() {
                       <label className="block text-xs font-semibold text-slate-300 mb-1.5">Projects Count</label>
                       <input 
                         type="number" 
-                        value={districtForm.projects_count} 
-                        onChange={(e) => setDistrictForm({ ...districtForm, projects_count: parseInt(e.target.value) || 0 })} 
+                        value={districtForm.projectsCount} 
+                        onChange={(e) => setDistrictForm({ ...districtForm, projectsCount: parseInt(e.target.value) || 0 })} 
                         className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-indigo-500"
                         required
                       />
@@ -1072,8 +1124,8 @@ export default function Dashboard() {
                       <label className="block text-xs font-semibold text-slate-300 mb-1.5">Key Highlight (English)</label>
                       <input 
                         type="text" 
-                        value={districtForm.highlight_en} 
-                        onChange={(e) => setDistrictForm({ ...districtForm, highlight_en: e.target.value })} 
+                        value={districtForm.highlightEn} 
+                        onChange={(e) => setDistrictForm({ ...districtForm, highlightEn: e.target.value })} 
                         className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-indigo-500"
                         required
                       />
@@ -1082,8 +1134,8 @@ export default function Dashboard() {
                       <label className="block text-xs font-semibold text-slate-300 mb-1.5">Key Highlight (Malayalam)</label>
                       <input 
                         type="text" 
-                        value={districtForm.highlight_ml} 
-                        onChange={(e) => setDistrictForm({ ...districtForm, highlight_ml: e.target.value })} 
+                        value={districtForm.highlightMl} 
+                        onChange={(e) => setDistrictForm({ ...districtForm, highlightMl: e.target.value })} 
                         className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-indigo-500"
                         required
                       />
@@ -1118,7 +1170,7 @@ export default function Dashboard() {
               {/* 3. TIMELINE FORM */}
               {modalType === 'timeline' && (
                 <div className="space-y-4">
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-3 gap-4">
                     <div>
                       <label className="block text-xs font-semibold text-slate-300 mb-1.5">Year</label>
                       <input 
@@ -1130,6 +1182,21 @@ export default function Dashboard() {
                         required
                       />
                     </div>
+                    <div>
+                      <label className="block text-xs font-semibold text-slate-300 mb-1.5">Icon type</label>
+                      <select 
+                        value={timelineForm.icon} 
+                        onChange={(e) => setTimelineForm({ ...timelineForm, icon: e.target.value })}
+                        className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-indigo-500 cursor-pointer"
+                        required
+                      >
+                        <option value="calendar">Calendar</option>
+                        <option value="landmark">Landmark (Government)</option>
+                        <option value="hardhat">Hard Hat (Construction)</option>
+                        <option value="building">Building (Infrastructure)</option>
+                        <option value="award">Award (Commissioning)</option>
+                      </select>
+                    </div>
                   </div>
 
                   <div className="grid grid-cols-2 gap-4">
@@ -1137,8 +1204,8 @@ export default function Dashboard() {
                       <label className="block text-xs font-semibold text-slate-300 mb-1.5">Phase Title (English)</label>
                       <input 
                         type="text" 
-                        value={timelineForm.phase_en} 
-                        onChange={(e) => setTimelineForm({ ...timelineForm, phase_en: e.target.value })} 
+                        value={timelineForm.phaseEn} 
+                        onChange={(e) => setTimelineForm({ ...timelineForm, phaseEn: e.target.value })} 
                         placeholder="e.g. Completion" 
                         className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-indigo-500"
                         required
@@ -1148,11 +1215,59 @@ export default function Dashboard() {
                       <label className="block text-xs font-semibold text-slate-300 mb-1.5">Phase Title (Malayalam)</label>
                       <input 
                         type="text" 
-                        value={timelineForm.phase_ml} 
-                        onChange={(e) => setTimelineForm({ ...timelineForm, phase_ml: e.target.value })} 
+                        value={timelineForm.phaseMl} 
+                        onChange={(e) => setTimelineForm({ ...timelineForm, phaseMl: e.target.value })} 
                         placeholder="e.g. പൂർത്തീകരണം" 
                         className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-indigo-500"
                         required
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-xs font-semibold text-slate-300 mb-1.5">Government (English)</label>
+                      <input 
+                        type="text" 
+                        value={timelineForm.governmentEn} 
+                        onChange={(e) => setTimelineForm({ ...timelineForm, governmentEn: e.target.value })} 
+                        placeholder="e.g. LDF Government (Pinarayi Vijayan)" 
+                        className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-indigo-500"
+                        required
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-xs font-semibold text-slate-300 mb-1.5">Government (Malayalam)</label>
+                      <input 
+                        type="text" 
+                        value={timelineForm.governmentMl} 
+                        onChange={(e) => setTimelineForm({ ...timelineForm, governmentMl: e.target.value })} 
+                        placeholder="e.g. എൽ.ഡി.എഫ്. സർക്കാർ (പിണറായി വിജയൻ)" 
+                        className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-indigo-500"
+                        required
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-xs font-semibold text-slate-300 mb-1.5">Realtime Metric/Stats (English)</label>
+                      <input 
+                        type="text" 
+                        value={timelineForm.statsEn || ''} 
+                        onChange={(e) => setTimelineForm({ ...timelineForm, statsEn: e.target.value })} 
+                        placeholder="e.g. 95% Highway Widening Completed" 
+                        className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-indigo-500"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-xs font-semibold text-slate-300 mb-1.5">Realtime Metric/Stats (Malayalam)</label>
+                      <input 
+                        type="text" 
+                        value={timelineForm.statsMl || ''} 
+                        onChange={(e) => setTimelineForm({ ...timelineForm, statsMl: e.target.value })} 
+                        placeholder="e.g. ദേശീയപാത വികസനം 95% പൂർത്തിയായി" 
+                        className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-indigo-500"
                       />
                     </div>
                   </div>
@@ -1161,8 +1276,8 @@ export default function Dashboard() {
                     <div>
                       <label className="block text-xs font-semibold text-slate-300 mb-1.5">Description (English)</label>
                       <textarea 
-                        value={timelineForm.desc_en} 
-                        onChange={(e) => setTimelineForm({ ...timelineForm, desc_en: e.target.value })} 
+                        value={timelineForm.descEn} 
+                        onChange={(e) => setTimelineForm({ ...timelineForm, descEn: e.target.value })} 
                         className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-indigo-500 h-20"
                         required
                       />
@@ -1170,8 +1285,8 @@ export default function Dashboard() {
                     <div>
                       <label className="block text-xs font-semibold text-slate-300 mb-1.5">Description (Malayalam)</label>
                       <textarea 
-                        value={timelineForm.desc_ml} 
-                        onChange={(e) => setTimelineForm({ ...timelineForm, desc_ml: e.target.value })} 
+                        value={timelineForm.descMl} 
+                        onChange={(e) => setTimelineForm({ ...timelineForm, descMl: e.target.value })} 
                         className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-indigo-500 h-20"
                         required
                       />
@@ -1276,8 +1391,8 @@ export default function Dashboard() {
                     <div>
                       <label className="block text-xs font-semibold text-slate-300 mb-1.5">Feedback (English)</label>
                       <textarea 
-                        value={testimonialForm.quote_en} 
-                        onChange={(e) => setTestimonialForm({ ...testimonialForm, quote_en: e.target.value })} 
+                        value={testimonialForm.quoteEn} 
+                        onChange={(e) => setTestimonialForm({ ...testimonialForm, quoteEn: e.target.value })} 
                         className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-indigo-500 h-20"
                         required
                       />
@@ -1285,8 +1400,8 @@ export default function Dashboard() {
                     <div>
                       <label className="block text-xs font-semibold text-slate-300 mb-1.5">Feedback (Malayalam)</label>
                       <textarea 
-                        value={testimonialForm.quote_ml} 
-                        onChange={(e) => setTestimonialForm({ ...testimonialForm, quote_ml: e.target.value })} 
+                        value={testimonialForm.quoteMl} 
+                        onChange={(e) => setTestimonialForm({ ...testimonialForm, quoteMl: e.target.value })} 
                         className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-indigo-500 h-20"
                         required
                       />

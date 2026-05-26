@@ -72,9 +72,23 @@ export default function FeaturedProjects() {
               {/* Card Body */}
               <div className="p-6 text-left flex-grow flex flex-col justify-between bg-bg-alt">
                 <div>
-                  <div className="flex items-center space-x-1.5 text-xs text-txt-secondary font-mono mb-2">
-                    <MapPin className="w-3 h-3 text-accent" />
-                    <span>{t(project.districtEn, project.districtMl)}</span>
+                  <div className="flex flex-wrap items-center gap-x-1.5 gap-y-1 text-[10px] text-txt-secondary font-mono mb-2">
+                    <span className="flex items-center">
+                      <MapPin className="w-3 h-3 text-accent mr-1" />
+                      {t(project.districtEn, project.districtMl)}
+                    </span>
+                    {project.year && (
+                      <>
+                        <span className="opacity-40">•</span>
+                        <span>{project.year}</span>
+                      </>
+                    )}
+                    {project.governmentEn && (
+                      <>
+                        <span className="opacity-40">•</span>
+                        <span className="text-accent font-semibold">{t(project.governmentEn, project.governmentMl)}</span>
+                      </>
+                    )}
                   </div>
                   <h3 className="text-xl font-extrabold text-txt-primary font-malayalam leading-snug mb-3">
                     {t(project.titleEn, project.titleMl)}
@@ -188,7 +202,7 @@ export default function FeaturedProjects() {
                           {t("PROJECT DASHBOARD", "പദ്ധതി വിവരങ്ങൾ")}
                         </div>
 
-                        <div className="border-b border-border-main pb-3">
+                         <div className="border-b border-border-main pb-3">
                           <div className="text-[10px] text-txt-secondary/50 mb-1">
                             {t("REGIONAL AREA", "മേഖല")}
                           </div>
@@ -197,6 +211,28 @@ export default function FeaturedProjects() {
                             {t(selectedProject.districtEn, selectedProject.districtMl)}
                           </div>
                         </div>
+
+                        {selectedProject.year && (
+                          <div className="border-b border-border-main pb-3">
+                            <div className="text-[10px] text-txt-secondary/50 mb-1">
+                              {t("COMPLETION YEAR", "പൂർത്തീകരിച്ച വർഷം")}
+                            </div>
+                            <div className="text-sm font-bold text-txt-primary font-mono">
+                              {selectedProject.year}
+                            </div>
+                          </div>
+                        )}
+
+                        {selectedProject.governmentEn && (
+                          <div className="border-b border-border-main pb-3">
+                            <div className="text-[10px] text-txt-secondary/50 mb-1">
+                              {t("GOVERNMENT", "ഭരണകൂടം")}
+                            </div>
+                            <div className="text-sm font-bold text-accent font-malayalam">
+                              {t(selectedProject.governmentEn, selectedProject.governmentMl)}
+                            </div>
+                          </div>
+                        )}
 
                         <div className="border-b border-border-main pb-3">
                           <div className="text-[10px] text-txt-secondary/50 mb-1">

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useData } from "../context/DataContext";
 import { useAuth } from "../context/AuthContext";
@@ -7,7 +7,7 @@ import { Calendar, ArrowRight, ArrowLeft } from "lucide-react";
 export default function DevelopmentTimeline() {
   const { timeline } = useData();
   const { t } = useAuth();
-  const [activeIdx, setActiveIdx] = useState(3); // Default index
+  const [activeIdx, setActiveIdx] = useState(() => Math.max(0, timeline.length - 1));
 
   const safeIdx = Math.min(activeIdx, Math.max(0, timeline.length - 1));
   const activeMilestone = timeline[safeIdx] || {
@@ -17,6 +17,12 @@ export default function DevelopmentTimeline() {
     descMl: "",
     descEn: "",
   };
+
+  useEffect(() => {
+    if (timeline && timeline.length > 0) {
+      setActiveIdx(timeline.length - 1);
+    }
+  }, [timeline]);
 
   const handlePrev = () => {
     setActiveIdx((prev) => (prev > 0 ? prev - 1 : prev));
@@ -117,11 +123,23 @@ export default function DevelopmentTimeline() {
                   {activeMilestone.year}
                 </div>
 
-                <div className="flex items-center space-x-3 mb-4 text-accent">
-                  <Calendar className="w-5 h-5 text-glow-subtle" />
-                  <span className="font-mono text-xs tracking-widest font-bold">
-                    {t(`PHASE ${activeIdx + 1} OF DEVELOPMENT`, `വികസന ഘട്ടം ${activeIdx + 1}`)}
-                  </span>
+                <div className="flex flex-wrap items-center gap-3 mb-4">
+                  <div className="flex items-center space-x-1 text-accent">
+                    <Calendar className="w-4 h-4 text-glow-subtle" />
+                    <span className="font-mono text-[10px] tracking-widest font-bold uppercase">
+                      {t(`PHASE ${safeIdx + 1} OF DEVELOPMENT`, `വികസന ഘട്ടം ${safeIdx + 1}`)}
+                    </span>
+                  </div>
+                  {activeMilestone.governmentEn && (
+                    <div className="px-2.5 py-0.5 rounded-full text-[9px] font-semibold bg-accent/15 border border-accent/25 text-accent font-malayalam tracking-wider">
+                      {t(activeMilestone.governmentEn, activeMilestone.governmentMl)}
+                    </div>
+                  )}
+                  {activeMilestone.statsEn && (
+                    <div className="px-2.5 py-0.5 rounded-full text-[9px] font-semibold bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 font-malayalam">
+                      {t(activeMilestone.statsEn, activeMilestone.statsMl)}
+                    </div>
+                  )}
                 </div>
 
                 <h3 className="text-xl md:text-2xl font-extrabold text-txt-primary font-malayalam mb-4">

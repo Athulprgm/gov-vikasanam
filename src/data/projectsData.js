@@ -157,58 +157,48 @@ export const districtsData = [
 
 export const projectsData = [
   {
-    id: "road-dev",
-    categoryMl: "റോഡ് വികസനം",
-    categoryEn: "Road Development",
-    titleMl: "ദേശീയപാത 66 വികസനം (NH-66)",
-    titleEn: "National Highway 66 Six-Lane Expansion",
-    districtMl: "കാസർഗോഡ് മുതൽ തിരുവനന്തപുരം വരെ",
-    districtEn: "Kasaragod to Thiruvananthapuram",
-    descriptionMl:
-      "കേരളത്തിന്റെ വടക്കേ അറ്റം മുതൽ തെക്കേ അറ്റം വരെയുള്ള യാത്ര സുഗമമാക്കുന്ന 6 വരി അന്താരാഷ്ട്ര ഹൈവേ നിർമ്മാണം.",
-    descriptionEn:
-      "Construction of a 6-lane international standard highway connecting the northernmost and southernmost tips of Kerala.",
-    investment: "₹25,000 Cr+",
-    percentage: 95,
-    beforeTextMl:
-      "വാഗ്ദാനം (2021): ഇടുങ്ങിയ 2-വരി പാതകൾ, കനത്ത ഗതാഗതക്കുരുക്ക്, വർദ്ധിച്ച യാത്രാസമയം.",
-    beforeTextEn:
-      "Promise (2021): Narrow 2-lane roads, heavy traffic congestion, high travel times.",
-    afterTextMl:
-      "യാഥാർത്ഥ്യം (2026): സുരക്ഷിതമായ 6-വരി റൺവേ, ആധുനിക സർവീസ് റോഡുകൾ, ഫ്ലൈ ഓവറുകൾ, കുറഞ്ഞ യാത്രാസമയം.",
-    afterTextEn:
-      "Reality (2026): Safe 6-lane bypasses, modern service roads, high-speed flyovers, drastically cut travel times.",
-    beforeImg:
-      "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=800&q=80", // Narrow road / bus image
-    afterImg:
-      "https://images.unsplash.com/photo-1518495973542-4542c06a5843?auto=format&fit=crop&w=800&q=80", // Modern highway / drone shot
+    id: "kochi-biennale",
+    categoryMl: "കലയും വിനോദസഞ്ചാരവും",
+    categoryEn: "Art & Tourism",
+    titleMl: "കൊച്ചി-മുസിരിസ് ബിനാലെ തുടക്കം",
+    titleEn: "Kochi-Muziris Biennale Launch",
+    districtMl: "എറണാകുളം",
+    districtEn: "Ernakulam",
+    descriptionMl: "കേരളത്തെ ആഗോള സാംസ്കാരിക ഭൂപടത്തിൽ അടയാളപ്പെടുത്തിക്കൊണ്ട് കൊച്ചിയിൽ ഇന്ത്യയിലെ ആദ്യത്തെ അന്താരാഷ്ട്ര സമകാലിക കലാപ്രദർശനം ആരംഭിച്ചു.",
+    descriptionEn: "Establishing India's first international contemporary art exhibition in Kochi, placing Kerala on the global cultural map.",
+    investment: "₹75 Cr",
+    percentage: 100,
+    beforeTextMl: "വാഗ്ദാനം (2011): ഫോർട്ട് കൊച്ചിയിൽ അന്താരാഷ്ട്ര നിലവാരത്തിലുള്ള കലാ സാംസ്കാരിക വേദി ഒരുക്കൽ.",
+    beforeTextEn: "Promise (2011): Support for creating an international cultural platform in historic Fort Kochi.",
+    afterTextMl: "യാഥാർത്ഥ്യം (2012): ഒന്നാം പതിപ്പ് വൻ വിജയമായി പൂർത്തിയായി, നാല് ലക്ഷത്തിലധികം സന്ദർശകർ പങ്കെടുത്തു.",
+    afterTextEn: "Reality (2012): Inaugural edition hosted, attracting over 400,000 global art lovers.",
+    beforeImg: "https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?auto=format&fit=crop&w=800&q=80",
+    afterImg: "https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&w=800&q=80",
+    year: "2012",
+    governmentEn: "UDF Government (Oommen Chandy)",
+    governmentMl: "യു.ഡി.എഫ്. സർക്കാർ (ഉമ്മൻ ചാണ്ടി)"
   },
   {
-    id: "bridge-const",
-    categoryMl: "പാലങ്ങൾ",
-    categoryEn: "Bridges",
-    titleMl: "കോഴിക്കോട് ബൈപാസ് മാതൃകാ പാലങ്ങൾ",
-    titleEn: "Kozhikode Bypass Bridge Mega Project",
-    districtMl: "കോഴിക്കോട്",
-    districtEn: "Kozhikode",
-    descriptionMl:
-      "യാത്രാസമയം മൂന്നിലൊന്നായി കുറയ്ക്കുന്ന കോഴിക്കോട് ബൈപാസിലെ 6 വരി പാലങ്ങളുടെ നിർമ്മാണം.",
-    descriptionEn:
-      "Construction of massive 6-lane bridges along the Kozhikode bypass to reduce traffic congestion.",
-    investment: "₹1,200 Cr",
+    id: "kochi-metro-p1",
+    categoryMl: "മെട്രോ റെയിൽ",
+    categoryEn: "Transit Infrastructure",
+    titleMl: "കൊച്ചി മെട്രോ ഒന്നാം ഘട്ടം നിർമ്മാണം",
+    titleEn: "Kochi Metro Phase 1 Construction",
+    districtMl: "എറണാകുളം",
+    districtEn: "Ernakulam",
+    descriptionMl: "കൊച്ചി നഗരത്തിലെ ഗതാഗതക്കുരുക്ക് കുറയ്ക്കുന്നതിനായി ആലുവ മുതൽ പേട്ട വരെയുള്ള കൊച്ചി മെട്രോ ഒന്നാം ഘട്ടത്തിന്റെ നിർമ്മാണം.",
+    descriptionEn: "Commencement and major construction of Kochi Metro Phase 1 spanning from Aluva to Pettah, resolving urban traffic bottlenecks.",
+    investment: "₹5,180 Cr",
     percentage: 100,
-    beforeTextMl:
-      "വാഗ്ദാനം (2021): പഴയ ഇടുങ്ങിയ പാലം, മണിക്കൂറുകൾ നീളുന്ന ബ്ലോക്ക്.",
-    beforeTextEn:
-      "Promise (2021): Aging narrow single-lane bridge, causing hours of gridlock daily.",
-    afterTextMl:
-      "യാഥാർത്ഥ്യം (2026): നദിക്ക് കുറുകെ 6 വരികളിൽ അത്യാധുനിക കേബിൾ കണക്റ്റഡ് പാലം.",
-    afterTextEn:
-      "Reality (2026): Brand new state-of-the-art 6-lane concrete bridge spanning the river.",
-    beforeImg:
-      "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?auto=format&fit=crop&w=800&q=80", // Old steel bridge
-    afterImg:
-      "https://images.unsplash.com/photo-1545624446-424e6c43d915?auto=format&fit=crop&w=800&q=80", // Premium new bridge
+    beforeTextMl: "വാഗ്ദാനം (2011): നഗരത്തെയും സബർബൻ മേഖലകളെയും ബന്ധിപ്പിക്കുന്ന മെട്രോ റെയിൽ പദ്ധതി.",
+    beforeTextEn: "Promise (2011): Conceived mass rapid transit system to connect suburban areas with city hub.",
+    afterTextMl: "യാഥാർത്ഥ്യം (2016): പ്രധാന ട്രാക്കുകൾ, സ്റ്റേഷനുകൾ എന്നിവയുടെ പണി പൂർത്തിയാക്കി ട്രയൽ റൺ നടത്തി.",
+    afterTextEn: "Reality (2016): Completion of major track works, stations structure, and test runs.",
+    beforeImg: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=800&q=80",
+    afterImg: "https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=800&q=80",
+    year: "2013",
+    governmentEn: "UDF Government (Oommen Chandy)",
+    governmentMl: "യു.ഡി.എഫ്. സർക്കാർ (ഉമ്മൻ ചാണ്ടി)"
   },
   {
     id: "hospital-upgrade",
@@ -218,51 +208,41 @@ export const projectsData = [
     titleEn: "Kannur Medical College Super Specialty Wing",
     districtMl: "കണ്ണൂർ",
     districtEn: "Kannur",
-    descriptionMl:
-      "ഉത്തര മലബാറിന് ആശ്വാസമായി അത്യാധുനിക മെഡിക്കൽ സൗകര്യങ്ങളും ഓങ്കോളജി ബ്ലോക്കുകളും സജ്ജീകരിച്ച ഹോസ്പിറ്റൽ.",
-    descriptionEn:
-      "Highly advanced medical wing with oncology, cardiology, and state-of-the-art trauma care for North Malabar.",
+    descriptionMl: "ഉത്തര മലബാറിന് ആശ്വാസമായി അത്യാധുനിക മെഡിക്കൽ സൗകര്യങ്ങളും ഓങ്കോളജി ബ്ലോക്കുകളും സജ്ജീകരിച്ച ഹോസ്പിറ്റൽ.",
+    descriptionEn: "Highly advanced medical wing with oncology, cardiology, and state-of-the-art trauma care for North Malabar.",
     investment: "₹450 Cr",
     percentage: 100,
-    beforeTextMl:
-      "വാഗ്ദാനം (2021): അടിസ്ഥാന കിടക്ക സൗകര്യങ്ങളുടെ കുറവ്, സൂപ്പർ സ്പെഷ്യാലിറ്റി ചികിത്സയ്ക്ക് ദൂരയാത്ര.",
-    beforeTextEn:
-      "Promise (2021): Understaffed facilities, lack of advanced trauma care forcing travel to neighboring states.",
-    afterTextMl:
-      "യാഥാർത്ഥ്യം (2026): 800+ കിടക്കകൾ, ലോകോത്തര ഓപ്പറേഷൻ തിയേറ്ററുകൾ, കാർഡിയാക് കെയർ യൂണിറ്റ്.",
-    afterTextEn:
-      "Reality (2026): World-class 800-bed facility, advanced robotic surgeries, and free cardiology services.",
-    beforeImg:
-      "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=800&q=80", // Old clinic
-    afterImg:
-      "https://images.unsplash.com/photo-1586773860418-d3b3de97e663?auto=format&fit=crop&w=800&q=80", // Modern high tech hospital lobby
+    beforeTextMl: "വാഗ്ദാനം (2016): അടിസ്ഥാന കിടക്ക സൗകര്യങ്ങളുടെ കുറവ്, സൂപ്പർ സ്പെഷ്യാലിറ്റി ചികിത്സയ്ക്ക് ദൂരയാത്ര.",
+    beforeTextEn: "Promise (2016): Understaffed facilities, lack of advanced trauma care forcing travel to neighboring states.",
+    afterTextMl: "യാഥാർത്ഥ്യം (2019): 800+ കിടക്കകൾ, ലോകോത്തര ഓപ്പറേഷൻ തിയേറ്ററുകൾ, കാർഡിയാക് കെയർ യൂണിറ്റ്.",
+    afterTextEn: "Reality (2019): World-class 800-bed facility, advanced robotic surgeries, and free cardiology services.",
+    beforeImg: "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=800&q=80",
+    afterImg: "https://images.unsplash.com/photo-1586773860418-d3b3de97e663?auto=format&fit=crop&w=800&q=80",
+    year: "2019",
+    governmentEn: "LDF Government (Pinarayi Vijayan)",
+    governmentMl: "എൽ.ഡി.എഫ്. സർക്കാർ (പിണറായി വിജയൻ)"
   },
   {
-    id: "school-mod",
-    categoryMl: "പൊതുവിദ്യാഭ്യാസം",
-    categoryEn: "Education",
-    titleMl: "ഹൈടെക് സ്മാർട്ട് ക്ലാസ്സ്റൂം പദ്ധതി",
-    titleEn: "Hi-Tech Government School Modernization",
-    districtMl: "എല്ലാ ജില്ലകളിലും",
-    districtEn: "All Districts",
-    descriptionMl:
-      "പൊതുവിദ്യാലയങ്ങളെ അന്താരാഷ്ട്ര നിലവാരത്തിലേക്ക് ഉയർത്തി സ്മാർട്ട് ക്ലാസ് റൂമുകളും ആധുനിക ലാബുകളും ഒരുക്കി.",
-    descriptionEn:
-      "Upgrading public schools to international standards with digital smartboards, science labs, and sports grounds.",
-    investment: "₹850 Cr",
+    id: "bridge-const",
+    categoryMl: "പാലങ്ങൾ",
+    categoryEn: "Bridges",
+    titleMl: "കോഴിക്കോട് ബൈപാസ് മാതൃകാ പാലങ്ങൾ",
+    titleEn: "Kozhikode Bypass Bridge Mega Project",
+    districtMl: "കോഴിക്കോട്",
+    districtEn: "Kozhikode",
+    descriptionMl: "യാത്രാസമയം മൂന്നിലൊന്നായി കുറയ്ക്കുന്ന കോഴിക്കോട് ബൈപാസിലെ 6 വരി പാലങ്ങളുടെ നിർമ്മാണം.",
+    descriptionEn: "Construction of massive 6-lane bridges along the Kozhikode bypass to reduce traffic congestion.",
+    investment: "₹1,200 Cr",
     percentage: 100,
-    beforeTextMl:
-      "വാഗ്ദാനം (2021): ചോർന്നൊലിക്കുന്ന കെട്ടിടങ്ങൾ, പഴയ ബ്ലാക്ക് ബോർഡുകൾ.",
-    beforeTextEn:
-      "Promise (2021): Leaking classrooms, outdated blackboards, lack of computers or laboratory devices.",
-    afterTextMl:
-      "യാഥാർത്ഥ്യം (2026): സ്മാർട്ട് പ്രൊജക്റ്ററുകൾ, റോബോട്ടിക് ലാബുകൾ, അത്യാധുനിക കായിക സൗകര്യങ്ങൾ.",
-    afterTextEn:
-      "Reality (2026): Fully air-conditioned digital smart classes, robotic labs, and turf playing fields.",
-    beforeImg:
-      "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=800&q=80", // Old classroom
-    afterImg:
-      "https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?auto=format&fit=crop&w=800&q=80", // Modern active student lab
+    beforeTextMl: "വാഗ്ദാനം (2016): പഴയ ഇടുങ്ങിയ പാലം, മണിക്കൂറുകൾ നീളുന്ന ബ്ലോക്ക്.",
+    beforeTextEn: "Promise (2016): Aging narrow single-lane bridge, causing hours of gridlock daily.",
+    afterTextMl: "യാഥാർത്ഥ്യം (2020): നദിക്ക് കുറുകെ 6 വരികളിൽ അത്യാധുനിക കേബിൾ കണക്റ്റഡ് പാലം.",
+    afterTextEn: "Reality (2020): Brand new state-of-the-art 6-lane concrete bridge spanning the river.",
+    beforeImg: "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?auto=format&fit=crop&w=800&q=80",
+    afterImg: "https://images.unsplash.com/photo-1545624446-424e6c43d915?auto=format&fit=crop&w=800&q=80",
+    year: "2020",
+    governmentEn: "LDF Government (Pinarayi Vijayan)",
+    governmentMl: "എൽ.ഡി.എഫ്. സർക്കാർ (പിണറായി വിജയൻ)"
   },
   {
     id: "water-metro",
@@ -272,64 +252,187 @@ export const projectsData = [
     titleEn: "Kochi Water Metro Network",
     districtMl: "എറണാകുളം",
     districtEn: "Ernakulam",
-    descriptionMl:
-      "കൊച്ചിയിലെ ദ്വീപുകളെ തമ്മിൽ ബന്ധിപ്പിക്കുന്ന ഏഷ്യയിലെ ആദ്യത്തെ സംയോജിത വാട്ടർ മെട്രോ ഗതാഗത സംവിധാനം.",
-    descriptionEn:
-      "Asia's first integrated water metro transportation system connecting 10 islands around Kochi.",
+    descriptionMl: "കൊച്ചിയിലെ ദ്വീപുകളെ തമ്മിൽ ബന്ധിപ്പിക്കുന്ന ഏഷ്യയിലെ ആദ്യത്തെ സംയോജിത വാട്ടർ മെട്രോ ഗതാഗത സംവിധാനം.",
+    descriptionEn: "Asia's first integrated water metro transportation system connecting 10 islands around Kochi.",
     investment: "₹1,137 Cr",
     percentage: 100,
-    beforeTextMl:
-      "വാഗ്ദാനം (2021): ആശ്രയമറ്റ പഴയ ബോട്ട് സർവീസുകൾ, സുരക്ഷാ ആശങ്കകൾ.",
-    beforeTextEn:
-      "Promise (2021): Unreliable, noisy wooden boats with high emissions and safety hazards.",
-    afterTextMl:
-      "യാഥാർത്ഥ്യം (2026): വൈഫൈ സൗകര്യമുള്ള പരിസ്ഥിതി സൗഹൃദ എയർ കണ്ടീഷൻഡ് ഹൈബ്രിഡ് ഇലക്ട്രിക് കപ്പലുകൾ.",
-    afterTextEn:
-      "Reality (2026): Eco-friendly air-conditioned electric hybrid ferries with automated ticketing and fast wifi.",
-    beforeImg:
-      "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80", // Old wooden boat
-    afterImg:
-      "https://images.unsplash.com/photo-1559136555-9303baea8ebd?auto=format&fit=crop&w=800&q=80", // Modern sleek ferry on water
+    beforeTextMl: "വാഗ്ദാനം (2021): ആശ്രയമറ്റ പഴയ ബോട്ട് സർവീസുകൾ, സുരക്ഷാ ആശങ്കകൾ.",
+    beforeTextEn: "Promise (2021): Unreliable, noisy wooden boats with high emissions and safety hazards.",
+    afterTextMl: "യാഥാർത്ഥ്യം (2023): വൈഫൈ സൗകര്യമുള്ള പരിസ്ഥിതി സൗഹൃദ എയർ കണ്ടീഷൻഡ് ഹൈബ്രിഡ് ഇലക്ട്രിക് കപ്പലുകൾ.",
+    afterTextEn: "Reality (2023): Eco-friendly air-conditioned electric hybrid ferries with automated ticketing and fast wifi.",
+    beforeImg: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80",
+    afterImg: "https://images.unsplash.com/photo-1559136555-9303baea8ebd?auto=format&fit=crop&w=800&q=80",
+    year: "2023",
+    governmentEn: "LDF Government (Pinarayi Vijayan)",
+    governmentMl: "എൽ.ഡി.എഫ്. സർക്കാർ (പിണറായി വിജയൻ)"
   },
+  {
+    id: "school-mod",
+    categoryMl: "പൊതുവിദ്യാഭ്യാസം",
+    categoryEn: "Education",
+    titleMl: "ഹൈടെക് സ്മാർട്ട് ക്ലാസ്സ്റൂം പദ്ധതി",
+    titleEn: "Hi-Tech Government School Modernization",
+    districtMl: "എല്ലാ ജില്ലകളിലും",
+    districtEn: "All Districts",
+    descriptionMl: "പൊതുവിദ്യാലയങ്ങളെ അന്താരാഷ്ട്ര നിലവാരത്തിലേക്ക് ഉയർത്തി സ്മാർട്ട് ക്ലാസ് റൂമുകളും ആധുനിക ലാബുകളും ഒരുക്കി.",
+    descriptionEn: "Upgrading public schools to international standards with digital smartboards, science labs, and sports grounds.",
+    investment: "₹850 Cr",
+    percentage: 100,
+    beforeTextMl: "വാഗ്ദാനം (2021): ചോർന്നൊലിക്കുന്ന കെട്ടിടങ്ങൾ, പഴയ ബ്ലാക്ക് ബോർഡുകൾ.",
+    beforeTextEn: "Promise (2021): Leaking classrooms, outdated blackboards, lack of computers or laboratory devices.",
+    afterTextMl: "യാഥാർത്ഥ്യം (2024): സ്മാർട്ട് പ്രൊജക്റ്ററുകൾ, റോബോട്ടിക് ലാബുകൾ, അത്യാധുനിക കായിക സൗകര്യങ്ങൾ.",
+    afterTextEn: "Reality (2024): Fully air-conditioned digital smart classes, robotic labs, and turf playing fields.",
+    beforeImg: "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=800&q=80",
+    afterImg: "https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?auto=format&fit=crop&w=800&q=80",
+    year: "2024",
+    governmentEn: "LDF Government (Pinarayi Vijayan)",
+    governmentMl: "എൽ.ഡി.എഫ്. സർക്കാർ (പിണറായി വിജയൻ)"
+  },
+  {
+    id: "road-dev",
+    categoryMl: "റോഡ് വികസനം",
+    categoryEn: "Road Development",
+    titleMl: "ദേശീയപാത 66 വികസനം (NH-66)",
+    titleEn: "National Highway 66 Six-Lane Expansion",
+    districtMl: "കാസർഗോഡ് മുതൽ തിരുവനന്തപുരം വരെ",
+    districtEn: "Kasaragod to Thiruvananthapuram",
+    descriptionMl: "കേരളത്തിന്റെ വടക്കേ അറ്റം മുതൽ തെക്കേ അറ്റം വരെയുള്ള യാത്ര സുഗമമാക്കുന്ന 6 വരി അന്താരാഷ്ട്ര ഹൈവേ നിർമ്മാണം.",
+    descriptionEn: "Construction of a 6-lane international standard highway connecting the northernmost and southernmost tips of Kerala.",
+    investment: "₹25,000 Cr+",
+    percentage: 95,
+    beforeTextMl: "വാഗ്ദാനം (2021): ഇടുങ്ങിയ 2-വരി പാതകൾ, കനത്ത ഗതാഗതക്കുരുക്ക്, വർദ്ധിച്ച യാത്രാസമയം.",
+    beforeTextEn: "Promise (2021): Narrow 2-lane roads, heavy traffic congestion, high travel times.",
+    afterTextMl: "യാഥാർത്ഥ്യം (2025): സുരക്ഷിതമായ 6-വരി റൺവേ, ആധുനിക സർവീസ് റോഡുകൾ, ഫ്ലൈ ഓവറുകൾ, കുറഞ്ഞ യാത്രാസമയം.",
+    afterTextEn: "Reality (2025): Safe 6-lane bypasses, modern service roads, high-speed flyovers, drastically cut travel times.",
+    beforeImg: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=800&q=80",
+    afterImg: "https://images.unsplash.com/photo-1518495973542-4542c06a5843?auto=format&fit=crop&w=800&q=80",
+    year: "2025",
+    governmentEn: "LDF Government (Pinarayi Vijayan)",
+    governmentMl: "എൽ.ഡി.എഫ്. സർക്കാർ (പിണറായി വിജയൻ)"
+  }
 ];
 
 export const timelineMilestones = [
   {
-    year: "2021",
-    phaseMl: "പ്രഖ്യാപനം",
-    phaseEn: "Declaration",
-    descMl:
-      "ജനങ്ങളോടുള്ള വാഗ്ദാനങ്ങൾ പ്രകടനപത്രികയിലൂടെ പ്രഖ്യാപിച്ചു. 120-ലധികം വൻകിട പദ്ധതികളുടെ പദ്ധതി രേഖ തയ്യാറാക്കി.",
-    descEn:
-      "Promises declared to the citizens. Implementation outlines prepared for over 120 mega development projects.",
+    year: "2012",
+    phaseMl: "ബിനാലെ തുടക്കം",
+    phaseEn: "Biennale Inauguration",
+    descMl: "ആഗോള സമകാലിക കല പ്രദർശിപ്പിക്കുന്ന കൊച്ചി-മുസിരിസ് ബിനാലെ സംസ്ഥാന സർക്കാരിന്റെ പിന്തുണയോടെ ആരംഭിച്ചു.",
+    descEn: "Kochi-Muziris Biennale launched under patronage of the state government, showcasing global contemporary art.",
+    governmentEn: "UDF Government (Oommen Chandy)",
+    governmentMl: "യു.ഡി.എഫ്. സർക്കാർ (ഉമ്മൻ ചാണ്ടി)",
+    statsEn: "First contemporary art biennale in South Asia",
+    statsMl: "ദക്ഷിണേഷ്യയിലെ ആദ്യ സമകാലിക കലാപ്രദർശനം",
+    icon: "award"
   },
   {
-    year: "2022",
-    phaseMl: "തുടക്കം",
-    phaseEn: "Commencement",
-    descMl:
-      "ഭൂമി ഏറ്റെടുക്കൽ നടപടികൾ പൂർത്തിയാക്കി അടിയന്തിര ഫണ്ടുകൾ അനുവദിച്ചു. ആദ്യ നിർമ്മാണ പ്രവർത്തനങ്ങൾക്ക് തറക്കല്ലിട്ടു.",
-    descEn:
-      "Land acquisition procedures completed and initial funds allocated. Groundbreaking ceremonies conducted.",
+    year: "2013",
+    phaseMl: "മെട്രോ നിർമ്മാണം",
+    phaseEn: "Metro Infrastructure",
+    descMl: "കൊച്ചി മെട്രോ പദ്ധതിയുടെ ആദ്യഘട്ട നിർമ്മാണ ജോലികളും പൈലിംഗും കൊച്ചിയിൽ വേഗത്തിലാക്കി.",
+    descEn: "Piling works and viaduct construction for Kochi Metro Phase 1 fast-tracked across Kochi city corridors.",
+    governmentEn: "UDF Government (Oommen Chandy)",
+    governmentMl: "യു.ഡി.എഫ്. സർക്കാർ (ഉമ്മൻ ചാണ്ടി)",
+    statsEn: "₹5,180 Cr investment approved",
+    statsMl: "₹5,180 കോടിയുടെ പദ്ധതി അനുമതി",
+    icon: "hardhat"
+  },
+  {
+    year: "2015",
+    phaseMl: "വിഴിഞ്ഞം തുറമുഖ കരാർ",
+    phaseEn: "Vizhinjam Seaport Pact",
+    descMl: "വിഴിഞ്ഞം അന്താരാഷ്ട്ര തുറമുഖ പദ്ധതിക്കായി കരാർ ഒപ്പിടുകയും ആദ്യഘട്ട നിർമ്മാണം ആരംഭിക്കുകയും ചെയ്തു.",
+    descEn: "Concession agreement signed for Vizhinjam International Transshipment Deepwater Seaport and construction initiated.",
+    governmentEn: "UDF Government (Oommen Chandy)",
+    governmentMl: "യു.ഡി.എഫ്. സർക്കാർ (ഉമ്മൻ ചാണ്ടി)",
+    statsEn: "Concession Agreement Signed",
+    statsMl: "തുറമുഖ കരാർ ഒപ്പുവെച്ചു",
+    icon: "landmark"
+  },
+  {
+    year: "2017",
+    phaseMl: "കൊച്ചി മെട്രോ സമർപ്പണം",
+    phaseEn: "Kochi Metro Commissioning",
+    descMl: "കൊച്ചി മെട്രോ ഒന്നാം ഘട്ടം നിർമ്മാണം പൂർത്തിയാക്കി ആലുവ മുതൽ പാലാരിവട്ടം വരെയുള്ള സർവീസിന് തുറന്നുകൊടുത്തു.",
+    descEn: "Kochi Metro Phase 1 completed and commissioned for commercial service from Aluva to Palarivattom.",
+    governmentEn: "LDF Government (Pinarayi Vijayan)",
+    governmentMl: "എൽ.ഡി.എഫ്. സർക്കാർ (പിണറായി വിജയൻ)",
+    statsEn: "First metro network in Kerala",
+    statsMl: "കേരളത്തിലെ ആദ്യത്തെ മെട്രോ റെയിൽ",
+    icon: "building"
+  },
+  {
+    year: "2018",
+    phaseMl: "കണ്ണൂർ വിമാനത്താവളം ഉദ്ഘാടനം",
+    phaseEn: "Kannur Airport Opening",
+    descMl: "കണ്ണൂർ അന്താരാഷ്ട്ര വിമാനത്താവളം പണി പൂർത്തിയാക്കി ഉദ്ഘാടനം ചെയ്തു. ഉത്തര മലബാറിലെ ടൂറിസം മേഖലയ്ക്ക് വലിയ ഉണർവ്.",
+    descEn: "Kannur International Airport completed and commercial flight operations inaugurated, boosting North Malabar tourism.",
+    governmentEn: "LDF Government (Pinarayi Vijayan)",
+    governmentMl: "എൽ.ഡി.എഫ്. സർക്കാർ (പിണറായി വിജയൻ)",
+    statsEn: "4th international airport in Kerala",
+    statsMl: "കേരളത്തിലെ നാലാമത്തെ വിമാനത്താവളം",
+    icon: "award"
+  },
+  {
+    year: "2020",
+    phaseMl: "ഗെയിൽ പൈപ്പ്‌ലൈൻ പൂർത്തീകരണം",
+    phaseEn: "GAIL Pipeline Completion",
+    descMl: "വെല്ലുവിളികൾ നിറഞ്ഞ കൊച്ചി-മംഗലാപുരം പ്രകൃതിവാതക പൈപ്പ്‌ലൈൻ വിജയകരമായി പൂർത്തിയാക്കി നാടിന് സമർപ്പിച്ചു.",
+    descEn: "The challenging Kochi-Mangaluru natural gas pipeline successfully completed and dedicated, ensuring clean energy.",
+    governmentEn: "LDF Government (Pinarayi Vijayan)",
+    governmentMl: "എൽ.ഡി.എഫ്. സർക്കാർ (പിണറായി വിജയൻ)",
+    statsEn: "450 km pipeline completed",
+    statsMl: "450 കിലോമീറ്റർ പൈപ്പ്‌ലൈൻ",
+    icon: "building"
+  },
+  {
+    year: "2021",
+    phaseMl: "നവകേരള വീക്ഷണം",
+    phaseEn: "Nava Kerala Vision",
+    descMl: "ദേശീയപാത വികസനം, കെ-ഫോൺ കണക്റ്റിവിറ്റി, പൊതുജനാരോഗ്യം എന്നിവ ലക്ഷ്യമാക്കി പുതിയ വികസന പത്രിക പ്രഖ്യാപിച്ചു.",
+    descEn: "Next-gen development charter declared with focuses on NH widening, K-FON connectivity, and public health.",
+    governmentEn: "LDF Government (Pinarayi Vijayan)",
+    governmentMl: "എൽ.ഡി.എഫ്. സർക്കാർ (പിണറായി വിജയൻ)",
+    statsEn: "120+ projects layout prepared",
+    statsMl: "120+ പദ്ധതികളുടെ കരട് രേഖ",
+    icon: "landmark"
+  },
+  {
+    year: "2023",
+    phaseMl: "വാട്ടർ മെട്രോ ഉദ്ഘാടനം",
+    phaseEn: "Water Metro Launch",
+    descMl: "കൊച്ചിയിലെ ദ്വീപുകളെ നഗരവുമായി ബന്ധിപ്പിക്കുന്ന ഏഷ്യയിലെ ആദ്യത്തെ ഇലക്ട്രിക് ഹൈബ്രിഡ് വാട്ടർ മെട്രോ സർവീസ് ആരംഭിച്ചു.",
+    descEn: "Kochi Water Metro electric hybrid ferry services commercial operations launched, connecting Kochi islands.",
+    governmentEn: "LDF Government (Pinarayi Vijayan)",
+    governmentMl: "എൽ.ഡി.എഫ്. സർക്കാർ (പിണറായി വിജയൻ)",
+    statsEn: "Asia's first integrated water metro",
+    statsMl: "ഏഷ്യയിലെ ആദ്യ വാട്ടർ മെട്രോ",
+    icon: "hardhat"
   },
   {
     year: "2024",
-    phaseMl: "നിർമാണം",
-    phaseEn: "Execution Peak",
-    descMl:
-      "ദേശീയപാതയും വാട്ടർ മെട്രോയും ഉൾപ്പെടെയുള്ള പദ്ധതികൾ ദ്രുതഗതിയിലായി. 80 ശതമാനം നിർമാണവും റെക്കോർഡ് സമയത്ത് പൂർത്തിയായി.",
-    descEn:
-      "National Highways, water metro terminals, and hi-tech schools under rapid construction with 24/7 monitoring.",
+    phaseMl: "വിഴിഞ്ഞം പരീക്ഷണ ഓട്ടം",
+    phaseEn: "Vizhinjam Trial Run",
+    descMl: "വിഴിഞ്ഞം അന്താരാഷ്ട്ര ആഴക്കടൽ തുറമുഖത്തേക്ക് ആദ്യത്തെ വൻകിട് മദർഷിപ്പ് വിജയകരമായി അടുത്തു. ട്രയൽ റൺ വിജയകരം.",
+    descEn: "Vizhinjam International Deepwater Seaport welcomed its first giant mothership, marking trial operations.",
+    governmentEn: "LDF Government (Pinarayi Vijayan)",
+    governmentMl: "എൽ.ഡി.എഫ്. സർക്കാർ (പിണറായി വിജയൻ)",
+    statsEn: "Deepwater transshipment entry",
+    statsMl: "ആദ്യത്തെ മദർഷിപ്പ് അടുത്തു",
+    icon: "building"
   },
   {
     year: "2026",
-    phaseMl: "പൂർത്തീകരണം",
-    phaseEn: "Completion & Reality",
-    descMl:
-      "വാഗ്ദാനങ്ങൾ യാഥാർത്ഥ്യമായി ജനങ്ങൾക്ക് സമർപ്പിച്ചു. നവകേരളത്തിന്റെ അടിസ്ഥാന സൗകര്യങ്ങൾ പൂർണ്ണ സജ്ജം.",
-    descEn:
-      "Promises fully delivered and opened to public. Infrastructure of new Kerala stands ready and operational.",
-  },
+    phaseMl: "ദേശീയപാത & ഡിജിറ്റൽ സയൻസ് പാർക്ക്",
+    phaseEn: "NH-66 & Digital Science Park",
+    descMl: "ദേശീയപാത 66-ന്റെ ആറുവരി വികസനം 95% പൂർത്തിയാകുകയും, തിരുവനന്തപുരം ഡിജിറ്റൽ സയൻസ് പാർക്ക് പൂർണ്ണമായി സജ്ജമാകുകയും ചെയ്തു.",
+    descEn: "NH-66 six-lane upgrade completed to 95%, and Digital Science Park in Thiruvananthapuram enters full operations.",
+    governmentEn: "LDF Government (Pinarayi Vijayan)",
+    governmentMl: "എൽ.ഡി.എഫ്. സർക്കാർ (പിണറായി വിജയൻ)",
+    statsEn: "95% Highway Widening Completed",
+    statsMl: "ദേശീയപാത വികസനം 95% പൂർത്തിയായി",
+    icon: "award"
+  }
 ];
 
 export const citizenTestimonials = [

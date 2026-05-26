@@ -9,6 +9,34 @@ import {
 
 const DataContext = createContext();
 
+// Helper to convert snake_case to camelCase
+const snakeToCamel = (obj) => {
+  if (Array.isArray(obj)) {
+    return obj.map(v => snakeToCamel(v));
+  } else if (obj !== null && typeof obj === 'object') {
+    return Object.keys(obj).reduce((result, key) => {
+      const camelKey = key.replace(/(_\w)/g, k => k[1].toUpperCase());
+      result[camelKey] = snakeToCamel(obj[key]);
+      return result;
+    }, {});
+  }
+  return obj;
+};
+
+// Helper to convert camelCase to snake_case
+const camelToSnake = (obj) => {
+  if (Array.isArray(obj)) {
+    return obj.map(v => camelToSnake(v));
+  } else if (obj !== null && typeof obj === 'object') {
+    return Object.keys(obj).reduce((result, key) => {
+      const snakeKey = key.replace(/[A-Z]/g, letter => `_${letter.toLowerCase()}`);
+      result[snakeKey] = camelToSnake(obj[key]);
+      return result;
+    }, {});
+  }
+  return obj;
+};
+
 export function DataProvider({ children }) {
   const { token, API_BASE_URL } = useAuth();
   
@@ -38,7 +66,7 @@ export function DataProvider({ children }) {
       const resDist = await fetch(`${API_BASE_URL}/districts?t=${Date.now()}`, { headers: noCacheHeaders });
       if (resDist.ok) {
         const data = await resDist.json();
-        if (data && data.length > 0) setDistricts(data);
+        if (data && data.length > 0) setDistricts(snakeToCamel(data));
       } else {
         apiFailed = true;
       }
@@ -47,7 +75,7 @@ export function DataProvider({ children }) {
       const resProj = await fetch(`${API_BASE_URL}/projects?t=${Date.now()}`, { headers: noCacheHeaders });
       if (resProj.ok) {
         const data = await resProj.json();
-        if (data && data.length > 0) setProjects(data);
+        if (data && data.length > 0) setProjects(snakeToCamel(data));
       } else {
         apiFailed = true;
       }
@@ -56,7 +84,7 @@ export function DataProvider({ children }) {
       const resTime = await fetch(`${API_BASE_URL}/timeline?t=${Date.now()}`, { headers: noCacheHeaders });
       if (resTime.ok) {
         const data = await resTime.json();
-        if (data && data.length > 0) setTimeline(data);
+        if (data && data.length > 0) setTimeline(snakeToCamel(data));
       } else {
         apiFailed = true;
       }
@@ -65,7 +93,7 @@ export function DataProvider({ children }) {
       const resTest = await fetch(`${API_BASE_URL}/testimonials?t=${Date.now()}`, { headers: noCacheHeaders });
       if (resTest.ok) {
         const data = await resTest.json();
-        if (data && data.length > 0) setTestimonials(data);
+        if (data && data.length > 0) setTestimonials(snakeToCamel(data));
       } else {
         apiFailed = true;
       }
@@ -110,7 +138,7 @@ export function DataProvider({ children }) {
     const response = await fetch(url, {
       method,
       headers: getAuthHeaders(),
-      body: JSON.stringify(projectData)
+      body: JSON.stringify(camelToSnake(projectData))
     });
 
     if (!response.ok) {
@@ -150,7 +178,7 @@ export function DataProvider({ children }) {
     const response = await fetch(url, {
       method,
       headers: getAuthHeaders(),
-      body: JSON.stringify(districtData)
+      body: JSON.stringify(camelToSnake(districtData))
     });
 
     if (!response.ok) {
@@ -190,7 +218,7 @@ export function DataProvider({ children }) {
     const response = await fetch(url, {
       method,
       headers: getAuthHeaders(),
-      body: JSON.stringify(milestoneData)
+      body: JSON.stringify(camelToSnake(milestoneData))
     });
 
     if (!response.ok) {
@@ -230,7 +258,7 @@ export function DataProvider({ children }) {
     const response = await fetch(url, {
       method,
       headers: getAuthHeaders(),
-      body: JSON.stringify(testimonialData)
+      body: JSON.stringify(camelToSnake(testimonialData))
     });
 
     if (!response.ok) {

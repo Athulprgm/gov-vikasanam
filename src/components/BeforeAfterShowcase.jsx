@@ -12,7 +12,7 @@ export default function BeforeAfterShowcase() {
   const [isDragging, setIsDragging] = useState(false);
   const containerRef = useRef(null);
 
-  const activeProject = projects[activeProjectIdx] || projects[0];
+  const activeProject = projects[activeProjectIdx] || projects[0] || {};
 
   // Handle slider movement (mouse / touch)
   const handleMove = (clientX) => {
@@ -106,8 +106,11 @@ export default function BeforeAfterShowcase() {
                 alt="After"
                 className="absolute inset-0 w-full h-full object-cover pointer-events-none"
               />
-              <div className="absolute bottom-4 right-4 z-20 bg-bg-alt/90 backdrop-blur-md border border-border-main px-3 py-1.5 rounded-lg text-[10px] font-semibold text-accent font-malayalam tracking-wider">
-                {t("Reality (2026)", "യാഥാർത്ഥ്യം (2026)")}
+              <div className="absolute bottom-4 right-4 z-20 bg-bg-alt/90 backdrop-blur-md border border-border-main px-3 py-1.5 rounded-lg text-[10px] font-semibold text-accent font-malayalam tracking-wider flex flex-col items-end shadow-sm">
+                <span>{t(`Reality (${activeProject.year || 2026})`, `യാഥാർത്ഥ്യം (${activeProject.year || 2026})`)}</span>
+                {activeProject.governmentEn && (
+                  <span className="text-[8px] opacity-75 mt-0.5 font-normal">{t(activeProject.governmentEn, activeProject.governmentMl)}</span>
+                )}
               </div>
 
               {/* Before Image (Width bound to slider position) */}
@@ -126,8 +129,8 @@ export default function BeforeAfterShowcase() {
                     maxWidth: "none",
                   }}
                 />
-                <div className="absolute bottom-4 left-4 z-20 bg-bg-alt/90 backdrop-blur-md border border-border-main px-3 py-1.5 rounded-lg text-[10px] font-semibold text-txt-secondary font-malayalam tracking-wider">
-                  {t("Promise Phase (2021)", "വാഗ്ദാന വേള (2021)")}
+                <div className="absolute bottom-4 left-4 z-20 bg-bg-alt/90 backdrop-blur-md border border-border-main px-3 py-1.5 rounded-lg text-[10px] font-semibold text-txt-secondary font-malayalam tracking-wider shadow-sm">
+                  {t(`Promise (${activeProject.year ? activeProject.year - 4 : 2021})`, `വാഗ്ദാനം (${activeProject.year ? activeProject.year - 4 : 2021})`)}
                 </div>
               </div>
 

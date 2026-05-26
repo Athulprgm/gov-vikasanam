@@ -1,12 +1,25 @@
 import { useRef, useEffect, useState } from "react";
-import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+import { motion, useScroll, useSpring } from "framer-motion";
 import { useAuth } from "../context/AuthContext";
-import { Landmark, Award, Building, HardHat } from "lucide-react";
+import { useData } from "../context/DataContext";
+import { Landmark, Award, Building, HardHat, Calendar } from "lucide-react";
+
+const iconMap = {
+  landmark: Landmark,
+  hardhat: HardHat,
+  building: Building,
+  award: Award,
+};
 
 export default function ScrollStorytelling() {
   const containerRef = useRef(null);
   const { t } = useAuth();
+  const { timeline } = useData();
   const [activeStep, setActiveStep] = useState(0);
+
+  // Sort milestones chronologically
+  const sortedMilestones = [...timeline].sort((a, b) => parseInt(a.year) - parseInt(b.year));
+  const stepCount = sortedMilestones.length || 1;
 
   // Hook scroll progress of this section
   const { scrollYProgress } = useScroll({
@@ -20,64 +33,19 @@ export default function ScrollStorytelling() {
     restDelta: 0.001,
   });
 
-  // Map scroll progress to different milestones
+  // Map scroll progress to milestones dynamically
   useEffect(() => {
     return smoothProgress.onChange((v) => {
-      if (v < 0.25) setActiveStep(0);
-      else if (v < 0.5) setActiveStep(1);
-      else if (v < 0.75) setActiveStep(2);
-      else setActiveStep(3);
+      const stepIdx = Math.min(stepCount - 1, Math.floor(v * stepCount));
+      setActiveStep(stepIdx);
     });
-  }, [smoothProgress]);
-
-  const steps = [
-    {
-      title: t("Project Declaration & Funding", "പദ്ധതി പ്രഖ്യാപനം & ഫണ്ട് വിഹിതം"),
-      desc: t(
-        "Initial budget layout and KIIFB financial approvals for proposed roads, bridges, and institutions.",
-        "പ്രകടനപത്രികയിലെ വാഗ്ദാനങ്ങൾക്കായുള്ള പ്രാഥമിക ബജറ്റ് നിർണ്ണയവും ഫണ്ട് നീക്കിവെക്കലും നടന്നു."
-      ),
-      year: "2021",
-      icon: <Landmark className="w-6 h-6 text-accent" />,
-      stats: t("120+ Project Approvals", "120+ പദ്ധതികളുടെ അനുമതി"),
-    },
-    {
-      title: t("Land Acquisition & Foundation", "ഭൂമി ഏറ്റെടുക്കലും നിർമ്മാണ തുടക്കവും"),
-      desc: t(
-        "Fast-tracked land clearance and foundation laying. Commenced base structural works.",
-        "തടസ്സങ്ങൾ ഒഴിവാക്കി ദ്രുതഗതിയിൽ ഭൂമി ഏറ്റെടുക്കുകയും പൈലിംഗ്, ഫൗണ്ടേഷൻ ജോലികൾ ആരംഭിക്കുകയും ചെയ്തു."
-      ),
-      year: "2022",
-      icon: <HardHat className="w-6 h-6 text-accent" />,
-      stats: t("₹1,500 Cr Initial Funding", "₹1,500 Cr പ്രാഥമിക ഫണ്ട്"),
-    },
-    {
-      title: t("Superstructure & Bridges Construction", "വൻകിട നിർമ്മാണങ്ങളുടെ ദ്രുതഗതി"),
-      desc: t(
-        "Assembling structural flyovers, high-tech school digital blocks, and electric water metro hulls.",
-        "ദേശീയപാത 4-വരിയിൽ നിന്നും 6-വരിയാക്കൽ, തന്ത്രപ്രധാന പാലങ്ങളുടെ നിർമ്മാണം എന്നിവ ദ്രുതഗതിയിലായി."
-      ),
-      year: "2024",
-      icon: <Building className="w-6 h-6 text-accent" />,
-      stats: t("85% Construction Complete", "85% നിർമ്മാണ പൂർത്തീകരണം"),
-    },
-    {
-      title: t("Commissioning & Inauguration", "സമർപ്പണം: വാഗ്ദാനങ്ങൾ യാഥാർത്ഥ്യം"),
-      desc: t(
-        "Grand openings. The visual transformation of roads, medical hubs, and water transits completed.",
-        "അന്താരാഷ്ട്ര നിലവാരത്തിൽ പൂർത്തിയാക്കിയ പദ്ധതികൾ നാടിനായി തുറന്നുകൊടുത്തു."
-      ),
-      year: "2026",
-      icon: <Award className="w-6 h-6 text-accent" />,
-      stats: t("100% Dedicated Service", "100% സമർപ്പിത സേവനം"),
-    },
-  ];
+  }, [smoothProgress, stepCount]);
 
   return (
     <section
       ref={containerRef}
       id="storytelling"
-      className="relative min-h-[160vh] bg-bg-sec section-padding overflow-hidden"
+      className="relative min-h-[180vh] bg-bg-sec section-padding overflow-hidden"
     >
       {/* Background radial glow */}
       <div className="absolute w-[600px] h-[600px] bg-accent/5 rounded-full blur-[120px] top-1/3 left-1/2 -translate-x-1/2 pointer-events-none" />
@@ -103,7 +71,7 @@ export default function ScrollStorytelling() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
           {/* Left Side: Dynamic SVG Road Path & Animated Vehicle */}
           <div className="lg:col-span-5 flex justify-center sticky top-32 h-[350px] lg:h-[450px]">
-            <div className="relative w-72 h-[380px] border border-border-main bg-bg-main/60 rounded-3xl p-6 flex flex-col items-center justify-between overflow-hidden shadow-md">
+            <div className="relative w-72 h-[380px] border border-border-main bg-bg-main/60 rounded-3xl p-6 flex flex-col items-center justify-start overflow-hidden shadow-md">
               {/* High-tech scanner line */}
               <div className="absolute inset-x-0 h-[1px] bg-gradient-to-r from-transparent via-accent/30 to-transparent animate-[pulse_2s_infinite]" />
 
@@ -143,32 +111,38 @@ export default function ScrollStorytelling() {
                 />
               </svg>
 
-              {/* Four anchor points along the road */}
-              {[0, 1, 2, 3].map((idx) => (
-                <div
-                  key={idx}
-                  className={`relative z-10 w-10 h-10 rounded-full border flex items-center justify-center font-mono font-bold text-xs transition-all duration-500 ${
-                    idx <= activeStep
-                      ? "bg-accent text-white border-transparent scale-110 shadow-[0_0_12px_rgba(166,124,82,0.3)]"
-                      : "bg-bg-sec text-txt-secondary border-border-main"
-                  }`}
-                  style={{
-                    transform: `translateY(${idx * 80 - 10}px)`,
-                  }}
-                >
-                  {steps[idx].year}
-                </div>
-              ))}
+              {/* Dynamic anchor points along the road */}
+              {sortedMilestones.map((item, idx) => {
+                const spacing = stepCount > 1 ? 280 / (stepCount - 1) : 0;
+                const yOffset = idx * spacing + 10;
+                return (
+                  <div
+                    key={item.id || item.year}
+                    className={`absolute z-10 w-10 h-10 rounded-full border flex items-center justify-center font-mono font-bold text-[10px] transition-all duration-500 ${
+                      idx <= activeStep
+                        ? "bg-accent text-white border-transparent scale-110 shadow-[0_0_12px_rgba(166,124,82,0.3)]"
+                        : "bg-bg-sec text-txt-secondary border-border-main"
+                    }`}
+                    style={{
+                      transform: `translateY(${yOffset}px)`,
+                    }}
+                  >
+                    {item.year}
+                  </div>
+                );
+              })}
             </div>
           </div>
 
           {/* Right Side: Showcase Cards & Details */}
           <div className="lg:col-span-7 space-y-16">
-            {steps.map((step, idx) => {
+            {sortedMilestones.map((step, idx) => {
               const isActive = idx === activeStep;
+              const IconComponent = iconMap[step.icon?.toLowerCase()] || Calendar;
+
               return (
                 <motion.div
-                  key={idx}
+                  key={step.id || step.year}
                   initial={{ opacity: 0.15, y: 30 }}
                   whileInView={{
                     opacity: isActive ? 1 : 0.25,
@@ -182,36 +156,45 @@ export default function ScrollStorytelling() {
                       : "border-border-main bg-bg-alt"
                   }`}
                 >
-                  <div className="flex items-center space-x-4 mb-4">
-                    <div
-                      className={`p-3 rounded-xl transition-all duration-500 ${
-                        isActive ? "bg-accent/10 scale-110" : "bg-bg-main"
-                      }`}
-                    >
-                      {step.icon}
-                    </div>
-                    <div>
-                      <div className="text-accent font-mono text-xs tracking-wider">
-                        {t("PHASE", "ഘട്ടം")} {idx + 1} • {step.year}
+                  <div className="flex flex-wrap items-center justify-between gap-4 mb-4">
+                    <div className="flex items-center space-x-4">
+                      <div
+                        className={`p-3 rounded-xl transition-all duration-500 ${
+                          isActive ? "bg-accent/10 scale-110" : "bg-bg-main"
+                        }`}
+                      >
+                        <IconComponent className="w-6 h-6 text-accent" />
                       </div>
-                      <h3 className="text-xl md:text-2xl font-bold text-txt-primary font-malayalam mt-1">
-                        {step.title}
-                      </h3>
+                      <div>
+                        <div className="text-accent font-mono text-xs tracking-wider">
+                          {t("PHASE", "ഘട്ടം")} {idx + 1} • {step.year}
+                        </div>
+                        <h3 className="text-xl md:text-2xl font-bold text-txt-primary font-malayalam mt-1">
+                          {t(step.phaseEn, step.phaseMl)}
+                        </h3>
+                      </div>
                     </div>
+                    {step.governmentEn && (
+                      <div className="px-2.5 py-0.5 rounded-full text-[9px] font-semibold bg-accent/10 border border-accent/20 text-accent font-malayalam tracking-wider">
+                        {t(step.governmentEn, step.governmentMl)}
+                      </div>
+                    )}
                   </div>
 
                   <p className="text-sm sm:text-base text-txt-secondary leading-relaxed font-malayalam mb-6">
-                    {step.desc}
+                    {t(step.descEn, step.descMl)}
                   </p>
 
-                  <div className="flex justify-between items-center py-3 px-4 rounded-xl bg-bg-main border border-border-main">
-                    <span className="text-[11px] font-mono text-txt-secondary/60 tracking-wider">
-                      {t("REALTIME METRIC:", "തത്സമയ കണക്ക്:")}
-                    </span>
-                    <span className="text-xs font-semibold text-accent font-malayalam text-glow-subtle">
-                      {step.stats}
-                    </span>
-                  </div>
+                  {step.statsEn && (
+                    <div className="flex justify-between items-center py-3 px-4 rounded-xl bg-bg-main border border-border-main">
+                      <span className="text-[11px] font-mono text-txt-secondary/60 tracking-wider">
+                        {t("REALTIME METRIC:", "തത്സമയ കണക്ക്:")}
+                      </span>
+                      <span className="text-xs font-semibold text-accent font-malayalam text-glow-subtle">
+                        {t(step.statsEn, step.statsMl)}
+                      </span>
+                    </div>
+                  )}
                 </motion.div>
               );
             })}
