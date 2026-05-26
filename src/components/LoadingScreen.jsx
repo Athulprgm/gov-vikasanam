@@ -44,42 +44,23 @@ export default function LoadingScreen({ onComplete }) {
           <div className="absolute w-[300px] h-[300px] bg-accent/5 rounded-full blur-[80px] animate-pulse" />
 
           <div className="relative flex flex-col items-center max-w-lg px-6 text-center">
-            {/* Elegant SVG Emblem */}
+            {/* Logo Emblem */}
             <motion.div
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ duration: 1, ease: "easeOut" }}
               className="mb-8"
             >
-              <svg
-                width="80"
-                height="80"
-                viewBox="0 0 100 100"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                className="drop-shadow-[0_0_15px_rgba(166,124,82,0.3)]"
+              <div 
+                className="w-32 h-32 bg-white rounded-3xl flex items-center justify-center p-4 shadow-xl border border-white/10 animate-pulse"
+                style={{ animationDuration: '3s' }}
               >
-                <path
-                  d="M50 15L15 45L25 55L50 32.5L75 55L85 45L50 15Z"
-                  fill="url(#emblem-grad)"
+                <img
+                  src="/logo.png"
+                  alt="Kerala One Logo"
+                  className="w-full h-full object-contain"
                 />
-                <path
-                  d="M50 40L25 62.5L35 72.5L50 59L65 72.5L75 62.5L50 40Z"
-                  fill="url(#emblem-grad)"
-                  opacity="0.8"
-                />
-                <path
-                  d="M50 65L35 78.5L40 83.5L50 74.5L60 83.5L65 78.5L50 65Z"
-                  fill="url(#emblem-grad)"
-                  opacity="0.6"
-                />
-                <defs>
-                  <linearGradient id="emblem-grad" x1="15" y1="15" x2="85" y2="83.5" gradientUnits="userSpaceOnUse">
-                    <stop stopColor="var(--accent-color)" />
-                    <stop offset="1" stopColor="var(--secondary-accent)" />
-                  </linearGradient>
-                </defs>
-              </svg>
+              </div>
             </motion.div>
 
             {/* Slogan */}

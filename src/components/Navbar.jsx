@@ -43,8 +43,12 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
         {/* Logo Section */}
         <Link to="/" className="flex items-center space-x-3 group">
-          <div className="w-9 h-9 rounded-lg bg-accent flex items-center justify-center font-bold text-white text-lg shadow-sm group-hover:scale-105 transition-transform duration-300">
-            {t("J", "ജ")}
+          <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center p-1.5 shadow-sm group-hover:scale-105 transition-transform duration-300 shrink-0">
+            <img
+              src="/logo.png"
+              alt="Kerala One Logo"
+              className="w-full h-full object-contain"
+            />
           </div>
           <div className="flex flex-col">
             <span className="text-txt-primary font-extrabold text-sm leading-tight tracking-wider uppercase">

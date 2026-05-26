@@ -14,8 +14,12 @@ export default function Footer() {
           {/* Column 1: Info and statement */}
           <div className="md:col-span-5 text-left">
             <Link to="/" className="flex items-center space-x-3 mb-6">
-              <div className="w-9 h-9 rounded-lg bg-accent flex items-center justify-center font-bold text-white text-lg">
-                ജ
+              <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center p-1.5 shadow-sm shrink-0">
+                <img
+                  src="/logo.png"
+                  alt="Kerala One Logo"
+                  className="w-full h-full object-contain"
+                />
               </div>
               <div className="flex flex-col">
                 <span className="text-txt-primary font-extrabold text-lg leading-tight tracking-wider font-malayalam">
