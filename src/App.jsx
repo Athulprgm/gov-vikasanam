@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import Lenis from 'lenis';
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 
 // Context Providers
 import { AuthProvider, useAuth } from './context/AuthContext';
@@ -15,19 +14,19 @@ import Profile from './pages/Profile';
 import BlogsFeed from './pages/BlogsFeed';
 import BlogDetail from './pages/BlogDetail';
 
+// New Subpages
+import Showcase from './pages/Showcase';
+import MapPage from './pages/MapPage';
+import TimelinePage from './pages/TimelinePage';
+import StatisticsPage from './pages/StatisticsPage';
+import ImpactPage from './pages/ImpactPage';
+
 // Landing Page Components
 import LoadingScreen from './components/LoadingScreen';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
-import ScrollStorytelling from './components/ScrollStorytelling';
-import BeforeAfterShowcase from './components/BeforeAfterShowcase';
-import KeralaMap from './components/KeralaMap';
-import DevelopmentTimeline from './components/DevelopmentTimeline';
-import PremiumStatistics from './components/PremiumStatistics';
-import FeaturedProjects from './components/FeaturedProjects';
+import InteractiveHub from './components/InteractiveHub';
 import VideoDocumentary from './components/VideoDocumentary';
-import CitizenImpact from './components/CitizenImpact';
-import CTA from './components/CTA';
 import Footer from './components/Footer';
 
 // Protected Route Guard for Admin Panel
@@ -49,52 +48,31 @@ function ProtectedRoute({ children }) {
   return children;
 }
 
+// Scroll to top helper on route changes
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+}
+
+// Shared page shell layout
+function PageLayout({ children }) {
+  return (
+    <div className="relative w-full min-h-screen bg-bg-main text-txt-primary font-sans antialiased overflow-x-hidden">
+      <Navbar />
+      <main>{children}</main>
+      <Footer />
+    </div>
+  );
+}
+
 // Landing Page Shell
 function LandingPage() {
   const [isLoading, setIsLoading] = useState(true);
-
-  // Initialize Lenis Smooth Scroll
-  useEffect(() => {
-    if (isLoading) return; // Wait until loading finishes to initialize scroll
-
-    const lenis = new Lenis({
-      duration: 1.4,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Smooth exponential ease
-      wheelMultiplier: 1.1,
-      touchMultiplier: 1.5,
-      infinite: false,
-    });
-
-    function raf(time) {
-      lenis.focus;
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
-
-    requestAnimationFrame(raf);
-
-    // Dynamic hash scroll matching
-    const handleAnchorScroll = (e) => {
-      const target = e.target.closest('a[href^="#"]');
-      if (target) {
-        e.preventDefault();
-        const id = target.getAttribute('href');
-        if (id === '#') return;
-        
-        const element = document.querySelector(id);
-        if (element) {
-          lenis.scrollTo(element, { offset: -70 });
-        }
-      }
-    };
-
-    document.addEventListener('click', handleAnchorScroll);
-
-    return () => {
-      lenis.destroy();
-      document.removeEventListener('click', handleAnchorScroll);
-    };
-  }, [isLoading]);
 
   return (
     <>
@@ -103,42 +81,11 @@ function LandingPage() {
 
       {/* Main Page Layout (Only active/visible when loading finishes) */}
       {!isLoading && (
-        <div className="relative w-full min-h-screen bg-bg-main text-txt-primary font-sans antialiased overflow-x-hidden">
-          <Navbar />
+        <PageLayout>
           <Hero />
-          
-          <main>
-            {/* Scroll build storytelling */}
-            <ScrollStorytelling />
-            
-            {/* Interactive Before After Comparison Slider */}
-            <BeforeAfterShowcase />
-            
-            {/* Interactive regional map of Kerala */}
-            <KeralaMap />
-            
-            {/* Horizontal Milestones Timeline */}
-            <DevelopmentTimeline />
-            
-            {/* Key counts and investment numbers */}
-            <PremiumStatistics />
-            
-            {/* Detailed Portfolio grid */}
-            <FeaturedProjects />
-            
-            {/* Cinematic masked documentary clip expansion */}
-            <VideoDocumentary />
-            
-            {/* Customer voices and impact quotes */}
-            <CitizenImpact />
-            
-            {/* Massive Final Call to Action */}
-            <CTA />
-          </main>
-          
-          {/* Global close footer */}
-          <Footer />
-        </div>
+          <InteractiveHub />
+          <VideoDocumentary />
+        </PageLayout>
       )}
     </>
   );
@@ -149,16 +96,24 @@ function App() {
     <AuthProvider>
       <DataProvider>
         <BrowserRouter>
+          <ScrollToTop />
           <Routes>
-            {/* Public Interactive Landing Page */}
+            {/* Public Interactive Landing Hub Page */}
             <Route path="/" element={<LandingPage />} />
+
+            {/* Portal Pages */}
+            <Route path="/showcase" element={<PageLayout><Showcase /></PageLayout>} />
+            <Route path="/map" element={<PageLayout><MapPage /></PageLayout>} />
+            <Route path="/timeline" element={<PageLayout><TimelinePage /></PageLayout>} />
+            <Route path="/statistics" element={<PageLayout><StatisticsPage /></PageLayout>} />
+            <Route path="/impact" element={<PageLayout><ImpactPage /></PageLayout>} />
 
             {/* Authentication Pages */}
             <Route path="/login" element={<Login />} />
             <Route path="/admin/login" element={<AdminLogin />} />
             <Route path="/register" element={<Register />} />
 
-            {/* Social Blogging (Twitter-style) Pages */}
+            {/* Social microblogging feed pages */}
             <Route path="/feed" element={<BlogsFeed />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/profile/:id" element={<Profile />} />

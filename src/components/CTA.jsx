@@ -1,7 +1,11 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import { ArrowUpRight, CheckCircle } from "lucide-react";
+import { useAuth } from "../context/AuthContext";
 
 export default function CTA() {
+  const { t } = useAuth();
+
   return (
     <section id="cta" className="relative bg-bg-main section-padding overflow-hidden">
       {/* Immersive background glow bloom */}
@@ -23,39 +27,41 @@ export default function CTA() {
           <div className="inline-flex items-center space-x-2 bg-accent/10 border border-accent/20 px-4 py-2 rounded-full mb-8">
             <CheckCircle className="w-4 h-4 text-accent" />
             <span className="text-xs uppercase tracking-widest text-accent font-mono font-bold">
-              100% Promises Accomplished
+              {t("100% Promises Accomplished", "100% വാഗ്ദാനങ്ങൾ പൂർത്തിയായി")}
             </span>
           </div>
 
           {/* Slogan */}
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-txt-primary font-malayalam leading-[1.3] mb-6 max-w-3xl mx-auto">
-            ജനങ്ങൾക്ക് നൽകിയ വാക്കുകൾ...
+            {t("Promises Made to the Citizens...", "ജനങ്ങൾക്ക് നൽകിയ വാക്കുകൾ...")}
             <br />
             <span className="text-accent text-glow">
-              പ്രവർത്തനങ്ങളായി മാറിയപ്പോൾ.
+              {t("Transformed into Action.", "പ്രവർത്തനങ്ങളായി മാറിയപ്പോൾ.")}
             </span>
           </h2>
 
           <p className="text-txt-secondary text-sm md:text-base font-malayalam max-w-xl mx-auto mb-10 leading-relaxed font-light">
-            കേരളത്തിലെ എല്ലാ വികസന പദ്ധതികളുടെയും വിശദാംശങ്ങളും കൃത്യമായ
-            വിലയിരുത്തലുകളും സുതാര്യമായി പൊതുജനങ്ങൾക്കായി സമർപ്പിച്ചിരിക്കുന്നു.
+            {t(
+              "All development metrics and progress indicators are documented transparently for public evaluation.",
+              "കേരളത്തിലെ എല്ലാ വികസന പദ്ധതികളുടെയും വിശദാംശങ്ങളും കൃത്യമായ വിലയിരുത്തലുകളും സുതാര്യമായി പൊതുജനങ്ങൾക്കായി സമർപ്പിച്ചിരിക്കുന്നു."
+            )}
           </p>
 
           {/* Action buttons */}
           <div className="flex flex-wrap justify-center gap-4">
-            <a
-              href="#featured-projects"
+            <Link
+              to="/showcase"
               className="btn-primary inline-flex items-center"
             >
-              പദ്ധതികൾ കാണൂ
+              {t("View Projects", "പദ്ധതികൾ കാണൂ")}
               <ArrowUpRight className="ml-1.5 w-4 h-4" />
-            </a>
-            <a
-              href="#kerala-map"
+            </Link>
+            <Link
+              to="/map"
               className="btn-secondary inline-flex items-center"
             >
-              ജില്ലാതല വിവരങ്ങൾ
-            </a>
+              {t("District Analysis", "ജില്ലാതല വിവരങ്ങൾ")}
+            </Link>
           </div>
         </motion.div>
       </div>

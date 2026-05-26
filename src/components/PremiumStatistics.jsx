@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import { useData } from "../context/DataContext";
+import { useAuth } from "../context/AuthContext";
 
 function CountUpNumber({ value, target, duration = 2 }) {
   const [count, setCount] = useState(0);
@@ -46,8 +47,10 @@ function CountUpNumber({ value, target, duration = 2 }) {
     </span>
   );
 }
+
 export default function PremiumStatistics() {
   const { districts } = useData();
+  const { t } = useAuth();
 
   // Sum projects count across all districts
   const totalProjects = districts.reduce(
@@ -66,25 +69,20 @@ export default function PremiumStatistics() {
     {
       value: `${totalProjects}+`,
       target: `${totalProjects}`,
-      labelMl: "പൂർത്തിയായ പദ്ധതികൾ",
-      labelEn: "Completed Mega Projects",
-      descMl: "ഹൈവേകൾ, പാലങ്ങൾ, വിദ്യാലയങ്ങൾ മുതൽ സ്മാർട്ട് സിറ്റികൾ വരെ.",
+      label: t("Completed Mega Projects", "പൂർത്തിയായ പദ്ധതികൾ"),
+      desc: t("Highways, bridges, digital schools to smart cities.", "ഹൈവേകൾ, പാലങ്ങൾ, വിദ്യാലയങ്ങൾ മുതൽ സ്മാർട്ട് സിറ്റികൾ വരെ."),
     },
     {
       value: `₹${totalInvestment.toLocaleString()}Cr`,
       target: `${totalInvestment}`,
-      labelMl: "വികസന നിക്ഷേപം",
-      labelEn: "Development Investment",
-      descMl:
-        "കേരള ചരിത്രത്തിലെ ഏറ്റവും ഉയർന്ന തുക അടിസ്ഥാന സൗകര്യങ്ങൾക്കായി വകയിരുത്തി.",
+      label: t("Development Investment", "വികസന നിക്ഷേപം"),
+      desc: t("Highest infrastructure allocation in Kerala history.", "കേരള ചരിത്രത്തിലെ ഏറ്റവും ഉയർന്ന തുക അടിസ്ഥാന സൗകര്യങ്ങൾക്കായി വകയിരുത്തി."),
     },
     {
       value: `${districts.length}`,
       target: `${districts.length}`,
-      labelMl: "ജില്ലകളിൽ വികസനം",
-      labelEn: "Districts Transformed",
-      descMl:
-        "തെക്കൻ അതിർത്തിയായ തിരുവനന്തപുരം മുതൽ വടക്കൻ കാസർഗോഡ് വരെ വ്യാപിച്ച വികസനം.",
+      label: t("Districts Transformed", "ജില്ലകളിൽ വികസനം"),
+      desc: t("From Southern border Trivandrum to Northern Kasaragod.", "തെക്കൻ അതിർത്തിയായ തിരുവനന്തപുരം മുതൽ വടക്കൻ കാസർഗോഡ് വരെ വ്യാപിച്ച വികസനം."),
     },
   ];
 
@@ -108,21 +106,17 @@ export default function PremiumStatistics() {
               transition={{ delay: idx * 0.15, duration: 0.6 }}
               className="flex flex-col items-center justify-center p-8 rounded-[20px] border border-border-main bg-bg-alt hover:border-accent hover:shadow-sm transition-all duration-400 group"
             >
-              {/* Count Up Number with proper breathing room (no restricted tiny circle) */}
+              {/* Count Up Number */}
               <div className="mb-4">
                 <CountUpNumber value={stat.value} target={stat.target} />
               </div>
 
               <h3 className="text-lg md:text-xl font-bold text-txt-primary font-malayalam leading-snug">
-                {stat.labelMl}
+                {stat.label}
               </h3>
 
-              <div className="text-xs text-accent font-mono tracking-wider uppercase mt-1 mb-3">
-                {stat.labelEn}
-              </div>
-
-              <p className="text-sm text-txt-secondary font-malayalam max-w-xs leading-relaxed font-light">
-                {stat.descMl}
+              <p className="text-sm text-txt-secondary font-malayalam max-w-xs leading-relaxed font-light mt-3">
+                {stat.desc}
               </p>
             </motion.div>
           ))}

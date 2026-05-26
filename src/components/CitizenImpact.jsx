@@ -1,9 +1,25 @@
 import { motion } from "framer-motion";
 import { useData } from "../context/DataContext";
+import { useAuth } from "../context/AuthContext";
 import { Quote, Star } from "lucide-react";
 
 export default function CitizenImpact() {
   const { testimonials } = useData();
+  const { t } = useAuth();
+
+  const getTranslatedRole = (role) => {
+    if (role.includes("കുടുംബശ്രീ")) return t("Kudumbashree Worker, Kannur", "കുടുംബശ്രീ പ്രവർത്തക, കണ്ണൂർ");
+    if (role.includes("ഐടി")) return t("IT Professional, Thiruvananthapuram", "ഐടി പ്രൊഫഷണൽ, തിരുവനന്തപുരം");
+    if (role.includes("മത്സ്യത്തൊഴിലാളി")) return t("Fisherman, Ernakulam", "മത്സ്യത്തൊഴിലാളി, എറണാകുളം");
+    return role;
+  };
+
+  const getTranslatedName = (name) => {
+    if (name.includes("രാധാമണി")) return t("Radhamani Amma", "രാധാമണി അമ്മ");
+    if (name.includes("തോമസ്")) return t("Thomas Joseph", "തോമസ് ജോസഫ്");
+    if (name.includes("മുഹമ്മദ്")) return t("Muhammad Anwar", "മുഹമ്മദ് അൻവർ");
+    return name;
+  };
 
   return (
     <section
@@ -18,14 +34,16 @@ export default function CitizenImpact() {
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-20">
           <span className="text-xs uppercase tracking-widest text-accent font-mono font-bold block mb-3">
-            Voices of Kerala
+            {t("Voices of Kerala", "ജനങ്ങളുടെ സാക്ഷ്യങ്ങൾ")}
           </span>
           <h2 className="text-3xl md:text-5xl font-extrabold text-txt-primary font-malayalam leading-tight">
-            ജനങ്ങളുടെ അനുഭവങ്ങൾ
+            {t("Experiences of the Citizens", "ജനങ്ങളുടെ അനുഭവങ്ങൾ")}
           </h2>
           <p className="text-txt-secondary text-sm md:text-base font-malayalam mt-4 max-w-xl mx-auto font-light">
-            വികസന പദ്ധതികൾ കേരളത്തിലെ സാധാരണക്കാരുടെ ജീവിതത്തിൽ ഉണ്ടാക്കിയ
-            ഗുണപരമായ മാറ്റങ്ങൾ അവരുടെ വാക്കുകളിൽ.
+            {t(
+              "Hear directly from the citizens of Kerala about the positive changes infrastructure development has brought to their lives.",
+              "വികസന പദ്ധതികൾ കേരളത്തിലെ സാധാരണക്കാരുടെ ജീവിതത്തിൽ ഉണ്ടാക്കിയ ഗുണപരമായ മാറ്റങ്ങൾ അവരുടെ വാക്കുകളിൽ."
+            )}
           </p>
         </div>
 
@@ -69,14 +87,9 @@ export default function CitizenImpact() {
                   ))}
                 </div>
 
-                {/* Malayalam Quote */}
+                {/* Translated Quote */}
                 <p className="text-sm md:text-base text-txt-primary font-malayalam leading-relaxed mb-6 font-medium italic text-left">
-                  " {testimonial.quoteMl} "
-                </p>
-
-                {/* English Translation */}
-                <p className="text-xs text-txt-secondary font-mono leading-relaxed mb-8 text-left opacity-75">
-                  "{testimonial.quoteEn}"
+                  " {t(testimonial.quoteEn, testimonial.quoteMl)} "
                 </p>
 
                 {/* Author Info */}
@@ -92,10 +105,10 @@ export default function CitizenImpact() {
                   </div>
                   <div>
                     <h4 className="text-sm font-bold text-txt-primary font-malayalam">
-                      {testimonial.name}
+                      {getTranslatedName(testimonial.name)}
                     </h4>
                     <p className="text-[10px] text-accent font-mono tracking-wider uppercase mt-0.5">
-                      {testimonial.role}
+                      {getTranslatedRole(testimonial.role)}
                     </p>
                   </div>
                 </div>

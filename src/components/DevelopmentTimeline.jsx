@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useData } from "../context/DataContext";
+import { useAuth } from "../context/AuthContext";
 import { Calendar, ArrowRight, ArrowLeft } from "lucide-react";
 
 export default function DevelopmentTimeline() {
   const { timeline } = useData();
+  const { t } = useAuth();
   const [activeIdx, setActiveIdx] = useState(3); // Default index
 
   const safeIdx = Math.min(activeIdx, Math.max(0, timeline.length - 1));
@@ -37,13 +39,16 @@ export default function DevelopmentTimeline() {
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-20">
           <span className="text-xs uppercase tracking-widest text-accent font-mono font-bold block mb-3">
-            Milestones Tracker
+            {t("Milestones Tracker", "വികസന നാഴികക്കല്ലുകൾ")}
           </span>
           <h2 className="text-3xl md:text-5xl font-extrabold text-txt-primary font-malayalam leading-tight">
-            വികസന നാൾവഴി
+            {t("Development Timeline", "വികസന നാൾവഴി")}
           </h2>
           <p className="text-txt-secondary text-sm md:text-base font-malayalam mt-4 max-w-xl mx-auto font-light">
-            2021 മുതൽ 2026 വരെയുള്ള വികസന യാത്രയിലെ നാഴികക്കല്ലുകൾ പരിശോധിക്കാം.
+            {t(
+              "Track the phases of implementation from promises to reality from 2021 to 2026.",
+              "2021 മുതൽ 2026 വരെയുള്ള വികസന യാത്രയിലെ നാഴികക്കല്ലുകൾ പരിശോധിക്കാം."
+            )}
           </p>
         </div>
 
@@ -68,7 +73,7 @@ export default function DevelopmentTimeline() {
                 <div key={item.year} className="flex flex-col items-center">
                   <button
                     onClick={() => setActiveIdx(idx)}
-                    className={`w-12 h-12 rounded-full flex items-center justify-center font-mono font-extrabold text-sm border-2 transition-all duration-300 focus:outline-none ${
+                    className={`w-12 h-12 rounded-full flex items-center justify-center font-mono font-extrabold text-sm border-2 transition-all duration-300 focus:outline-none cursor-pointer ${
                       isActive
                         ? "bg-accent text-white border-transparent scale-110 shadow-sm"
                         : isPassed
@@ -87,7 +92,7 @@ export default function DevelopmentTimeline() {
                           : "text-txt-secondary"
                     }`}
                   >
-                    {item.phaseMl}
+                    {t(item.phaseEn, item.phaseMl)}
                   </span>
                 </div>
               );
@@ -115,21 +120,16 @@ export default function DevelopmentTimeline() {
                 <div className="flex items-center space-x-3 mb-4 text-accent">
                   <Calendar className="w-5 h-5 text-glow-subtle" />
                   <span className="font-mono text-xs tracking-widest font-bold">
-                    PHASE {activeIdx + 1} OF DEVELOPMENT
+                    {t(`PHASE ${activeIdx + 1} OF DEVELOPMENT`, `വികസന ഘട്ടം ${activeIdx + 1}`)}
                   </span>
                 </div>
 
                 <h3 className="text-xl md:text-2xl font-extrabold text-txt-primary font-malayalam mb-4">
-                  {activeMilestone.phaseMl} ({activeMilestone.year}) —{" "}
-                  {activeMilestone.phaseEn}
+                  {t(activeMilestone.phaseEn, activeMilestone.phaseMl)} ({activeMilestone.year})
                 </h3>
 
                 <p className="text-sm md:text-base text-txt-secondary font-malayalam leading-relaxed">
-                  {activeMilestone.descMl}
-                </p>
-
-                <p className="text-xs font-mono text-txt-secondary/60 mt-3 italic">
-                  {activeMilestone.descEn}
+                  {t(activeMilestone.descEn, activeMilestone.descMl)}
                 </p>
               </motion.div>
             </AnimatePresence>
@@ -140,7 +140,7 @@ export default function DevelopmentTimeline() {
             <button
               onClick={handlePrev}
               disabled={safeIdx === 0}
-              className={`p-3 rounded-full border border-border-main flex items-center justify-center transition-all ${
+              className={`p-3 rounded-full border border-border-main flex items-center justify-center transition-all cursor-pointer ${
                 safeIdx === 0
                   ? "opacity-30 cursor-not-allowed"
                   : "bg-bg-sec hover:bg-bg-alt text-txt-primary hover:border-accent"
@@ -157,7 +157,7 @@ export default function DevelopmentTimeline() {
             <button
               onClick={handleNext}
               disabled={safeIdx === timeline.length - 1}
-              className={`p-3 rounded-full border border-border-main flex items-center justify-center transition-all ${
+              className={`p-3 rounded-full border border-border-main flex items-center justify-center transition-all cursor-pointer ${
                 safeIdx === timeline.length - 1
                   ? "opacity-30 cursor-not-allowed"
                   : "bg-bg-sec hover:bg-bg-alt text-txt-primary hover:border-accent"

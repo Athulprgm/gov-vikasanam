@@ -1,10 +1,12 @@
 import { useRef, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
+import { useAuth } from "../context/AuthContext";
 import { Volume2, VolumeX, Play, Pause } from "lucide-react";
 
 export default function VideoDocumentary() {
   const containerRef = useRef(null);
   const videoRef = useRef(null);
+  const { t } = useAuth();
   const [isMuted, setIsMuted] = useState(true);
   const [isPlaying, setIsPlaying] = useState(true);
 
@@ -59,14 +61,16 @@ export default function VideoDocumentary() {
         {/* Slogan above video */}
         <div className="max-w-3xl mx-auto px-6 text-center mb-16">
           <span className="text-xs uppercase tracking-widest text-accent font-mono font-bold block mb-3">
-            Cinematic Proof
+            {t("Cinematic Proof", "ദൃശ്യ സാക്ഷ്യം")}
           </span>
           <h2 className="text-3xl md:text-5xl font-extrabold text-txt-primary font-malayalam leading-tight">
-            പറഞ്ഞത് മാത്രം അല്ല... ചെയ്തു കൂടി.
+            {t("Not Just Promises... Accomplished Delivery.", "പറഞ്ഞത് മാത്രം അല്ല... ചെയ്തു കൂടി.")}
           </h2>
           <p className="text-txt-secondary text-sm md:text-base font-malayalam mt-4 max-w-xl mx-auto font-light">
-            കേരളത്തിന്റെ വികസനം വെറും വാക്കുകളിൽ ഒതുങ്ങുന്നതല്ല, കൺമുന്നിലെ
-            യാഥാർത്ഥ്യങ്ങളാണ്.
+            {t(
+              "Kerala's development is not confined to words, it is a visible reality before our eyes.",
+              "കേരളത്തിന്റെ വികസനം വെറും വാക്കുകളിൽ ഒതുങ്ങുന്നതല്ല, കൺമുന്നിലെ യാഥാർത്ഥ്യങ്ങളാണ്."
+            )}
           </p>
         </div>
 
@@ -101,10 +105,10 @@ export default function VideoDocumentary() {
             className="absolute inset-0 z-20 flex flex-col items-center justify-center p-6 text-center text-white"
           >
             <h3 className="text-2xl sm:text-4xl md:text-5xl font-extrabold font-malayalam leading-tight max-w-2xl text-glow-subtle mb-4">
-              പ്രഖ്യാപനങ്ങളിൽ നിന്ന് യാഥാർത്ഥ്യത്തിലേക്ക്
+              {t("From Promises to Reality", "പ്രഖ്യാപനങ്ങളിൽ നിന്ന് യാഥാർത്ഥ്യത്തിലേക്ക്")}
             </h3>
             <p className="text-xs sm:text-sm font-mono text-accent tracking-[0.2em] uppercase">
-              DELIVERING KERALA'S FUTURE TODAY
+              {t("DELIVERING KERALA'S FUTURE TODAY", "കേരളത്തിന്റെ ഭാവി ഇന്ന് യാഥാർത്ഥ്യമാക്കുന്നു")}
             </p>
           </motion.div>
 

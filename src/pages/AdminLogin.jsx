@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { Shield, Mail, Lock, ArrowRight, CornerDownLeft, Loader2, Sun, Moon } from 'lucide-react';
+import { Shield, Mail, Lock, ArrowRight, ArrowLeft, Home, Loader2, Sun, Moon } from 'lucide-react';
 
 export default function AdminLogin() {
   const [email, setEmail] = useState('');
@@ -45,10 +45,22 @@ export default function AdminLogin() {
       <div className="w-full max-w-md relative z-10">
         {/* Navigation link */}
         <div className="flex justify-between items-center mb-6 px-1">
-          <Link to="/" className="inline-flex items-center space-x-1.5 text-xs text-slate-400 hover:text-slate-200 transition-colors">
-            <CornerDownLeft className="w-3.5 h-3.5" />
-            <span>{t("Return to Public Site", "ഹോമിലേക്ക് മടങ്ങുക")}</span>
-          </Link>
+          <div className="flex items-center space-x-3">
+            <button
+              onClick={() => navigate(-1)}
+              className="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-xl border border-slate-800 bg-slate-900 hover:bg-slate-800 text-xs font-semibold text-slate-300 hover:text-white cursor-pointer"
+            >
+              <ArrowLeft className="w-3.5 h-3.5" />
+              <span>{t("Back", "പിന്നിലേക്ക്")}</span>
+            </button>
+            <Link
+              to="/"
+              className="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-xl border border-slate-800 bg-slate-900 hover:bg-slate-800 text-xs font-semibold text-slate-300 hover:text-white"
+            >
+              <Home className="w-3.5 h-3.5" />
+              <span>{t("Home", "ഹോം")}</span>
+            </Link>
+          </div>
 
           <div className="flex items-center space-x-2">
             <button 

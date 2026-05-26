@@ -1,9 +1,12 @@
 import { useEffect, useRef } from "react";
+import { Link } from 'react-router-dom';
 import { motion } from "framer-motion";
-import { Play, ShieldAlert, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
+import { useAuth } from "../context/AuthContext";
 import gsap from "gsap";
 
 export default function Hero() {
+  const { t } = useAuth();
   const videoContainerRef = useRef(null);
   const titleRef = useRef(null);
 
@@ -48,7 +51,7 @@ export default function Hero() {
           >
             <span className="w-2 h-2 rounded-full bg-accent animate-ping" />
             <span className="text-xs uppercase tracking-widest text-accent font-mono font-bold">
-              Kerala Infrastructure Showcase 2026
+              {t("Kerala Infrastructure Showcase 2026", "കേരള വികസന നേട്ടങ്ങൾ 2026")}
             </span>
           </motion.div>
 
@@ -58,14 +61,14 @@ export default function Hero() {
             transition={{ delay: 0.2, duration: 1, ease: [0.16, 1, 0.3, 1] }}
             className="text-[40px] md:text-[56px] lg:text-[72px] font-extrabold text-txt-primary font-malayalam leading-[1.1] mb-6"
           >
-            ജനങ്ങൾക്ക് നൽകിയ{" "}
+            {t("Promises Given to", "ജനങ്ങൾക്ക് നൽകിയ")}{" "}
             <span className="text-accent text-glow">
-              വാഗ്ദാനങ്ങൾ...
+              {t("the People...", "വാഗ്ദാനങ്ങൾ...")}
             </span>
             <br />
-            ഇന്ന് വികസനത്തിന്റെ{" "}
+            {t("Today, Delivered as", "ഇന്ന് വികസനത്തിന്റെ")}{" "}
             <span className="underline decoration-accent decoration-wavy decoration-2 underline-offset-8">
-              തെളിവുകളായി.
+              {t("Proof of Progress.", "തെളിവുകളായി.")}
             </span>
           </motion.h1>
 
@@ -75,9 +78,10 @@ export default function Hero() {
             transition={{ delay: 0.4, duration: 0.8 }}
             className="text-txt-secondary font-malayalam text-base sm:text-[18px] max-w-xl mb-10 leading-relaxed font-light"
           >
-            തിരഞ്ഞെടുപ്പിന് മുമ്പ് പ്രഖ്യാപിച്ച നവീകരണ പദ്ധതികൾ, ഇന്ന്
-            കേരളത്തിന്റെ ഓരോ കോണിലും നേരിൽ കാണാവുന്ന യാഥാർത്ഥ്യമായി
-            മാറിക്കഴിഞ്ഞിരിക്കുന്നു.
+            {t(
+              "Development and renovation projects announced prior to elections are now visible realities across every corner of Kerala.",
+              "തിരഞ്ഞെടുപ്പിന് മുമ്പ് പ്രഖ്യാപിച്ച നവീകരണ പദ്ധതികൾ, ഇന്ന് കേരളത്തിന്റെ ഓരോ കോണിലും നേരിൽ കാണാവുന്ന യാഥാർത്ഥ്യമായി മാറിക്കഴിഞ്ഞിരിക്കുന്നു."
+            )}
           </motion.p>
 
           <motion.div
@@ -86,19 +90,19 @@ export default function Hero() {
             transition={{ delay: 0.6, duration: 0.8 }}
             className="flex flex-wrap gap-4"
           >
-            <a
-              href="#before-after"
+            <Link
+              to="/showcase"
               className="btn-primary inline-flex items-center"
             >
-              വികസനം കാണൂ
+              {t("See the Change", "വികസനം കാണൂ")}
               <ArrowRight className="ml-2 w-4 h-4" />
-            </a>
-            <a
-              href="#kerala-map"
+            </Link>
+            <Link
+              to="/map"
               className="btn-secondary inline-flex items-center"
             >
-              പദ്ധതികൾ പരിശോധിക്കുക
-            </a>
+              {t("Inspect Projects", "പദ്ധതികൾ പരിശോധിക്കുക")}
+            </Link>
           </motion.div>
 
           {/* Micro stats banner */}
@@ -110,15 +114,21 @@ export default function Hero() {
           >
             <div>
               <div className="text-txt-primary font-bold text-lg">120+</div>
-              <div className="text-txt-secondary text-[10px]">PROJECTS</div>
+              <div className="text-txt-secondary text-[10px] uppercase">
+                {t("Projects", "പദ്ധതികൾ")}
+              </div>
             </div>
             <div>
               <div className="text-txt-primary font-bold text-lg">₹500Cr+</div>
-              <div className="text-txt-secondary text-[10px]">INVESTMENT</div>
+              <div className="text-txt-secondary text-[10px] uppercase">
+                {t("Investment", "നിക്ഷേപം")}
+              </div>
             </div>
             <div>
               <div className="text-txt-primary font-bold text-lg">100%</div>
-              <div className="text-txt-secondary text-[10px]">TRANSPARENCY</div>
+              <div className="text-txt-secondary text-[10px] uppercase">
+                {t("Transparency", "സുതാര്യത")}
+              </div>
             </div>
           </motion.div>
         </div>
@@ -141,10 +151,10 @@ export default function Hero() {
             {/* Clean elegant caption overlay */}
             <div className="absolute bottom-4 left-4 right-4 z-20 bg-bg-alt/90 backdrop-blur-md border border-border-main px-4 py-3 rounded-xl shadow-md text-left">
               <span className="text-[9px] font-mono font-bold tracking-widest text-accent uppercase block mb-0.5">
-                INFRASTRUCTURE SHOWCASE
+                {t("INFRASTRUCTURE SHOWCASE", "അടിസ്ഥാന വികസന കാഴ്ചകൾ")}
               </span>
               <span className="text-xs font-semibold text-txt-primary font-malayalam leading-tight">
-                കേരളത്തിന്റെ നവീകരിച്ച അടിസ്ഥാന സൗകര്യങ്ങൾ (NH-66)
+                {t("Kerala's Modernized Infrastructures (NH-66)", "കേരളത്തിന്റെ നവീകരിച്ച അടിസ്ഥാന സൗകര്യങ്ങൾ (NH-66)")}
               </span>
             </div>
 

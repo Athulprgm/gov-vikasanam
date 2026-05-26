@@ -1,9 +1,11 @@
 import { useRef, useEffect, useState } from "react";
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+import { useAuth } from "../context/AuthContext";
 import { Landmark, Award, Building, HardHat } from "lucide-react";
 
 export default function ScrollStorytelling() {
   const containerRef = useRef(null);
+  const { t } = useAuth();
   const [activeStep, setActiveStep] = useState(0);
 
   // Hook scroll progress of this section
@@ -30,48 +32,44 @@ export default function ScrollStorytelling() {
 
   const steps = [
     {
-      titleMl: "പദ്ധതി പ്രഖ്യാപനം & ഫണ്ട് വിഹിതം",
-      titleEn: "Project Declaration & Funding",
-      descMl:
-        "പ്രകടനപത്രികയിലെ വാഗ്ദാനങ്ങൾക്കായുള്ള പ്രാഥമിക ബജറ്റ് നിർണ്ണയവും ഫണ്ട് നീക്കിവെക്കലും നടന്നു.",
-      descEn:
+      title: t("Project Declaration & Funding", "പദ്ധതി പ്രഖ്യാപനം & ഫണ്ട് വിഹിതം"),
+      desc: t(
         "Initial budget layout and KIIFB financial approvals for proposed roads, bridges, and institutions.",
+        "പ്രകടനപത്രികയിലെ വാഗ്ദാനങ്ങൾക്കായുള്ള പ്രാഥമിക ബജറ്റ് നിർണ്ണയവും ഫണ്ട് നീക്കിവെക്കലും നടന്നു."
+      ),
       year: "2021",
       icon: <Landmark className="w-6 h-6 text-accent" />,
-      stats: "120+ പദ്ധതികളുടെ അനുമതി",
+      stats: t("120+ Project Approvals", "120+ പദ്ധതികളുടെ അനുമതി"),
     },
     {
-      titleMl: "ഭൂമി ഏറ്റെടുക്കലും നിർമ്മാണ തുടക്കവും",
-      titleEn: "Land Acquisition & Foundation",
-      descMl:
-        "തടസ്സങ്ങൾ ഒഴിവാക്കി ദ്രുതഗതിയിൽ ഭൂമി ഏറ്റെടുക്കുകയും പൈലിംഗ്, ഫൗണ്ടേഷൻ ജോലികൾ ആരംഭിക്കുകയും ചെയ്തു.",
-      descEn:
+      title: t("Land Acquisition & Foundation", "ഭൂമി ഏറ്റെടുക്കലും നിർമ്മാണ തുടക്കവും"),
+      desc: t(
         "Fast-tracked land clearance and foundation laying. Commenced base structural works.",
+        "തടസ്സങ്ങൾ ഒഴിവാക്കി ദ്രുതഗതിയിൽ ഭൂമി ഏറ്റെടുക്കുകയും പൈലിംഗ്, ഫൗണ്ടേഷൻ ജോലികൾ ആരംഭിക്കുകയും ചെയ്തു."
+      ),
       year: "2022",
       icon: <HardHat className="w-6 h-6 text-accent" />,
-      stats: "₹1,500 Cr പ്രാഥമിക ഫണ്ട്",
+      stats: t("₹1,500 Cr Initial Funding", "₹1,500 Cr പ്രാഥമിക ഫണ്ട്"),
     },
     {
-      titleMl: "വൻകിട നിർമ്മാണങ്ങളുടെ ദ്രുതഗതി",
-      titleEn: "Superstructure & Bridges Construction",
-      descMl:
-        "ദേശീയപാത 4-വരിയിൽ നിന്നും 6-വരിയാക്കൽ, തന്ത്രപ്രധാന പാലങ്ങളുടെ നിർമ്മാണം എന്നിവ ദ്രുതഗതിയിലായി.",
-      descEn:
+      title: t("Superstructure & Bridges Construction", "വൻകിട നിർമ്മാണങ്ങളുടെ ദ്രുതഗതി"),
+      desc: t(
         "Assembling structural flyovers, high-tech school digital blocks, and electric water metro hulls.",
+        "ദേശീയപാത 4-വരിയിൽ നിന്നും 6-വരിയാക്കൽ, തന്ത്രപ്രധാന പാലങ്ങളുടെ നിർമ്മാണം എന്നിവ ദ്രുതഗതിയിലായി."
+      ),
       year: "2024",
       icon: <Building className="w-6 h-6 text-accent" />,
-      stats: "85% നിർമ്മാണ പൂർത്തീകരണം",
+      stats: t("85% Construction Complete", "85% നിർമ്മാണ പൂർത്തീകരണം"),
     },
     {
-      titleMl: "സമർപ്പണം: വാഗ്ദാനങ്ങൾ യാഥാർത്ഥ്യം",
-      titleEn: "Commissioning & Inauguration",
-      descMl:
-        "അന്താരാഷ്ട്ര നിലവാരത്തിൽ പൂർത്തിയാക്കിയ പദ്ധതികൾ നാടിനായി തുറന്നുകൊടുത്തു.",
-      descEn:
+      title: t("Commissioning & Inauguration", "സമർപ്പണം: വാഗ്ദാനങ്ങൾ യാഥാർത്ഥ്യം"),
+      desc: t(
         "Grand openings. The visual transformation of roads, medical hubs, and water transits completed.",
+        "അന്താരാഷ്ട്ര നിലവാരത്തിൽ പൂർത്തിയാക്കിയ പദ്ധതികൾ നാടിനായി തുറന്നുകൊടുത്തു."
+      ),
       year: "2026",
       icon: <Award className="w-6 h-6 text-accent" />,
-      stats: "100% സമർപ്പിത സേവനം",
+      stats: t("100% Dedicated Service", "100% സമർപ്പിത സേവനം"),
     },
   ];
 
@@ -88,14 +86,16 @@ export default function ScrollStorytelling() {
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-24">
           <span className="text-xs uppercase tracking-widest text-accent font-mono font-bold block mb-3">
-            Interactive Storytelling
+            {t("Interactive Storytelling", "വികസന വിവരണം")}
           </span>
           <h2 className="text-3xl md:text-5xl font-extrabold text-txt-primary font-malayalam leading-tight">
-            വാഗ്ദാനത്തിൽ നിന്ന് വികസനത്തിലേക്ക്
+            {t("From Promise to Reality", "വാഗ്ദാനത്തിൽ നിന്ന് വികസനത്തിലേക്ക്")}
           </h2>
           <p className="text-txt-secondary text-sm md:text-base font-malayalam mt-4 max-w-xl mx-auto font-light">
-            താഴേക്ക് സ്ക്രോൾ ചെയ്യുമ്പോൾ നിർമ്മാണ ഘട്ടങ്ങളുടെ മാറ്റം
-            ആനിമേഷനിലൂടെ തത്സമയം കാണാം.
+            {t(
+              "Scroll down to observe construction milestones animated in real-time.",
+              "താഴേക്ക് സ്ക്രോൾ ചെയ്യുമ്പോൾ നിർമ്മാണ ഘട്ടങ്ങളുടെ മാറ്റം ആനിമേഷനിലൂടെ തത്സമയം കാണാം."
+            )}
           </p>
         </div>
 
@@ -192,24 +192,21 @@ export default function ScrollStorytelling() {
                     </div>
                     <div>
                       <div className="text-accent font-mono text-xs tracking-wider">
-                        PHASE {idx + 1} • {step.year}
+                        {t("PHASE", "ഘട്ടം")} {idx + 1} • {step.year}
                       </div>
                       <h3 className="text-xl md:text-2xl font-bold text-txt-primary font-malayalam mt-1">
-                        {step.titleMl}
+                        {step.title}
                       </h3>
-                      <div className="text-xs text-txt-secondary font-mono font-light mt-0.5">
-                        {step.titleEn}
-                      </div>
                     </div>
                   </div>
 
                   <p className="text-sm sm:text-base text-txt-secondary leading-relaxed font-malayalam mb-6">
-                    {step.descMl}
+                    {step.desc}
                   </p>
 
                   <div className="flex justify-between items-center py-3 px-4 rounded-xl bg-bg-main border border-border-main">
                     <span className="text-[11px] font-mono text-txt-secondary/60 tracking-wider">
-                      REALTIME METRIC:
+                      {t("REALTIME METRIC:", "തത്സമയ കണക്ക്:")}
                     </span>
                     <span className="text-xs font-semibold text-accent font-malayalam text-glow-subtle">
                       {step.stats}

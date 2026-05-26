@@ -1,39 +1,39 @@
 @import "tailwindcss";
 
 :root {
-  --bg-color: #F7F5F2;
+  --bg-color: #F8FAF9;
   --bg-alt: #FFFFFF;
   --card-bg: #FFFFFF;
-  --text-primary: #111111;
-  --text-secondary: #555555;
-  --text-muted: #888888;
-  --border-color: #E8E4DD;
-  --accent-color: #A67C52;
-  --accent-glow: rgba(166, 124, 82, 0.1);
-  --secondary-accent: #D6C3A5;
+  --text-primary: #0A251C;
+  --text-secondary: #405850;
+  --text-muted: #7B928A;
+  --border-color: #E5EDE9;
+  --accent-color: #059669;
+  --accent-glow: rgba(5, 150, 105, 0.08);
+  --secondary-accent: #B89C72;
   --glass-bg: rgba(255, 255, 255, 0.85);
-  --glass-border: rgba(166, 124, 82, 0.08);
+  --glass-border: rgba(5, 150, 105, 0.06);
   --input-bg: #FFFFFF;
-  --scrollbar-bg: #F7F5F2;
-  --scrollbar-thumb: #D6C3A5;
+  --scrollbar-bg: #F8FAF9;
+  --scrollbar-thumb: #B89C72;
 }
 
 html.dark {
-  --bg-color: #121110;
-  --bg-alt: #1A1817;
-  --card-bg: #1A1817;
-  --text-primary: #F7F5F2;
-  --text-secondary: #D6C3A5;
-  --text-muted: #8E877D;
-  --border-color: #2E2A27;
-  --accent-color: #A67C52;
-  --accent-glow: rgba(166, 124, 82, 0.25);
-  --secondary-accent: #D6C3A5;
-  --glass-bg: rgba(26, 24, 23, 0.85);
-  --glass-border: rgba(255, 255, 255, 0.05);
-  --input-bg: rgba(0, 0, 0, 0.3);
-  --scrollbar-bg: #121110;
-  --scrollbar-thumb: #2E2A27;
+  --bg-color: #030706;
+  --bg-alt: #0A100E;
+  --card-bg: #0E1613;
+  --text-primary: #ECFDF5;
+  --text-secondary: #94A3B8;
+  --text-muted: #556B62;
+  --border-color: #14221E;
+  --accent-color: #10B981;
+  --accent-glow: rgba(16, 185, 129, 0.12);
+  --secondary-accent: #D9A752;
+  --glass-bg: rgba(10, 16, 14, 0.85);
+  --glass-border: rgba(16, 185, 129, 0.08);
+  --input-bg: rgba(0, 0, 0, 0.35);
+  --scrollbar-bg: #030706;
+  --scrollbar-thumb: #14221E;
 }
 
 @theme {
@@ -43,8 +43,8 @@ html.dark {
   --color-txt-primary: var(--text-primary);
   --color-txt-secondary: var(--text-secondary);
   --color-border-main: var(--border-color);
-  --color-accent-green: var(--accent-color); /* Backward compatibility with green */
-  --color-accent-gold: var(--accent-color);
+  --color-accent-green: var(--accent-color);
+  --color-accent-gold: var(--secondary-accent);
   --color-accent: var(--accent-color);
   --color-accent-sec: var(--secondary-accent);
   --color-accent-glow: var(--accent-glow);

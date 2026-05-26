@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useData } from "../context/DataContext";
+import { useAuth } from "../context/AuthContext";
 import { Landmark, TrendingUp, Compass, Award } from "lucide-react";
 
 export default function KeralaMap() {
   const { districts } = useData();
+  const { t } = useAuth();
   const [selectedDistrictId, setSelectedDistrictId] = useState("trivandrum");
   const [hoveredDistrict, setHoveredDistrict] = useState(null);
 
@@ -27,14 +29,16 @@ export default function KeralaMap() {
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-20">
           <span className="text-xs uppercase tracking-widest text-accent font-mono font-bold block mb-3">
-            Regional Development
+            {t("Regional Development", "മേഖലാ വികസനം")}
           </span>
           <h2 className="text-3xl md:text-5xl font-extrabold text-txt-primary font-malayalam leading-tight">
-            കേരളത്തിന്റെ വികസന പാത
+            {t("Kerala's Journey of Progress", "കേരളത്തിന്റെ വികസന പാത")}
           </h2>
           <p className="text-txt-secondary text-sm md:text-base font-malayalam mt-4 max-w-xl mx-auto font-light">
-            ജില്ലകളിൽ ക്ലിക്ക് ചെയ്ത് അതാത് സ്ഥലങ്ങളിൽ പൂർത്തിയായ പദ്ധതികളുടെയും
-            നിക്ഷേപത്തിന്റെയും കണക്കുകൾ കാണുക.
+            {t(
+              "Click on districts to view detailed project counts and investments in that specific area.",
+              "ജില്ലകളിൽ ക്ലിക്ക് ചെയ്ത് അതാത് സ്ഥലങ്ങളിൽ പൂർത്തിയായ പദ്ധതികളുടെയും നിക്ഷേപത്തിന്റെയും കണക്കുകൾ കാണുക."
+            )}
           </p>
         </div>
 
@@ -45,7 +49,7 @@ export default function KeralaMap() {
             {/* Compass / Hud Graphic */}
             <div className="absolute top-2 left-2 text-accent/60 font-mono text-[9px] flex items-center space-x-2 pointer-events-none">
               <Compass className="w-4 h-4 animate-spin-slow" />
-              <span>MAP VIEWPORT: KERALA STATE</span>
+              <span>{t("MAP VIEWPORT: KERALA STATE", "മാപ്പ് വ്യൂപോർട്ട്: കേരള സംസ്ഥാനം")}</span>
             </div>
 
             {/* Main Interactive Map Canvas */}
@@ -106,7 +110,7 @@ export default function KeralaMap() {
                     onClick={() => setSelectedDistrictId(district.id)}
                     onMouseEnter={() => setHoveredDistrict(district)}
                     onMouseLeave={() => setHoveredDistrict(null)}
-                    className="absolute group focus:outline-none transition-transform duration-300 active:scale-95"
+                    className="absolute group focus:outline-none transition-transform duration-300 active:scale-95 cursor-pointer"
                     style={{
                       left: `${district.x}px`,
                       top: `${district.y}px`,
@@ -140,7 +144,7 @@ export default function KeralaMap() {
 
                     {/* Small Label on Hover */}
                     <span className="absolute top-7 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity bg-bg-alt/95 border border-border-main px-2 py-0.5 rounded text-[9px] text-accent font-malayalam whitespace-nowrap z-30 pointer-events-none">
-                      {district.nameMl}
+                      {t(district.nameEn, district.nameMl)}
                     </span>
                   </button>
                 );
@@ -163,10 +167,10 @@ export default function KeralaMap() {
                   </div>
                   <div>
                     <h3 className="text-3xl font-extrabold text-txt-primary font-malayalam leading-none">
-                      {displayDistrict.nameMl}
+                      {t(displayDistrict.nameEn, displayDistrict.nameMl)}
                     </h3>
                     <div className="text-xs text-txt-secondary font-mono tracking-widest uppercase mt-1">
-                      {displayDistrict.nameEn} District
+                      {t(`${displayDistrict.nameEn} District`, `${displayDistrict.nameMl} ജില്ല`)}
                     </div>
                   </div>
                 </div>
@@ -176,7 +180,7 @@ export default function KeralaMap() {
                   <div className="bg-bg-main p-4 rounded-xl border border-border-main">
                     <div className="text-txt-secondary font-malayalam text-xs flex items-center mb-1.5">
                       <TrendingUp className="w-3.5 h-3.5 mr-1.5 text-accent" />
-                      ആകെ നിക്ഷേപം
+                      {t("Total Investment", "ആകെ നിക്ഷേപം")}
                     </div>
                     <div className="text-2xl font-extrabold font-mono text-accent text-glow-subtle">
                       {displayDistrict.investment}
@@ -186,10 +190,10 @@ export default function KeralaMap() {
                   <div className="bg-bg-main p-4 rounded-xl border border-border-main">
                     <div className="text-txt-secondary font-malayalam text-xs flex items-center mb-1.5">
                       <Award className="w-3.5 h-3.5 mr-1.5 text-accent" />
-                      പൂർത്തിയായവ
+                      {t("Completed Projects", "പൂർത്തിയായവ")}
                     </div>
                     <div className="text-2xl font-extrabold font-mono text-txt-primary">
-                      {displayDistrict.projectsCount} പദ്ധതികൾ
+                      {t(`${displayDistrict.projectsCount} Projects`, `${displayDistrict.projectsCount} പദ്ധതികൾ`)}
                     </div>
                   </div>
                 </div>
@@ -197,21 +201,18 @@ export default function KeralaMap() {
                 {/* Highlight banner */}
                 <div className="p-5 rounded-xl bg-bg-main/40 border border-border-main">
                   <div className="text-[10px] font-mono tracking-wider text-accent mb-2 uppercase">
-                    KEY REGIONAL HIGHLIGHT
+                    {t("KEY REGIONAL HIGHLIGHT", "പ്രധാന മേഖല വികസനം")}
                   </div>
                   <h4 className="text-base font-bold text-txt-primary font-malayalam leading-relaxed">
-                    {displayDistrict.highlightMl}
+                    {t(displayDistrict.highlightEn, displayDistrict.highlightMl)}
                   </h4>
-                  <p className="text-xs text-txt-secondary font-mono mt-1">
-                    {displayDistrict.highlightEn}
-                  </p>
                 </div>
               </div>
 
               <div className="mt-8 pt-6 border-t border-border-main flex items-center justify-between text-xs text-txt-secondary font-malayalam">
-                <span>* പബ്ലിക് ഡാറ്റാബേസ് വഴി പരിശോധക്കിയത്.</span>
+                <span>{t("* Verified via public data registers.", "* പബ്ലിക് ഡാറ്റാബേസ് വഴി പരിശോധക്കിയത്.")}</span>
                 <span className="font-mono text-[10px] text-accent animate-pulse">
-                  ● ACTIVE REGION
+                  {t("● ACTIVE REGION", "● സജീവ മേഖല")}
                 </span>
               </div>
             </div>

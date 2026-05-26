@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { ArrowUp } from "lucide-react";
 
 export default function Footer() {
@@ -12,7 +13,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-12 gap-12 pb-16 border-b border-border-main items-start">
           {/* Column 1: Info and statement */}
           <div className="md:col-span-5 text-left">
-            <a href="#hero" className="flex items-center space-x-3 mb-6">
+            <Link to="/" className="flex items-center space-x-3 mb-6">
               <div className="w-9 h-9 rounded-lg bg-accent flex items-center justify-center font-bold text-white text-lg">
                 ജ
               </div>
@@ -24,7 +25,7 @@ export default function Footer() {
                   JANAVIKASAM
                 </span>
               </div>
-            </a>
+            </Link>
             <p className="text-sm text-txt-primary font-malayalam leading-relaxed max-w-sm mb-4">
               " വികസനം ഇനി വാക്കുകളിൽ അല്ല... ദൃശ്യങ്ങളിൽ. "
             </p>
@@ -40,42 +41,42 @@ export default function Footer() {
               NAVIGATION
             </h4>
             <div className="grid grid-cols-2 gap-3 text-xs font-malayalam">
-              <a
-                href="#featured-projects"
+              <Link
+                to="/showcase"
                 className="text-txt-secondary hover:text-accent transition-colors"
               >
                 വികസനക്കാഴ്ചകൾ
-              </a>
-              <a
-                href="#kerala-map"
+              </Link>
+              <Link
+                to="/map"
                 className="text-txt-secondary hover:text-accent transition-colors"
               >
                 വികസന ഭൂപടം
-              </a>
-              <a
-                href="#timeline"
+              </Link>
+              <Link
+                to="/timeline"
                 className="text-txt-secondary hover:text-accent transition-colors"
               >
                 നാൾവഴി
-              </a>
-              <a
-                href="#statistics"
+              </Link>
+              <Link
+                to="/statistics"
                 className="text-txt-secondary hover:text-accent transition-colors"
               >
                 സ്ഥിതിവിവരങ്ങൾ
-              </a>
-              <a
-                href="#citizen-impact"
+              </Link>
+              <Link
+                to="/impact"
                 className="text-txt-secondary hover:text-accent transition-colors"
               >
                 അഭിപ്രായങ്ങൾ
-              </a>
-              <a
-                href="#before-after"
+              </Link>
+              <Link
+                to="/showcase"
                 className="text-txt-secondary hover:text-accent transition-colors"
               >
                 മാറ്റം നേരിൽ
-              </a>
+              </Link>
             </div>
           </div>
 

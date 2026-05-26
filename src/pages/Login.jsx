@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { Mail, Lock, ArrowRight, CornerDownLeft, Loader2, UserCheck, Sun, Moon } from 'lucide-react';
+import { Mail, Lock, ArrowRight, ArrowLeft, Home, Loader2, UserCheck, Sun, Moon } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 export default function UserLogin() {
@@ -55,10 +55,22 @@ export default function UserLogin() {
       >
         {/* Navigation link back to home */}
         <div className="flex justify-between items-center mb-6 px-1">
-          <Link to="/" className="inline-flex items-center space-x-1.5 text-xs text-accent font-semibold hover:opacity-85 transition-opacity">
-            <CornerDownLeft className="w-3.5 h-3.5" />
-            <span>{t("Back", "മടങ്ങുക")}</span>
-          </Link>
+          <div className="flex items-center space-x-3">
+            <button
+              onClick={() => navigate(-1)}
+              className="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-xl border border-border-main bg-bg-sec hover:bg-bg-main text-xs font-semibold text-txt-secondary hover:text-accent cursor-pointer"
+            >
+              <ArrowLeft className="w-3.5 h-3.5" />
+              <span>{t("Back", "പിന്നിലേക്ക്")}</span>
+            </button>
+            <Link
+              to="/"
+              className="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-xl border border-border-main bg-bg-sec hover:bg-bg-main text-xs font-semibold text-txt-secondary hover:text-accent"
+            >
+              <Home className="w-3.5 h-3.5" />
+              <span>{t("Home", "ഹോം")}</span>
+            </Link>
+          </div>
 
           <div className="flex items-center space-x-2">
             <button 

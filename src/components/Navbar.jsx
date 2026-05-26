@@ -21,11 +21,11 @@ export default function Navbar() {
   }, []);
 
   const navLinks = [
-    { nameMl: "കാഴ്ചകൾ", nameEn: "Showcase", href: "/#featured-projects" },
-    { nameMl: "ഭൂപടം", nameEn: "Map", href: "/#kerala-map" },
-    { nameMl: "നാൾവഴി", nameEn: "Timeline", href: "/#timeline" },
-    { nameMl: "നേട്ടങ്ങൾ", nameEn: "Stats", href: "/#statistics" },
-    { nameMl: "അഭിപ്രായങ്ങൾ", nameEn: "Impact", href: "/#citizen-impact" },
+    { nameMl: "കാഴ്ചകൾ", nameEn: "Showcase", href: "/showcase", isRouter: true },
+    { nameMl: "ഭൂപടം", nameEn: "Map", href: "/map", isRouter: true },
+    { nameMl: "നാൾവഴി", nameEn: "Timeline", href: "/timeline", isRouter: true },
+    { nameMl: "നേട്ടങ്ങൾ", nameEn: "Stats", href: "/statistics", isRouter: true },
+    { nameMl: "അഭിപ്രായങ്ങൾ", nameEn: "Impact", href: "/impact", isRouter: true },
     ...(isAuthenticated ? [
       { nameMl: "ഫീഡ്", nameEn: "Feed", href: "/feed", isRouter: true },
       { nameMl: "പ്രൊഫൈൽ", nameEn: "Profile", href: "/profile", isRouter: true }
@@ -142,13 +142,13 @@ export default function Navbar() {
             </div>
           )}
 
-          <a
-            href="#before-after"
+          <Link
+            to="/showcase"
             className="inline-flex items-center px-4 py-2 rounded-xl border border-border-main text-xs font-semibold text-txt-primary hover:text-white hover:bg-accent hover:border-transparent transition-all duration-300 shadow-sm group"
           >
             <span>{t("See Change", "മാറ്റം കാണൂ")}</span>
             <ArrowUpRight className="ml-1.5 w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-          </a>
+          </Link>
         </div>
 
         {/* Mobile Hamburger Toggle */}
@@ -254,14 +254,14 @@ export default function Navbar() {
             </div>
           )}
 
-          <a
-            href="#before-after"
+          <Link
+            to="/showcase"
             onClick={() => setIsOpen(false)}
             className="flex items-center justify-center w-full py-3 mt-2 rounded-xl bg-accent text-white font-bold text-sm shadow-sm"
           >
             <span>{t("See Change", "മാറ്റം കാണൂ")}</span>
             <ArrowUpRight className="ml-2 w-4 h-4" />
-          </a>
+          </Link>
         </div>
       )}
     </nav>

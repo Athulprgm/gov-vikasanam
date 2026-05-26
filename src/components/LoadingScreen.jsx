@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useAuth } from '../context/AuthContext';
 
 export default function LoadingScreen({ onComplete }) {
   const [progress, setProgress] = useState(0);
   const [isDone, setIsDone] = useState(false);
+  const { t } = useAuth();
 
   useEffect(() => {
     const duration = 2000; // 2 seconds loading
@@ -87,7 +89,7 @@ export default function LoadingScreen({ onComplete }) {
               transition={{ delay: 0.3, duration: 0.8 }}
               className="text-2xl md:text-3xl font-extrabold tracking-wide text-txt-primary font-malayalam leading-relaxed mb-2"
             >
-              ജനവികസനം
+              {t("JanaVikasam", "ജനവികസനം")}
             </motion.h1>
 
             <motion.p
@@ -96,7 +98,7 @@ export default function LoadingScreen({ onComplete }) {
               transition={{ delay: 0.6, duration: 0.8 }}
               className="text-xs md:text-sm text-txt-secondary font-light tracking-[0.2em] font-malayalam mb-12"
             >
-              പ്രഖ്യാപനങ്ങളിൽ നിന്ന് യാഥാർത്ഥ്യത്തിലേക്ക്
+              {t("From Promises to Reality", "പ്രഖ്യാപനങ്ങളിൽ നിന്ന് യാഥാർത്ഥ്യത്തിലേക്ക്")}
             </motion.p>
 
             {/* Progress Bar & Percentage */}
