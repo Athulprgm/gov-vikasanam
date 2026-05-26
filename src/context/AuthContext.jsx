@@ -3,7 +3,7 @@ import { createContext, useContext, useState, useEffect } from "react";
 const AuthContext = createContext();
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 
-  (import.meta.env.VITE_API_URL ? `${import.meta.env.VITE_API_URL}/api` : "https://gov-backend-production.up.railway.app/api");
+  (import.meta.env.VITE_API_URL ? `${import.meta.env.VITE_API_URL}/api` : "https://janavikasamapi-production.up.railway.app/api");
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
