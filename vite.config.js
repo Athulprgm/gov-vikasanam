@@ -36,13 +36,4 @@ dns.lookup = function (hostname, options, callback) {
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [tailwindcss(), react()],
-  server: {
-    proxy: {
-      '/api': {
-        target: 'https://janavikasamapi-production.up.railway.app',
-        changeOrigin: true,
-        secure: false,
-      },
-    },
-  },
 })
