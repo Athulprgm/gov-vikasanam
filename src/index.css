@@ -52,9 +52,11 @@ html.dark {
   --color-glass-border: var(--glass-border);
   --color-input-main: var(--input-bg);
 
-  --font-malayalam: 'Noto Sans Malayalam', 'Manjari', sans-serif;
-  --font-english: 'Inter', 'Poppins', sans-serif;
-  --font-secondary: 'Poppins', sans-serif;
+  --font-malayalam: 'Noto Sans Malayalam', sans-serif;
+  --font-english: 'Inter', sans-serif;
+  --font-secondary: 'Inter', sans-serif;
+  --font-serif-en: 'Playfair Display', Georgia, serif;
+  --font-serif-ml: 'Noto Serif Malayalam', Georgia, serif;
 }
 
 /* Custom Scrollbar */
@@ -93,22 +95,31 @@ body {
   background-color: var(--bg-color);
   color: var(--text-primary);
   transition: background-color 0.3s ease, color 0.3s ease;
-  line-height: 1.7;
+  line-height: 1.75;
+  font-size: 16px;
 }
 
 /* Premium Typography Rules */
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-secondary);
+  font-family: var(--font-serif-en);
   font-weight: 700;
-  letter-spacing: -0.03em;
-  line-height: 1.1;
+  letter-spacing: -0.01em;
+  line-height: 1.25;
   color: var(--text-primary);
 }
 
-/* Malayalam overrides for headings if tagged */
+/* Malayalam overrides */
 .font-malayalam {
   font-family: var(--font-malayalam) !important;
-  line-height: 1.4 !important;
+  line-height: 1.65 !important;
+}
+
+h1.font-malayalam, h2.font-malayalam, h3.font-malayalam, h4.font-malayalam, h5.font-malayalam, h6.font-malayalam,
+.font-malayalam h1, .font-malayalam h2, .font-malayalam h3, .font-malayalam h4, .font-malayalam h5, .font-malayalam h6 {
+  font-family: var(--font-serif-ml) !important;
+  font-weight: 700;
+  letter-spacing: 0 !important;
+  line-height: 1.35 !important;
 }
 
 /* Section Padding Consistency */
