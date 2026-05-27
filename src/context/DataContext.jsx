@@ -1,13 +1,6 @@
 import { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { useAuth } from './AuthContext';
-import {
-  projectsData as staticProjects,
-  districtsData as staticDistricts,
-  timelineMilestones as staticTimeline,
-  citizenTestimonials as staticTestimonials,
-  staticStateInfo,
-  staticChiefMinisters
-} from '../data/projectsData';
+// Helper to convert snake_case to camelCase
 
 const DataContext = createContext();
 
@@ -42,12 +35,12 @@ const camelToSnake = (obj) => {
 export function DataProvider({ children }) {
   const { token, API_BASE_URL } = useAuth();
   
-  const [districts, setDistricts] = useState(staticDistricts);
-  const [projects, setProjects] = useState(staticProjects);
-  const [timeline, setTimeline] = useState(staticTimeline);
-  const [testimonials, setTestimonials] = useState(staticTestimonials);
-  const [stateInfo, setStateInfo] = useState(staticStateInfo);
-  const [chiefMinisters, setChiefMinisters] = useState(staticChiefMinisters);
+  const [districts, setDistricts] = useState([]);
+  const [projects, setProjects] = useState([]);
+  const [timeline, setTimeline] = useState([]);
+  const [testimonials, setTestimonials] = useState([]);
+  const [stateInfo, setStateInfo] = useState(null);
+  const [chiefMinisters, setChiefMinisters] = useState([]);
   
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -116,17 +109,11 @@ export function DataProvider({ children }) {
         apiFailed = true;
       }
 
-      setUsingFallback(apiFailed);
+      setUsingFallback(false);
     } catch (err) {
-      console.warn('Backend API offline or unreachable. Falling back to static showcase data.', err);
-      setUsingFallback(true);
-      // Keep static files loaded
-      setDistricts(staticDistricts);
-      setProjects(staticProjects);
-      setTimeline(staticTimeline);
-      setTestimonials(staticTestimonials);
-      setStateInfo(staticStateInfo);
-      setChiefMinisters(staticChiefMinisters);
+      console.error('Backend API offline or unreachable.', err);
+      setError(err.message || 'API unreachable');
+      setUsingFallback(false);
     } finally {
       setLoading(false);
     }
