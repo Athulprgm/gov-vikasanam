@@ -20,6 +20,7 @@ import MapPage from './pages/MapPage';
 import TimelinePage from './pages/TimelinePage';
 import StatisticsPage from './pages/StatisticsPage';
 import ImpactPage from './pages/ImpactPage';
+import GovernmentHistory from './pages/GovernmentHistory';
 
 // Landing Page Components
 import LoadingScreen from './components/LoadingScreen';
@@ -107,6 +108,7 @@ function App() {
             <Route path="/timeline" element={<PageLayout><TimelinePage /></PageLayout>} />
             <Route path="/statistics" element={<PageLayout><StatisticsPage /></PageLayout>} />
             <Route path="/impact" element={<PageLayout><ImpactPage /></PageLayout>} />
+            <Route path="/government" element={<PageLayout><GovernmentHistory /></PageLayout>} />
 
             {/* Authentication Pages */}
             <Route path="/login" element={<Login />} />

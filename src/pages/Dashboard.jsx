@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useData } from '../context/DataContext';
 import { 
@@ -12,9 +12,11 @@ export default function Dashboard() {
   const { user, logout, token, API_BASE_URL, language, toggleLanguage, t, theme, toggleTheme } = useAuth();
   const { 
     districts, projects, timeline, testimonials, 
+    stateInfo, chiefMinisters,
     usingFallback, saveProject, deleteProject, 
     saveDistrict, saveMilestone, deleteMilestone, 
-    saveTestimonial, deleteTestimonial 
+    saveTestimonial, deleteTestimonial,
+    saveStateInfo, saveCM, deleteCM
   } = useData();
 
   const navigate = useNavigate();
@@ -91,6 +93,46 @@ export default function Dashboard() {
     id: '', name: '', role: '', quoteMl: '', quoteEn: '', rating: 5, avatar: ''
   });
 
+  const [stateInfoForm, setStateInfoForm] = useState({
+    stateName: 'Kerala', formedOn: '1956-11-01', capital: 'Thiruvananthapuram',
+    officialLanguage: 'Malayalam', legislature: 'Kerala Legislative Assembly',
+    highCourt: 'Kerala High Court', currentGovernor: 'Rajendra Arlekar',
+    firstCm: '', firstCommunistCmInIndia: '', onlyMuslimCm: '', longestServingLeaders: '',
+    currentCmName: '', currentCmParty: '', currentCmAlliance: '',
+    currentCmSwornIn: '', currentCmStatus: ''
+  });
+
+  const [cmForm, setCmForm] = useState({
+    id: '', no: '', name: '', party: '', tenure: ''
+  });
+
+  // Sync stateInfoForm when stateInfo changes
+  useEffect(() => {
+    if (stateInfo) {
+      const leadersStr = Array.isArray(stateInfo.longestServingLeaders) 
+        ? stateInfo.longestServingLeaders.join(', ') 
+        : stateInfo.longestServingLeaders || '';
+      setStateInfoForm({
+        stateName: stateInfo.stateName || 'Kerala',
+        formedOn: stateInfo.formedOn || '1956-11-01',
+        capital: stateInfo.capital || 'Thiruvananthapuram',
+        officialLanguage: stateInfo.officialLanguage || 'Malayalam',
+        legislature: stateInfo.legislature || 'Kerala Legislative Assembly',
+        highCourt: stateInfo.highCourt || 'Kerala High Court',
+        currentGovernor: stateInfo.currentGovernor || 'Rajendra Arlekar',
+        firstCm: stateInfo.firstCm || '',
+        firstCommunistCmInIndia: stateInfo.firstCommunistCmInIndia || '',
+        onlyMuslimCm: stateInfo.onlyMuslimCm || '',
+        longestServingLeaders: leadersStr,
+        currentCmName: stateInfo.currentCmName || '',
+        currentCmParty: stateInfo.currentCmParty || '',
+        currentCmAlliance: stateInfo.currentCmAlliance || '',
+        currentCmSwornIn: stateInfo.currentCmSwornIn || '',
+        currentCmStatus: stateInfo.currentCmStatus || ''
+      });
+    }
+  }, [stateInfo]);
+
   const triggerToast = (type, message) => {
     setToast({ type, message });
     setTimeout(() => setToast(null), 4000);
@@ -121,6 +163,8 @@ export default function Dashboard() {
       });
     } else if (type === 'testimonial') {
       setTestimonialForm({ id: '', name: '', role: '', quoteMl: '', quoteEn: '', rating: 5, avatar: '' });
+    } else if (type === 'government_cm') {
+      setCmForm({ id: '', no: '', name: '', party: '', tenure: '' });
     }
   };
 
@@ -137,6 +181,8 @@ export default function Dashboard() {
       setTimelineForm({ ...item });
     } else if (type === 'testimonial') {
       setTestimonialForm({ ...item });
+    } else if (type === 'government_cm') {
+      setCmForm({ ...item });
     }
   };
 
@@ -160,6 +206,9 @@ export default function Dashboard() {
       } else if (modalType === 'testimonial') {
         await saveTestimonial(testimonialForm);
         triggerToast('success', `Testimonial successfully ${editingItem ? 'updated' : 'created'}`);
+      } else if (modalType === 'government_cm') {
+        await saveCM(cmForm);
+        triggerToast('success', `Chief Minister record successfully ${editingItem ? 'updated' : 'created'}`);
       }
       setIsModalOpen(false);
     } catch (err) {
@@ -185,6 +234,9 @@ export default function Dashboard() {
       } else if (type === 'testimonial') {
         await deleteTestimonial(id);
         triggerToast('success', 'Testimonial successfully deleted');
+      } else if (type === 'government_cm') {
+        await deleteCM(id);
+        triggerToast('success', 'Chief Minister record successfully deleted');
       }
     } catch (err) {
       triggerToast('error', err.message || 'Deletion failed.');
@@ -269,6 +321,18 @@ export default function Dashboard() {
               <MessageSquare className="w-4 h-4" />
               <span>Citizen Testimonials</span>
             </button>
+
+            <button 
+              onClick={() => setActiveTab('government')}
+              className={`w-full flex items-center space-x-3 px-4 py-2.5 rounded-lg text-xs font-semibold transition-colors cursor-pointer text-left ${
+                activeTab === 'government' 
+                  ? 'bg-indigo-600 text-white' 
+                  : 'text-slate-400 hover:bg-slate-800 hover:text-slate-100'
+              }`}
+            >
+              <Shield className="w-4 h-4" />
+              <span>Government Profile</span>
+            </button>
           </nav>
         </div>
 
@@ -344,7 +408,7 @@ export default function Dashboard() {
         </header>
 
         {/* Dynamic Mobile Tab bar */}
-        <div className="bg-slate-900 border-b border-slate-800 grid grid-cols-4 md:hidden">
+        <div className="bg-slate-900 border-b border-slate-800 grid grid-cols-5 md:hidden">
           <button 
             onClick={() => setActiveTab('projects')}
             className={`py-3 text-[10px] font-bold flex flex-col items-center justify-center space-y-1 ${
@@ -380,6 +444,15 @@ export default function Dashboard() {
           >
             <MessageSquare className="w-4 h-4" />
             <span>Testimonials</span>
+          </button>
+          <button 
+            onClick={() => setActiveTab('government')}
+            className={`py-3 text-[10px] font-bold flex flex-col items-center justify-center space-y-1 ${
+              activeTab === 'government' ? 'text-indigo-400 border-b-2 border-indigo-400' : 'text-slate-400'
+            }`}
+          >
+            <Shield className="w-4 h-4" />
+            <span>Gov</span>
           </button>
         </div>
 
@@ -697,6 +770,267 @@ export default function Dashboard() {
                       ))}
                     </tbody>
                   </table>
+                </div>
+              </div>
+            )}
+
+            {/* GOVERNMENT PANEL */}
+            {activeTab === 'government' && (
+              <div className="space-y-8">
+                {/* 1. State Profile & Current Administration Form */}
+                <div className="space-y-4">
+                  <div>
+                    <h3 className="text-sm font-bold text-white">Kerala State Profile & Administration</h3>
+                    <p className="text-xs text-slate-400 mt-0.5">Edit general state information and executive metrics</p>
+                  </div>
+                  
+                  <div className="bg-slate-950 border border-slate-800 rounded-xl p-5 md:p-6 space-y-4">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                      <div>
+                        <label className="block text-xs font-semibold text-slate-400 mb-1.5">State Name</label>
+                        <input 
+                          type="text" 
+                          value={stateInfoForm.stateName || ''} 
+                          onChange={(e) => setStateInfoForm({ ...stateInfoForm, stateName: e.target.value })}
+                          className="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-indigo-500"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-xs font-semibold text-slate-400 mb-1.5">Formed On</label>
+                        <input 
+                          type="text" 
+                          value={stateInfoForm.formedOn || ''} 
+                          onChange={(e) => setStateInfoForm({ ...stateInfoForm, formedOn: e.target.value })}
+                          className="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-indigo-500"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-xs font-semibold text-slate-400 mb-1.5">Capital</label>
+                        <input 
+                          type="text" 
+                          value={stateInfoForm.capital || ''} 
+                          onChange={(e) => setStateInfoForm({ ...stateInfoForm, capital: e.target.value })}
+                          className="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-indigo-500"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                      <div>
+                        <label className="block text-xs font-semibold text-slate-400 mb-1.5">Official Language</label>
+                        <input 
+                          type="text" 
+                          value={stateInfoForm.officialLanguage || ''} 
+                          onChange={(e) => setStateInfoForm({ ...stateInfoForm, officialLanguage: e.target.value })}
+                          className="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-indigo-500"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-xs font-semibold text-slate-400 mb-1.5">Legislature</label>
+                        <input 
+                          type="text" 
+                          value={stateInfoForm.legislature || ''} 
+                          onChange={(e) => setStateInfoForm({ ...stateInfoForm, legislature: e.target.value })}
+                          className="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-indigo-500"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-xs font-semibold text-slate-400 mb-1.5">High Court</label>
+                        <input 
+                          type="text" 
+                          value={stateInfoForm.highCourt || ''} 
+                          onChange={(e) => setStateInfoForm({ ...stateInfoForm, highCourt: e.target.value })}
+                          className="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-indigo-500"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 border-t border-slate-800/60 pt-4">
+                      <div>
+                        <label className="block text-xs font-semibold text-slate-400 mb-1.5">Current Governor</label>
+                        <input 
+                          type="text" 
+                          value={stateInfoForm.currentGovernor || ''} 
+                          onChange={(e) => setStateInfoForm({ ...stateInfoForm, currentGovernor: e.target.value })}
+                          className="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-indigo-500"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-xs font-semibold text-slate-400 mb-1.5">First Chief Minister</label>
+                        <input 
+                          type="text" 
+                          value={stateInfoForm.firstCm || ''} 
+                          onChange={(e) => setStateInfoForm({ ...stateInfoForm, firstCm: e.target.value })}
+                          className="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-indigo-500"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-xs font-semibold text-slate-400 mb-1.5">First Communist CM in India</label>
+                        <input 
+                          type="text" 
+                          value={stateInfoForm.firstCommunistCmInIndia || ''} 
+                          onChange={(e) => setStateInfoForm({ ...stateInfoForm, firstCommunistCmInIndia: e.target.value })}
+                          className="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-indigo-500"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 border-t border-slate-800/60 pt-4">
+                      <div>
+                        <label className="block text-xs font-semibold text-slate-400 mb-1.5">Only Muslim CM</label>
+                        <input 
+                          type="text" 
+                          value={stateInfoForm.onlyMuslimCm || ''} 
+                          onChange={(e) => setStateInfoForm({ ...stateInfoForm, onlyMuslimCm: e.target.value })}
+                          className="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-indigo-500"
+                        />
+                      </div>
+                      <div className="md:col-span-2">
+                        <label className="block text-xs font-semibold text-slate-400 mb-1.5">Longest Serving Leaders (comma separated)</label>
+                        <input 
+                          type="text" 
+                          value={stateInfoForm.longestServingLeaders || ''} 
+                          onChange={(e) => setStateInfoForm({ ...stateInfoForm, longestServingLeaders: e.target.value })}
+                          className="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-indigo-500"
+                          placeholder="e.g. K. Karunakaran, Pinarayi Vijayan"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-5 gap-4 border-t border-slate-800/60 pt-4">
+                      <div>
+                        <label className="block text-xs font-semibold text-slate-400 mb-1.5">Current CM Name</label>
+                        <input 
+                          type="text" 
+                          value={stateInfoForm.currentCmName || ''} 
+                          onChange={(e) => setStateInfoForm({ ...stateInfoForm, currentCmName: e.target.value })}
+                          className="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-indigo-500"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-xs font-semibold text-slate-400 mb-1.5">Current CM Party</label>
+                        <input 
+                          type="text" 
+                          value={stateInfoForm.currentCmParty || ''} 
+                          onChange={(e) => setStateInfoForm({ ...stateInfoForm, currentCmParty: e.target.value })}
+                          className="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-indigo-500"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-xs font-semibold text-slate-400 mb-1.5">Alliance</label>
+                        <input 
+                          type="text" 
+                          value={stateInfoForm.currentCmAlliance || ''} 
+                          onChange={(e) => setStateInfoForm({ ...stateInfoForm, currentCmAlliance: e.target.value })}
+                          className="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-indigo-500"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-xs font-semibold text-slate-400 mb-1.5">Sworn In</label>
+                        <input 
+                          type="text" 
+                          value={stateInfoForm.currentCmSwornIn || ''} 
+                          onChange={(e) => setStateInfoForm({ ...stateInfoForm, currentCmSwornIn: e.target.value })}
+                          className="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-indigo-500"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-xs font-semibold text-slate-400 mb-1.5">Status Label</label>
+                        <input 
+                          type="text" 
+                          value={stateInfoForm.currentCmStatus || ''} 
+                          onChange={(e) => setStateInfoForm({ ...stateInfoForm, currentCmStatus: e.target.value })}
+                          className="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-indigo-500"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="pt-2 flex justify-end">
+                      <button 
+                        type="button"
+                        onClick={async () => {
+                          if (usingFallback) {
+                            triggerToast('error', 'Cannot write in fallback mode.');
+                            return;
+                          }
+                          try {
+                            const formatted = {
+                              ...stateInfoForm,
+                              longestServingLeaders: typeof stateInfoForm.longestServingLeaders === 'string'
+                                ? stateInfoForm.longestServingLeaders.split(',').map(s => s.trim()).filter(Boolean)
+                                : stateInfoForm.longestServingLeaders
+                            };
+                            await saveStateInfo(formatted);
+                            triggerToast('success', 'State Profile successfully updated');
+                          } catch (err) {
+                            triggerToast('error', err.message || 'Operation failed.');
+                          }
+                        }}
+                        className="bg-indigo-600 text-white text-xs font-semibold px-4 py-2 rounded-lg hover:bg-indigo-500 transition-colors cursor-pointer"
+                      >
+                        Save Profile Details
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                {/* 2. Chief Ministers Directory CRUD */}
+                <div className="space-y-4 border-t border-slate-800/80 pt-6">
+                  <div className="flex flex-wrap items-center justify-between gap-4">
+                    <div>
+                      <h3 className="text-sm font-bold text-white">Chief Ministers Chronology</h3>
+                      <p className="text-xs text-slate-400 mt-0.5">Manage the chronological catalog of past leaders</p>
+                    </div>
+                    <button 
+                      onClick={() => openCreateModal('government_cm')}
+                      className="bg-indigo-600 text-white text-xs font-semibold px-3 py-2 rounded-lg flex items-center space-x-1 hover:bg-indigo-500 transition-colors cursor-pointer"
+                    >
+                      <Plus className="w-3.5 h-3.5" />
+                      <span>Add Chief Minister</span>
+                    </button>
+                  </div>
+
+                  <div className="overflow-x-auto rounded-lg border border-slate-800 bg-slate-950">
+                    <table className="w-full text-left border-collapse">
+                      <thead>
+                        <tr className="border-b border-slate-800 bg-slate-900/50 text-[10px] font-semibold uppercase tracking-wider text-slate-400">
+                          <th className="p-3 w-16 text-center">No</th>
+                          <th className="p-3">Name</th>
+                          <th className="p-3">Party</th>
+                          <th className="p-3">Tenure</th>
+                          <th className="p-3 text-right">Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-slate-800 text-xs">
+                        {chiefMinisters.map((cm) => (
+                          <tr key={cm.id || cm.no} className="hover:bg-slate-900 transition-colors">
+                            <td className="p-3 text-center font-mono font-bold text-indigo-400">#{cm.no}</td>
+                            <td className="p-3 font-semibold text-white">{cm.name}</td>
+                            <td className="p-3 text-slate-400">{cm.party}</td>
+                            <td className="p-3 text-slate-400">{cm.tenure}</td>
+                            <td className="p-3 text-right">
+                              <div className="inline-flex space-x-1">
+                                <button 
+                                  onClick={() => openEditModal('government_cm', cm)}
+                                  className="p-1.5 hover:bg-slate-800 text-slate-400 hover:text-indigo-400 rounded transition-colors cursor-pointer"
+                                  title="Edit"
+                                >
+                                  <Edit2 className="w-3.5 h-3.5" />
+                                </button>
+                                <button 
+                                  onClick={() => handleDelete('government_cm', cm.id)}
+                                  className="p-1.5 hover:bg-slate-800 text-slate-400 hover:text-red-400 rounded transition-colors cursor-pointer"
+                                  title="Delete"
+                                >
+                                  <Trash2 className="w-3.5 h-3.5" />
+                                </button>
+                              </div>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
               </div>
             )}
@@ -1403,6 +1737,61 @@ export default function Dashboard() {
                         value={testimonialForm.quoteMl} 
                         onChange={(e) => setTestimonialForm({ ...testimonialForm, quoteMl: e.target.value })} 
                         className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-indigo-500 h-20"
+                        required
+                      />
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* 5. GOVERNMENT CM FORM */}
+              {modalType === 'government_cm' && (
+                <div className="space-y-4">
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-xs font-semibold text-slate-300 mb-1.5">CM No. (Chronological Order)</label>
+                      <input 
+                        type="number" 
+                        value={cmForm.no} 
+                        onChange={(e) => setCmForm({ ...cmForm, no: parseInt(e.target.value) || '' })} 
+                        placeholder="e.g. 23" 
+                        className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-indigo-500"
+                        required
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-xs font-semibold text-slate-300 mb-1.5">Name</label>
+                      <input 
+                        type="text" 
+                        value={cmForm.name} 
+                        onChange={(e) => setCmForm({ ...cmForm, name: e.target.value })} 
+                        placeholder="e.g. V. D. Satheesan" 
+                        className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-indigo-500"
+                        required
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-xs font-semibold text-slate-300 mb-1.5">Party</label>
+                      <input 
+                        type="text" 
+                        value={cmForm.party} 
+                        onChange={(e) => setCmForm({ ...cmForm, party: e.target.value })} 
+                        placeholder="e.g. INC" 
+                        className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-indigo-500"
+                        required
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-xs font-semibold text-slate-300 mb-1.5">Tenure Years</label>
+                      <input 
+                        type="text" 
+                        value={cmForm.tenure} 
+                        onChange={(e) => setCmForm({ ...cmForm, tenure: e.target.value })} 
+                        placeholder="e.g. 2026-Present" 
+                        className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-indigo-500"
                         required
                       />
                     </div>

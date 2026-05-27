@@ -77,10 +77,10 @@ export default function Footer() {
                 അഭിപ്രായങ്ങൾ
               </Link>
               <Link
-                to="/showcase"
+                to="/government"
                 className="text-txt-secondary hover:text-accent transition-colors"
               >
-                മാറ്റം നേരിൽ
+                ഭരണ ചരിത്രം
               </Link>
             </div>
           </div>

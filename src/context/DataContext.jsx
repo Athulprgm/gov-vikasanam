@@ -4,7 +4,9 @@ import {
   projectsData as staticProjects,
   districtsData as staticDistricts,
   timelineMilestones as staticTimeline,
-  citizenTestimonials as staticTestimonials
+  citizenTestimonials as staticTestimonials,
+  staticStateInfo,
+  staticChiefMinisters
 } from '../data/projectsData';
 
 const DataContext = createContext();
@@ -44,6 +46,8 @@ export function DataProvider({ children }) {
   const [projects, setProjects] = useState(staticProjects);
   const [timeline, setTimeline] = useState(staticTimeline);
   const [testimonials, setTestimonials] = useState(staticTestimonials);
+  const [stateInfo, setStateInfo] = useState(staticStateInfo);
+  const [chiefMinisters, setChiefMinisters] = useState(staticChiefMinisters);
   
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -98,6 +102,20 @@ export function DataProvider({ children }) {
         apiFailed = true;
       }
 
+      // 5. Fetch Government Profile & CM History
+      const resGov = await fetch(`${API_BASE_URL}/government?t=${Date.now()}`, { headers: noCacheHeaders });
+      if (resGov.ok) {
+        const data = await resGov.json();
+        if (data) {
+          if (data.state_info) setStateInfo(snakeToCamel(data.state_info));
+          if (data.chief_ministers && data.chief_ministers.length > 0) {
+            setChiefMinisters(snakeToCamel(data.chief_ministers));
+          }
+        }
+      } else {
+        apiFailed = true;
+      }
+
       setUsingFallback(apiFailed);
     } catch (err) {
       console.warn('Backend API offline or unreachable. Falling back to static showcase data.', err);
@@ -107,6 +125,8 @@ export function DataProvider({ children }) {
       setProjects(staticProjects);
       setTimeline(staticTimeline);
       setTestimonials(staticTestimonials);
+      setStateInfo(staticStateInfo);
+      setChiefMinisters(staticChiefMinisters);
     } finally {
       setLoading(false);
     }
@@ -285,11 +305,70 @@ export function DataProvider({ children }) {
     await refreshAllData();
   };
 
+  // ==========================================
+  // GOVERNMENT CRUD
+  // ==========================================
+  const saveStateInfo = async (infoData) => {
+    const response = await fetch(`${API_BASE_URL}/government/state-info`, {
+      method: 'PUT',
+      headers: getAuthHeaders(),
+      body: JSON.stringify(camelToSnake(infoData))
+    });
+
+    if (!response.ok) {
+      const data = await response.json();
+      throw new Error(data.message || 'Failed to save state info.');
+    }
+
+    const data = await response.json();
+    await refreshAllData();
+    return data;
+  };
+
+  const saveCM = async (cmData) => {
+    const isNew = !cmData.id;
+    const url = isNew 
+      ? `${API_BASE_URL}/government/cms` 
+      : `${API_BASE_URL}/government/cms/${cmData.id}`;
+    const method = isNew ? 'POST' : 'PUT';
+
+    const response = await fetch(url, {
+      method,
+      headers: getAuthHeaders(),
+      body: JSON.stringify(camelToSnake(cmData))
+    });
+
+    if (!response.ok) {
+      const data = await response.json();
+      throw new Error(data.message || 'Failed to save Chief Minister.');
+    }
+
+    const data = await response.json();
+    await refreshAllData();
+    return data;
+  };
+
+  const deleteCM = async (id) => {
+    const response = await fetch(`${API_BASE_URL}/government/cms/${id}`, {
+      method: 'DELETE',
+      headers: getAuthHeaders()
+    });
+
+    if (!response.ok) {
+      const data = await response.json();
+      throw new Error(data.message || 'Failed to delete Chief Minister.');
+    }
+
+    await refreshAllData();
+  };
+
   const value = {
     districts,
     projects,
     timeline,
     testimonials,
+    stateInfo,
+    chiefMinisters,
     loading,
     error,
     usingFallback,
@@ -301,7 +380,10 @@ export function DataProvider({ children }) {
     saveMilestone,
     deleteMilestone,
     saveTestimonial,
-    deleteTestimonial
+    deleteTestimonial,
+    saveStateInfo,
+    saveCM,
+    deleteCM
   };
 
   return <DataContext.Provider value={value}>{children}</DataContext.Provider>;

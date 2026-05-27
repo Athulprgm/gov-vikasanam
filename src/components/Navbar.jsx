@@ -25,6 +25,7 @@ export default function Navbar() {
     { nameMl: "കാഴ്ചകൾ", nameEn: "Showcase", href: "/showcase", isRouter: true },
     { nameMl: "ഭൂപടം", nameEn: "Map", href: "/map", isRouter: true },
     { nameMl: "നാൾവഴി", nameEn: "Timeline", href: "/timeline", isRouter: true },
+    { nameMl: "ഭരണചരിത്രം", nameEn: "Government", href: "/government", isRouter: true },
     { nameMl: "നേട്ടങ്ങൾ", nameEn: "Stats", href: "/statistics", isRouter: true },
     { nameMl: "അഭിപ്രായങ്ങൾ", nameEn: "Impact", href: "/impact", isRouter: true }
   ];

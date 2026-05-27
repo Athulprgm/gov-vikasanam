@@ -62,6 +62,16 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://janavikasam.kerala.gov.in/impact?lang=en" />
   </url>
 
+  <!-- Kerala Government & Chief Ministers History -->
+  <url>
+    <loc>https://janavikasam.kerala.gov.in/government</loc>
+    <lastmod>2026-05-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ml" href="https://janavikasam.kerala.gov.in/government?lang=ml" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://janavikasam.kerala.gov.in/government?lang=en" />
+  </url>
+
   <!-- Citizen Social Feed -->
   <url>
     <loc>https://janavikasam.kerala.gov.in/feed</loc>
