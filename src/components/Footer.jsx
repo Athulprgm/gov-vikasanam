@@ -17,16 +17,17 @@ export default function Footer() {
               <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center p-1.5 shadow-sm shrink-0">
                 <img
                   src="/logo.svg"
-                  alt="ജനവികസനം - Janavikasam Logo"
+                  alt="കേരളOne Logo"
                   className="w-full h-full object-contain"
                 />
               </div>
-              <div className="flex flex-col">
-                <span className="text-txt-primary font-extrabold text-lg leading-tight tracking-wider font-malayalam">
-                  ജനവികസനം
+              <div className="flex flex-col text-left">
+                <span className="text-txt-primary text-lg leading-tight tracking-wider font-bold">
+                  <span className="font-malayalam font-extrabold text-xl">കേരള</span>
+                  <span className="text-accent font-sans font-black ml-0.5">One</span>
                 </span>
                 <span className="text-txt-secondary font-mono text-[9px] uppercase tracking-[0.25em]">
-                  JANAVIKASAM
+                  KERALAONE
                 </span>
               </div>
             </Link>
@@ -183,7 +184,7 @@ export default function Footer() {
         {/* Footer Bottom */}
         <div className="pt-8 flex flex-col sm:flex-row justify-between items-center text-[10px] font-mono text-txt-secondary/60 space-y-4 sm:space-y-0">
           <div>
-            © {new Date().getFullYear()} JANAVIKASAM. ALL RIGHTS RESERVED.
+            © {new Date().getFullYear()} KERALAONE. ALL RIGHTS RESERVED.
           </div>
           <div className="flex space-x-6">
             <a href="#hero" className="hover:text-accent transition-colors">

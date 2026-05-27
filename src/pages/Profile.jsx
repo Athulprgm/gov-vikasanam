@@ -438,7 +438,7 @@ export default function Profile() {
           </div>
 
           <p className="text-sm leading-relaxed text-txt-primary">
-            {profileUser.bio || t('JanaVikasam citizen post creator.', 'ജനവികസനം പൗരൻ.')}
+            {profileUser.bio || t('KeralaOne citizen post creator.', 'കേരളOne പൗരൻ.')}
           </p>
 
           {/* Location / Website / Joined metadata */}

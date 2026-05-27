@@ -57,7 +57,7 @@ export default function LoadingScreen({ onComplete }) {
               >
                 <img
                   src="/logo.svg"
-                  alt="ജനവികസനം - Janavikasam Logo"
+                  alt="കേരളOne Logo"
                   className="w-full h-full object-contain"
                 />
               </div>
@@ -68,9 +68,10 @@ export default function LoadingScreen({ onComplete }) {
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.3, duration: 0.8 }}
-              className="text-2xl md:text-3xl font-extrabold tracking-wide text-txt-primary font-malayalam leading-relaxed mb-2"
+              className="text-2xl md:text-3xl font-bold tracking-wide text-txt-primary leading-relaxed mb-2"
             >
-              {t("JanaVikasam", "ജനവികസനം")}
+              <span className="font-malayalam font-extrabold">കേരള</span>
+              <span className="text-accent font-sans font-black ml-1">One</span>
             </motion.h1>
 
             <motion.p

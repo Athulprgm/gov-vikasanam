@@ -285,7 +285,7 @@ export default function BlogsFeed() {
         <div className="mb-6 flex flex-col md:flex-row justify-between items-center gap-4 bg-bg-sec p-5 rounded-2xl border border-border-main shadow-xs">
           <div className="text-center md:text-left">
             <h1 className="text-2xl font-extrabold tracking-tight uppercase">
-              {t('JanaVikasam Feed', 'ജനവികസനം ഫീഡ്')}
+              {t('KeralaOne Feed', 'കേരളOne ഫീഡ്')}
             </h1>
             <p className="text-xs text-txt-secondary font-mono mt-0.5 uppercase tracking-widest">
               {t('Citizen microblogging & updates', 'പൗരന്മാരുടെ പ്രതികരണങ്ങളും വാർത്തകളും')}

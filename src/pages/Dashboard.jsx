@@ -215,7 +215,7 @@ export default function Dashboard() {
               <Shield className="w-4 h-4" />
             </div>
             <div>
-              <h1 className="text-sm font-bold text-white">Janavikasam</h1>
+              <h1 className="text-sm font-bold text-white">കേരള<span className="text-indigo-400">One</span></h1>
               <p className="text-[10px] text-slate-400 font-mono tracking-wider">Control Panel</p>
             </div>
           </div>

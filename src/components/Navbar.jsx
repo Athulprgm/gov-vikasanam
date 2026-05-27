@@ -51,13 +51,14 @@ export default function Navbar() {
           <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center p-1.5 shadow-sm group-hover:scale-105 transition-transform duration-300 shrink-0">
             <img
               src="/logo.svg"
-              alt="ജനവികസനം - Janavikasam Logo"
+              alt="കേരളOne Logo"
               className="w-full h-full object-contain"
             />
           </div>
-          <div className="flex flex-col">
-            <span className="text-txt-primary font-extrabold text-sm leading-tight tracking-wider uppercase">
-              {t("JanaVikasam", "ജനവികസനം")}
+          <div className="flex flex-col text-left">
+            <span className="text-txt-primary text-sm leading-tight tracking-wider font-bold">
+              <span className="font-malayalam font-extrabold text-base">കേരള</span>
+              <span className="text-accent font-sans font-black ml-0.5">One</span>
             </span>
             <span className="text-txt-secondary font-mono text-[9px] uppercase tracking-[0.2em]">
               {t("Kerala Development", "കേരള വികസനം")}
