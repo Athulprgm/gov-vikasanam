@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Menu, X, ArrowUpRight, Shield, Sun, Moon } from 'lucide-react';
+import { Menu, X, ArrowUpRight, Shield, Sun, Moon, ChevronDown, User, MessageSquare, LogOut } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
@@ -7,6 +7,7 @@ export default function Navbar() {
   const { isAuthenticated, isAdmin, user, logout, language, toggleLanguage, t, theme, toggleTheme } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [userMenuOpen, setUserMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -25,7 +26,11 @@ export default function Navbar() {
     { nameMl: "ഭൂപടം", nameEn: "Map", href: "/map", isRouter: true },
     { nameMl: "നാൾവഴി", nameEn: "Timeline", href: "/timeline", isRouter: true },
     { nameMl: "നേട്ടങ്ങൾ", nameEn: "Stats", href: "/statistics", isRouter: true },
-    { nameMl: "അഭിപ്രായങ്ങൾ", nameEn: "Impact", href: "/impact", isRouter: true },
+    { nameMl: "അഭിപ്രായങ്ങൾ", nameEn: "Impact", href: "/impact", isRouter: true }
+  ];
+
+  const mobileLinks = [
+    ...navLinks,
     ...(isAuthenticated ? [
       { nameMl: "ഫീഡ്", nameEn: "Feed", href: "/feed", isRouter: true },
       { nameMl: "പ്രൊഫൈൽ", nameEn: "Profile", href: "/profile", isRouter: true }
@@ -124,25 +129,74 @@ export default function Navbar() {
               </Link>
             </>
           ) : (
-            <div className="flex items-center space-x-3">
-              <span className="text-xs text-txt-secondary font-mono">
-                {t("Hi", "ഹായ്")}, {user?.name ? user.name.split(' ')[0] : 'User'}
-              </span>
-              {isAdmin && (
-                <Link
-                  to="/admin"
-                  className="inline-flex items-center px-3.5 py-2 rounded-xl border border-accent/30 bg-accent/10 text-xs font-semibold text-accent hover:bg-accent/20 transition-all duration-300"
-                >
-                  <Shield className="w-3.5 h-3.5 mr-1.5" />
-                  <span>{t("Console", "പാനൽ")}</span>
-                </Link>
-              )}
+            <div className="relative">
               <button
-                onClick={logout}
-                className="text-xs font-semibold text-txt-secondary hover:text-red-400 transition-colors cursor-pointer"
+                onClick={() => setUserMenuOpen(!userMenuOpen)}
+                className="flex items-center space-x-2 px-3 py-1.5 rounded-xl border border-border-main bg-bg-sec/50 hover:bg-bg-sec text-xs font-semibold text-txt-primary cursor-pointer transition-all duration-300 shadow-sm"
               >
-                {t("Logout", "ലോഗ് ഔട്ട്")}
+                <div className="w-5 h-5 rounded-full bg-accent/15 text-accent flex items-center justify-center font-bold text-[10px] uppercase">
+                  {user?.name ? user.name.charAt(0) : 'U'}
+                </div>
+                <span className="max-w-[80px] truncate">{user?.name ? user.name.split(' ')[0] : 'User'}</span>
+                <ChevronDown className={`w-3.5 h-3.5 text-txt-secondary transition-transform duration-300 ${userMenuOpen ? 'rotate-180' : ''}`} />
               </button>
+              
+              {userMenuOpen && (
+                <>
+                  <div className="fixed inset-0 z-30" onClick={() => setUserMenuOpen(false)} />
+                  <div className="absolute right-0 mt-2 w-56 bg-bg-sec/95 backdrop-blur-md border border-border-main rounded-2xl shadow-2xl py-2.5 z-40 animate-fade-in-down">
+                    <div className="px-4 py-2 border-b border-border-main/50 mb-1.5 text-left">
+                      <p className="text-[10px] font-bold text-accent uppercase tracking-wider font-mono">
+                        {isAdmin ? t("Administrator", "അഡ്മിനിസ്ട്രേറ്റർ") : t("Citizen", "പൗരൻ")}
+                      </p>
+                      <p className="text-xs font-bold text-txt-primary truncate mt-0.5">{user?.name}</p>
+                      <p className="text-[9px] text-txt-secondary truncate font-mono">{user?.email}</p>
+                    </div>
+                    
+                    <Link
+                      to="/profile"
+                      onClick={() => setUserMenuOpen(false)}
+                      className="flex items-center space-x-2.5 px-4 py-2 text-xs text-txt-secondary hover:text-txt-primary hover:bg-bg-main transition-colors text-left"
+                    >
+                      <User className="w-3.5 h-3.5 text-txt-secondary" />
+                      <span>{t("My Profile", "പ്രൊഫൈൽ")}</span>
+                    </Link>
+                    
+                    <Link
+                      to="/feed"
+                      onClick={() => setUserMenuOpen(false)}
+                      className="flex items-center space-x-2.5 px-4 py-2 text-xs text-txt-secondary hover:text-txt-primary hover:bg-bg-main transition-colors text-left"
+                    >
+                      <MessageSquare className="w-3.5 h-3.5 text-txt-secondary" />
+                      <span>{t("Citizen Feed", "വികസന ഫീഡ്")}</span>
+                    </Link>
+                    
+                    {isAdmin && (
+                      <Link
+                        to="/admin"
+                        onClick={() => setUserMenuOpen(false)}
+                        className="flex items-center space-x-2.5 px-4 py-2 text-xs text-accent hover:bg-accent/5 transition-colors text-left font-semibold"
+                      >
+                        <Shield className="w-3.5 h-3.5 text-accent" />
+                        <span>{t("Console Portal", "അഡ്മിൻ പാനൽ")}</span>
+                      </Link>
+                    )}
+                    
+                    <div className="h-[1px] bg-border-main/50 my-1.5" />
+                    
+                    <button
+                      onClick={() => {
+                        logout();
+                        setUserMenuOpen(false);
+                      }}
+                      className="w-full flex items-center space-x-2.5 px-4 py-2 text-xs text-red-500 hover:bg-red-500/5 transition-colors text-left cursor-pointer font-semibold"
+                    >
+                      <LogOut className="w-3.5 h-3.5 text-red-500" />
+                      <span>{t("Logout", "ലോഗ് ഔട്ട്")}</span>
+                    </button>
+                  </div>
+                </>
+              )}
             </div>
           )}
 
@@ -178,7 +232,7 @@ export default function Navbar() {
       {/* Mobile Drawer menu */}
       {isOpen && (
         <div className="md:hidden absolute top-full left-0 w-full bg-bg-sec border-b border-border-main py-6 px-6 flex flex-col space-y-4 shadow-2xl animate-fade-in-down">
-          {navLinks.map((link) => (
+          {mobileLinks.map((link) => (
             link.isRouter ? (
               <Link
                 key={link.href}
