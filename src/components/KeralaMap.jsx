@@ -10,6 +10,21 @@ export default function KeralaMap() {
   const [selectedDistrictId, setSelectedDistrictId] = useState("trivandrum");
   const [hoveredDistrict, setHoveredDistrict] = useState(null);
 
+  if (!districts || districts.length === 0) {
+    return (
+      <section
+        id="kerala-map"
+        className="relative bg-bg-sec section-padding overflow-hidden"
+      >
+        <div className="max-w-7xl mx-auto px-6 relative z-10 flex flex-col items-center justify-center min-h-[450px] border border-border-main rounded-3xl bg-bg-main/40">
+          <span className="text-txt-secondary font-mono text-sm animate-pulse">
+            {t("Loading map data...", "മാപ്പ് വിവരങ്ങൾ ലോഡ് ചെയ്യുന്നു...")}
+          </span>
+        </div>
+      </section>
+    );
+  }
+
   const activeDistrict =
     districts.find((d) => d.id === selectedDistrictId) ||
     districts[districts.length - 1];

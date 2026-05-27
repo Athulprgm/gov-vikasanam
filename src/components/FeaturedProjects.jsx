@@ -9,6 +9,19 @@ export default function FeaturedProjects() {
   const { t } = useAuth();
   const [selectedProject, setSelectedProject] = useState(null);
 
+  if (!projects || projects.length === 0) {
+    return (
+      <section
+        id="featured-projects"
+        className="relative bg-bg-main section-padding overflow-hidden flex items-center justify-center min-h-[400px]"
+      >
+        <span className="text-txt-secondary font-mono text-sm animate-pulse">
+          {t("Loading projects...", "പദ്ധതി വിവരങ്ങൾ ശേഖരിക്കുന്നു...")}
+        </span>
+      </section>
+    );
+  }
+
   return (
     <section
       id="featured-projects"

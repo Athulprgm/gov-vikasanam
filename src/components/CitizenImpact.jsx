@@ -7,6 +7,19 @@ export default function CitizenImpact() {
   const { testimonials } = useData();
   const { t } = useAuth();
 
+  if (!testimonials || testimonials.length === 0) {
+    return (
+      <section
+        id="citizen-impact"
+        className="relative bg-bg-sec section-padding overflow-hidden border-y border-border-main flex items-center justify-center min-h-[400px]"
+      >
+        <span className="text-txt-secondary font-mono text-sm animate-pulse">
+          {t("Loading testimonials...", "അഭിപ്രായങ്ങൾ ശേഖരിക്കുന്നു...")}
+        </span>
+      </section>
+    );
+  }
+
   const getTranslatedRole = (role) => {
     if (role.includes("കുടുംബശ്രീ")) return t("Kudumbashree Worker, Kannur", "കുടുംബശ്രീ പ്രവർത്തക, കണ്ണൂർ");
     if (role.includes("ഐടി")) return t("IT Professional, Thiruvananthapuram", "ഐടി പ്രൊഫഷണൽ, തിരുവനന്തപുരം");

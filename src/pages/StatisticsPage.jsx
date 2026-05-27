@@ -10,6 +10,14 @@ export default function StatisticsPage() {
   const { districts } = useData();
   const navigate = useNavigate();
 
+  if (!districts || districts.length === 0) {
+    return (
+      <div className="min-h-screen bg-bg-main pt-32 pb-16 flex items-center justify-center text-txt-secondary font-mono text-sm animate-pulse">
+        <span>{t("Loading statistics...", "സ്ഥിതിവിവരങ്ങൾ ലോഡ് ചെയ്യുന്നു...")}</span>
+      </div>
+    );
+  }
+
   // Find max investment for percentage rendering
   const maxInvestment = Math.max(
     ...districts.map((d) => parseInt(d.investment.replace(/[^0-9]/g, ''), 10) || 1)

@@ -12,8 +12,6 @@ export default function BeforeAfterShowcase() {
   const [isDragging, setIsDragging] = useState(false);
   const containerRef = useRef(null);
 
-  const activeProject = projects[activeProjectIdx] || projects[0] || {};
-
   // Handle slider movement (mouse / touch)
   const handleMove = (clientX) => {
     if (!containerRef.current) return;
@@ -44,6 +42,21 @@ export default function BeforeAfterShowcase() {
       window.removeEventListener("touchend", handleMouseUp);
     };
   }, []);
+
+  if (!projects || projects.length === 0) {
+    return (
+      <section
+        id="before-after"
+        className="relative bg-bg-main section-padding overflow-hidden flex items-center justify-center min-h-[400px]"
+      >
+        <span className="text-txt-secondary font-mono text-sm animate-pulse">
+          {t("Loading showcase...", "പദ്ധതി വിവരങ്ങൾ ശേഖരിക്കുന്നു...")}
+        </span>
+      </section>
+    );
+  }
+
+  const activeProject = projects[activeProjectIdx] || projects[0] || {};
 
   return (
     <section

@@ -54,13 +54,13 @@ export default function PremiumStatistics() {
 
   // Sum projects count across all districts
   const totalProjects = districts.reduce(
-    (acc, d) => acc + (d.projects_count || 0),
+    (acc, d) => acc + (d.projectsCount || 0),
     0,
   );
 
   // Parse and sum investments (e.g. "₹340 Cr" -> 340)
   const totalInvestment = districts.reduce((acc, d) => {
-    const numericStr = d.investment.replace(/[^0-9]/g, "");
+    const numericStr = d.investment ? d.investment.replace(/[^0-9]/g, "") : "";
     const amount = parseInt(numericStr, 10) || 0;
     return acc + amount;
   }, 0);

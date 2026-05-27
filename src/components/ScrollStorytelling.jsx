@@ -17,6 +17,19 @@ export default function ScrollStorytelling() {
   const { timeline } = useData();
   const [activeStep, setActiveStep] = useState(0);
 
+  if (!timeline || timeline.length === 0) {
+    return (
+      <section
+        id="storytelling"
+        className="relative bg-bg-sec section-padding overflow-hidden flex items-center justify-center min-h-[450px]"
+      >
+        <span className="text-txt-secondary font-mono text-sm animate-pulse">
+          {t("Loading milestone timeline...", "ടൈംലൈൻ വിവരങ്ങൾ ശേഖരിക്കുന്നു...")}
+        </span>
+      </section>
+    );
+  }
+
   // Sort milestones chronologically
   const sortedMilestones = [...timeline].sort((a, b) => parseInt(a.year) - parseInt(b.year));
   const stepCount = sortedMilestones.length || 1;

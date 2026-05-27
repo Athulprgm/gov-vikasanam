@@ -9,6 +9,25 @@ export default function DevelopmentTimeline() {
   const { t } = useAuth();
   const [activeIdx, setActiveIdx] = useState(() => Math.max(0, timeline.length - 1));
 
+  useEffect(() => {
+    if (timeline && timeline.length > 0) {
+      setActiveIdx(timeline.length - 1);
+    }
+  }, [timeline]);
+
+  if (!timeline || timeline.length === 0) {
+    return (
+      <section
+        id="timeline"
+        className="relative bg-bg-main section-padding overflow-hidden flex items-center justify-center min-h-[400px]"
+      >
+        <span className="text-txt-secondary font-mono text-sm animate-pulse">
+          {t("Loading timeline...", "വികസന നാൾവഴി ശേഖരിക്കുന്നു...")}
+        </span>
+      </section>
+    );
+  }
+
   const safeIdx = Math.min(activeIdx, Math.max(0, timeline.length - 1));
   const activeMilestone = timeline[safeIdx] || {
     year: "",
@@ -17,12 +36,6 @@ export default function DevelopmentTimeline() {
     descMl: "",
     descEn: "",
   };
-
-  useEffect(() => {
-    if (timeline && timeline.length > 0) {
-      setActiveIdx(timeline.length - 1);
-    }
-  }, [timeline]);
 
   const handlePrev = () => {
     setActiveIdx((prev) => (prev > 0 ? prev - 1 : prev));
