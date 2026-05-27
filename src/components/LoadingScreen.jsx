@@ -56,8 +56,8 @@ export default function LoadingScreen({ onComplete }) {
                 style={{ animationDuration: '3s' }}
               >
                 <img
-                  src="/logo.png"
-                  alt="Kerala One Logo"
+                  src="/logo.svg"
+                  alt="ജനവികസനം - Janavikasam Logo"
                   className="w-full h-full object-contain"
                 />
               </div>

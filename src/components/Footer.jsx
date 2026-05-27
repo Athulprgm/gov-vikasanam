@@ -16,8 +16,8 @@ export default function Footer() {
             <Link to="/" className="flex items-center space-x-3 mb-6">
               <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center p-1.5 shadow-sm shrink-0">
                 <img
-                  src="/logo.png"
-                  alt="Kerala One Logo"
+                  src="/logo.svg"
+                  alt="ജനവികസനം - Janavikasam Logo"
                   className="w-full h-full object-contain"
                 />
               </div>

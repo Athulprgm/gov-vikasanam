@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <!-- Homepage / Landing Hub -->
+  <url>
+    <loc>https://janavikasam.kerala.gov.in/</loc>
+    <lastmod>2026-05-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="ml" href="https://janavikasam.kerala.gov.in/?lang=ml" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://janavikasam.kerala.gov.in/?lang=en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://janavikasam.kerala.gov.in/" />
+  </url>
+
+  <!-- Showcase -->
+  <url>
+    <loc>https://janavikasam.kerala.gov.in/showcase</loc>
+    <lastmod>2026-05-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ml" href="https://janavikasam.kerala.gov.in/showcase?lang=ml" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://janavikasam.kerala.gov.in/showcase?lang=en" />
+  </url>
+
+  <!-- Interactive Map -->
+  <url>
+    <loc>https://janavikasam.kerala.gov.in/map</loc>
+    <lastmod>2026-05-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ml" href="https://janavikasam.kerala.gov.in/map?lang=ml" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://janavikasam.kerala.gov.in/map?lang=en" />
+  </url>
+
+  <!-- Milestones Timeline -->
+  <url>
+    <loc>https://janavikasam.kerala.gov.in/timeline</loc>
+    <lastmod>2026-05-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ml" href="https://janavikasam.kerala.gov.in/timeline?lang=ml" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://janavikasam.kerala.gov.in/timeline?lang=en" />
+  </url>
+
+  <!-- Statistics -->
+  <url>
+    <loc>https://janavikasam.kerala.gov.in/statistics</loc>
+    <lastmod>2026-05-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ml" href="https://janavikasam.kerala.gov.in/statistics?lang=ml" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://janavikasam.kerala.gov.in/statistics?lang=en" />
+  </url>
+
+  <!-- Citizen Impact / Feedback -->
+  <url>
+    <loc>https://janavikasam.kerala.gov.in/impact</loc>
+    <lastmod>2026-05-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ml" href="https://janavikasam.kerala.gov.in/impact?lang=ml" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://janavikasam.kerala.gov.in/impact?lang=en" />
+  </url>
+
+  <!-- Citizen Social Feed -->
+  <url>
+    <loc>https://janavikasam.kerala.gov.in/feed</loc>
+    <lastmod>2026-05-27</lastmod>
+    <changefreq>always</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="ml" href="https://janavikasam.kerala.gov.in/feed?lang=ml" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://janavikasam.kerala.gov.in/feed?lang=en" />
+  </url>
+</urlset>
