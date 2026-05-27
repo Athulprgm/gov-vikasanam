@@ -173,7 +173,7 @@ export const projectsData = [
     afterTextMl: "യാഥാർത്ഥ്യം (2012): ഒന്നാം പതിപ്പ് വൻ വിജയമായി പൂർത്തിയായി, നാല് ലക്ഷത്തിലധികം സന്ദർശകർ പങ്കെടുത്തു.",
     afterTextEn: "Reality (2012): Inaugural edition hosted, attracting over 400,000 global art lovers.",
     beforeImg: "https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?auto=format&fit=crop&w=800&q=80",
-    afterImg: "https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&w=800&q=80",
+    afterImg: "https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=800&q=80",
     year: "2012",
     governmentEn: "UDF Government (Oommen Chandy)",
     governmentMl: "യു.ഡി.എഫ്. സർക്കാർ (ഉമ്മൻ ചാണ്ടി)"
@@ -195,7 +195,7 @@ export const projectsData = [
     afterTextMl: "യാഥാർത്ഥ്യം (2016): പ്രധാന ട്രാക്കുകൾ, സ്റ്റേഷനുകൾ എന്നിവയുടെ പണി പൂർത്തിയാക്കി ട്രയൽ റൺ നടത്തി.",
     afterTextEn: "Reality (2016): Completion of major track works, stations structure, and test runs.",
     beforeImg: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=800&q=80",
-    afterImg: "https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=800&q=80",
+    afterImg: "https://images.unsplash.com/photo-1569003339405-ea396a5a8a90?auto=format&fit=crop&w=800&q=80",
     year: "2013",
     governmentEn: "UDF Government (Oommen Chandy)",
     governmentMl: "യു.ഡി.എഫ്. സർക്കാർ (ഉമ്മൻ ചാണ്ടി)"
@@ -217,7 +217,7 @@ export const projectsData = [
     afterTextMl: "യാഥാർത്ഥ്യം (2019): 800+ കിടക്കകൾ, ലോകോത്തര ഓപ്പറേഷൻ തിയേറ്ററുകൾ, കാർഡിയാക് കെയർ യൂണിറ്റ്.",
     afterTextEn: "Reality (2019): World-class 800-bed facility, advanced robotic surgeries, and free cardiology services.",
     beforeImg: "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=800&q=80",
-    afterImg: "https://images.unsplash.com/photo-1586773860418-d3b3de97e663?auto=format&fit=crop&w=800&q=80",
+    afterImg: "https://images.unsplash.com/photo-1587351021759-3e566b6af7cc?auto=format&fit=crop&w=800&q=80",
     year: "2019",
     governmentEn: "LDF Government (Pinarayi Vijayan)",
     governmentMl: "എൽ.ഡി.എഫ്. സർക്കാർ (പിണറായി വിജയൻ)"
@@ -239,7 +239,7 @@ export const projectsData = [
     afterTextMl: "യാഥാർത്ഥ്യം (2020): നദിക്ക് കുറുകെ 6 വരികളിൽ അത്യാധുനിക കേബിൾ കണക്റ്റഡ് പാലം.",
     afterTextEn: "Reality (2020): Brand new state-of-the-art 6-lane concrete bridge spanning the river.",
     beforeImg: "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?auto=format&fit=crop&w=800&q=80",
-    afterImg: "https://images.unsplash.com/photo-1545624446-424e6c43d915?auto=format&fit=crop&w=800&q=80",
+    afterImg: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=800&q=80",
     year: "2020",
     governmentEn: "LDF Government (Pinarayi Vijayan)",
     governmentMl: "എൽ.ഡി.എഫ്. സർക്കാർ (പിണറായി വിജയൻ)"
@@ -261,7 +261,7 @@ export const projectsData = [
     afterTextMl: "യാഥാർത്ഥ്യം (2023): വൈഫൈ സൗകര്യമുള്ള പരിസ്ഥിതി സൗഹൃദ എയർ കണ്ടീഷൻഡ് ഹൈബ്രിഡ് ഇലക്ട്രിക് കപ്പലുകൾ.",
     afterTextEn: "Reality (2023): Eco-friendly air-conditioned electric hybrid ferries with automated ticketing and fast wifi.",
     beforeImg: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80",
-    afterImg: "https://images.unsplash.com/photo-1559136555-9303baea8ebd?auto=format&fit=crop&w=800&q=80",
+    afterImg: "https://images.unsplash.com/photo-1500627869374-13cd993b1115?auto=format&fit=crop&w=800&q=80",
     year: "2023",
     governmentEn: "LDF Government (Pinarayi Vijayan)",
     governmentMl: "എൽ.ഡി.എഫ്. സർക്കാർ (പിണറായി വിജയൻ)"
@@ -305,7 +305,7 @@ export const projectsData = [
     afterTextMl: "യാഥാർത്ഥ്യം (2025): സുരക്ഷിതമായ 6-വരി റൺവേ, ആധുനിക സർവീസ് റോഡുകൾ, ഫ്ലൈ ഓവറുകൾ, കുറഞ്ഞ യാത്രാസമയം.",
     afterTextEn: "Reality (2025): Safe 6-lane bypasses, modern service roads, high-speed flyovers, drastically cut travel times.",
     beforeImg: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=800&q=80",
-    afterImg: "https://images.unsplash.com/photo-1518495973542-4542c06a5843?auto=format&fit=crop&w=800&q=80",
+    afterImg: "https://images.unsplash.com/photo-1551524559-8af4e6624178?auto=format&fit=crop&w=800&q=80",
     year: "2025",
     governmentEn: "LDF Government (Pinarayi Vijayan)",
     governmentMl: "എൽ.ഡി.എഫ്. സർക്കാർ (പിണറായി വിജയൻ)"

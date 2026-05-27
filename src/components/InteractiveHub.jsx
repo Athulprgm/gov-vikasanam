@@ -80,10 +80,10 @@ export default function InteractiveHub() {
                 <div className="flex items-center space-x-4">
                   <div className="flex -space-x-2">
                     <div className="w-8 h-8 rounded-full border border-bg-sec overflow-hidden bg-slate-300">
-                      <img src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=40&q=80" className="object-cover w-full h-full" alt="Preview 1" />
+                      <img src="https://images.unsplash.com/photo-1506477331477-33d5d8b3dc85?auto=format&fit=crop&w=40&q=80" className="object-cover w-full h-full" alt="Preview 1" />
                     </div>
                     <div className="w-8 h-8 rounded-full border border-bg-sec overflow-hidden bg-slate-300">
-                      <img src="https://images.unsplash.com/photo-1518495973542-4542c06a5843?auto=format&fit=crop&w=40&q=80" className="object-cover w-full h-full" alt="Preview 2" />
+                      <img src="https://images.unsplash.com/photo-1593693397690-362cb9666fc2?auto=format&fit=crop&w=40&q=80" className="object-cover w-full h-full" alt="Preview 2" />
                     </div>
                   </div>
                   <span className="text-[10px] text-txt-secondary font-mono">5 active transformations</span>

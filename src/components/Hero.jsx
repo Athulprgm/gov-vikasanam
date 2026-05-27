@@ -1,6 +1,6 @@
-import { useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link } from 'react-router-dom';
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
 import gsap from "gsap";
@@ -9,6 +9,60 @@ export default function Hero() {
   const { t } = useAuth();
   const videoContainerRef = useRef(null);
   const titleRef = useRef(null);
+
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  const slides = [
+    {
+      src: "https://images.unsplash.com/photo-1506477331477-33d5d8b3dc85?auto=format&fit=crop&w=1200&q=80",
+      districtEn: "Idukki",
+      districtMl: "ഇടുക്കി",
+      placeEn: "Munnar Tea Valleys & Hill Stations",
+      placeMl: "മൂന്നാർ തേയിലത്തോട്ടങ്ങളും മലനിരകളും"
+    },
+    {
+      src: "https://images.unsplash.com/photo-1593693397690-362cb9666fc2?auto=format&fit=crop&w=1200&q=80",
+      districtEn: "Alappuzha",
+      districtMl: "ആലപ്പുഴ",
+      placeEn: "Vembanad Backwaters & Houseboats",
+      placeMl: "വേമ്പനാട് കായലിലെ കെട്ടുവള്ളങ്ങൾ"
+    },
+    {
+      src: "https://images.unsplash.com/photo-1589308078059-be1415eab4c3?auto=format&fit=crop&w=1200&q=80",
+      districtEn: "Ernakulam",
+      districtMl: "എറണാകുളം",
+      placeEn: "Kochi Marine Drive & Chinese Fishing Nets",
+      placeMl: "കൊച്ചി മറൈൻ ഡ്രൈവും ചീനവലകളും"
+    },
+    {
+      src: "https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&w=1200&q=80",
+      districtEn: "Thiruvananthapuram",
+      districtMl: "തിരുവനന്തപുരം",
+      placeEn: "Kovalam Coastlines & Vizhinjam Port Terminal",
+      placeMl: "കോവളം ബീച്ചും വിഴിഞ്ഞം അന്താരാഷ്ട്ര തുറമുഖവും"
+    },
+    {
+      src: "https://images.unsplash.com/photo-1590001155093-a3c66ab0c3ff?auto=format&fit=crop&w=1200&q=80",
+      districtEn: "Kasaragod",
+      districtMl: "കാസർഗോഡ്",
+      placeEn: "Historic Bekal Fort Beach Walkways",
+      placeMl: "ബേക്കൽ കോട്ടയും തീരദേശ വികസനവും"
+    },
+    {
+      src: "https://images.unsplash.com/photo-1599940824399-b87987ceb72a?auto=format&fit=crop&w=1200&q=80",
+      districtEn: "Wayanad",
+      districtMl: "വയനാട്",
+      placeEn: "Banasura Sagar Dam reservoir",
+      placeMl: "ബാണാസുര സാഗർ ഡാം പദ്ധതി"
+    }
+  ];
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % slides.length);
+    }, 4500);
+    return () => clearInterval(timer);
+  }, [slides.length]);
 
   useEffect(() => {
     // Parallax effect on scroll for the cinematic visual frame
@@ -146,23 +200,48 @@ export default function Hero() {
           {/* Main Visual Frame */}
           <div
             ref={videoContainerRef}
-            className="relative w-[97%] h-[97%] rounded-xl overflow-hidden shadow-xl bg-bg-sec border border-border-main"
+            className="relative w-[97%] h-[97%] rounded-xl overflow-hidden shadow-xl bg-bg-sec border border-border-main flex items-center justify-center"
           >
-            {/* Clean elegant caption overlay */}
-            <div className="absolute bottom-4 left-4 right-4 z-20 bg-bg-alt/90 backdrop-blur-md border border-border-main px-4 py-3 rounded-xl shadow-md text-left">
-              <span className="text-[9px] font-mono font-bold tracking-widest text-accent uppercase block mb-0.5">
-                {t("INFRASTRUCTURE SHOWCASE", "അടിസ്ഥാന വികസന കാഴ്ചകൾ")}
-              </span>
-              <span className="text-xs font-semibold text-txt-primary font-malayalam leading-tight">
-                {t("Kerala's Modernized Infrastructures (NH-66)", "കേരളത്തിന്റെ നവീകരിച്ച അടിസ്ഥാന സൗകര്യങ്ങൾ (NH-66)")}
-              </span>
-            </div>
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={currentSlide}
+                initial={{ opacity: 0, scale: 1.02 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.98 }}
+                transition={{ duration: 0.8, ease: "easeInOut" }}
+                className="absolute inset-0 w-full h-full"
+              >
+                <img
+                  src={slides[currentSlide].src}
+                  alt={slides[currentSlide].placeEn}
+                  className="w-full h-full object-cover brightness-[0.85] scale-105"
+                />
+                
+                {/* Dots indicator for current slide */}
+                <div className="absolute top-4 right-4 z-20 flex space-x-1.5 bg-black/40 backdrop-blur-xs px-2.5 py-1.5 rounded-full">
+                  {slides.map((_, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => setCurrentSlide(idx)}
+                      className={`w-1.5 h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
+                        idx === currentSlide ? 'bg-accent w-3.5' : 'bg-white/40 hover:bg-white/70'
+                      }`}
+                      aria-label={`Slide ${idx + 1}`}
+                    />
+                  ))}
+                </div>
 
-            <img
-              src="https://images.unsplash.com/photo-1542273917363-3b1817f69a2d?auto=format&fit=crop&w=1200&q=80"
-              alt="Kerala Development Drone View"
-              className="w-full h-full object-cover scale-105 brightness-[0.9]"
-            />
+                {/* Clean elegant caption overlay */}
+                <div className="absolute bottom-4 left-4 right-4 z-20 bg-bg-alt/90 backdrop-blur-md border border-border-main px-4 py-3 rounded-xl shadow-md text-left">
+                  <span className="text-[9px] font-mono font-bold tracking-widest text-accent uppercase block mb-0.5">
+                    {t("INFRASTRUCTURE SHOWCASE", "അടിസ്ഥാന വികസന കാഴ്ചകൾ")} • {t(slides[currentSlide].districtEn, slides[currentSlide].districtMl)}
+                  </span>
+                  <span className="text-xs font-semibold text-txt-primary font-malayalam leading-tight block mt-0.5">
+                    {t(slides[currentSlide].placeEn, slides[currentSlide].placeMl)}
+                  </span>
+                </div>
+              </motion.div>
+            </AnimatePresence>
           </div>
         </div>
       </div>
